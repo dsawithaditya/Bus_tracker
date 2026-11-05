@@ -1,0 +1,13 @@
+{
+  "name": "campus-bus-realtime-tracking",
+  "version": "1.0.0",
+  "description": "Real-Time Campus Bus Tracking and Arrival Prediction Dark-Theme Web App",
+  "main": "index.html",
+  "scripts": {
+    "start": "python -m http.server 3000"
+  },
+  "keywords": ["bus-tracking", "dark-mode", "eta-prediction", "pwa", "transit"],
+  "author": "Campus Transport System",
+  "license": "MIT"
+}
+

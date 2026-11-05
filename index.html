@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time Campus Bus Tracking & Arrival Prediction | Dark Theme Web App</title>
+  
+  <!-- Fonts: Inter & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            canvas: '#090D16',
+            surface: '#111827',
+            borderDark: '#1F2937',
+            indigoElectric: '#6366F1',
+            emeraldNeon: '#10B981',
+            amberVibrant: '#F59E0B',
+            coralCrimson: '#EF4444',
+            offwhite: '#F8FAFC',
+            slateMuted: '#94A3B8'
+          },
+          fontFamily: {
+            sans: ['Inter', 'sans-serif'],
+            mono: ['JetBrains Mono', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Leaflet CSS & JS for Dark Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+
+  <!-- Custom Dark Theme Stylesheet -->
+  <link rel="stylesheet" href="src/css/style.css">
+</head>
+<body class="bg-[#090D16] text-[#F8FAFC] min-h-screen flex flex-col font-sans antialiased selection:bg-indigo-600 selection:text-white">
+
+  <!-- TOP GLOBAL HEADER BAR -->
+  <header class="h-16 border-b border-[#1F2937] bg-[#111827]/90 backdrop-blur-md sticky top-0 z-40 px-4 md:px-6 flex items-center justify-between">
+    <div class="flex items-center gap-3">
+      <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-indigo-400 flex items-center justify-center text-lg shadow-lg shadow-indigo-600/30">
+        🚌
+      </div>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="font-black text-sm md:text-base tracking-tight text-white" id="brand-title">CampusBus Live</span>
+          <span class="text-[10px] font-mono px-1.5 py-0.2 rounded bg-indigo-950 text-indigo-300 border border-indigo-700/50">v1.0 MVP</span>
+        </div>
+        <div class="text-[11px] text-[#94A3B8] hidden sm:block">Real-Time Bus Tracking & Arrival Prediction</div>
+      </div>
+    </div>
+
+    <!-- 4-Pillar Portal Navigation Switcher (Section 3 & 8.3) -->
+    <nav class="hidden md:flex items-center bg-[#090D16] p-1 rounded-xl border border-[#1F2937] text-xs font-semibold">
+      <button class="nav-tab-btn px-3.5 py-1.5 rounded-lg transition active-tab text-white bg-indigo-600 shadow" data-view="commuter">
+        🚶 Commuter App
+      </button>
+      <button class="nav-tab-btn px-3.5 py-1.5 rounded-lg transition text-slate-400 hover:text-white" data-view="driver">
+        📱 Driver PWA
+      </button>
+      <button class="nav-tab-btn px-3.5 py-1.5 rounded-lg transition text-slate-400 hover:text-white" data-view="admin">
+        🖥️ Fleet Command
+      </button>
+      <button class="nav-tab-btn px-3.5 py-1.5 rounded-lg transition text-slate-400 hover:text-white" data-view="gate">
+        📺 Gate TV Display
+      </button>
+    </nav>
+
+    <!-- Right Controls: Demo Runner Drawer, Language, Large Text, Low Data -->
+    <div class="flex items-center gap-2">
+      <!-- Demo / Test Suite Trigger Button -->
+      <button id="toggle-demo-drawer-btn" class="px-2.5 py-1.5 rounded-lg bg-indigo-950/80 hover:bg-indigo-900 border border-indigo-500/50 text-indigo-300 text-xs font-bold flex items-center gap-1.5 transition">
+        <span>🧪</span>
+        <span class="hidden sm:inline">Demo Suite (T1-T12)</span>
+      </button>
+
+      <!-- Language Switcher: EN / HI -->
+      <button id="toggle-lang-btn" class="px-2 py-1 rounded-lg bg-[#090D16] border border-[#1F2937] text-slate-300 hover:text-white text-xs font-medium transition" title="Switch Language">
+        🌐 <span id="current-lang-label">EN</span>
+      </button>
+
+      <!-- Large Text Mode Toggle -->
+      <button id="toggle-large-text-btn" class="px-2 py-1 rounded-lg bg-[#090D16] border border-[#1F2937] text-slate-300 hover:text-white text-xs font-mono font-bold transition" title="Toggle Large Text">
+        aA
+      </button>
+
+      <!-- Low Data Mode Toggle -->
+      <button id="toggle-low-data-btn" class="px-2 py-1 rounded-lg bg-[#090D16] border border-[#1F2937] text-slate-300 hover:text-white text-xs transition" title="Toggle Low-Data Mode">
+        📶
+      </button>
+    </div>
+  </header>
+
+  <!-- Mobile Tab Bar (visible on small screens) -->
+  <div class="md:hidden flex items-center justify-around bg-[#111827] border-b border-[#1F2937] py-2 text-xs font-medium">
+    <button class="nav-tab-btn text-indigo-400 font-bold" data-view="commuter">🚶 Commuter</button>
+    <button class="nav-tab-btn text-slate-400" data-view="driver">📱 Driver</button>
+    <button class="nav-tab-btn text-slate-400" data-view="admin">🖥️ Admin</button>
+    <button class="nav-tab-btn text-slate-400" data-view="gate">📺 Gate TV</button>
+  </div>
+
+  <!-- MAIN APPLICATION VIEWPORT -->
+  <main class="flex-1 relative flex overflow-hidden">
+
+    <!-- 1. COMMUTER SPLIT LAYOUT (70% Map, 30% Left Dock on Desktop) (Section 8.3 & 8.4) -->
+    <div id="commuter-layout" class="w-full h-full flex flex-col md:flex-row relative">
+      
+      <!-- Left Dock (30% width, min 380px) -->
+      <div id="commuter-dock" class="w-full md:w-[420px] lg:w-[450px] bg-[#090D16] border-r border-[#1F2937] z-20 flex-shrink-0 commuter-sheet overflow-y-auto">
+        <!-- Injected by commuter-view.js -->
+      </div>
+
+      <!-- Right Area (70% width): Interactive Dark Leaflet Map -->
+      <div class="flex-1 relative h-[380px] md:h-full">
+        <!-- Leaflet Map Container -->
+        <div id="leaflet-map-container" class="w-full h-full bg-[#090D16]"></div>
+
+        <!-- Glass HUD Pill on the Map (Section 8.2) -->
+        <div class="absolute top-4 left-4 z-[400] glass-hud px-4 py-2 rounded-full flex items-center gap-3 text-xs pointer-events-auto">
+          <div class="flex items-center gap-1.5 font-bold text-white">
+            <span class="pulse-dot emerald"></span>
+            <span id="hud-buses-stat">3/4 buses live</span>
+          </div>
+          <span class="text-slate-600">•</span>
+          <span class="text-amber-400 font-semibold" id="hud-delay-stat">1 delayed (+8m)</span>
+          <span class="text-slate-600 hidden sm:inline">•</span>
+          <span class="text-slate-300 hidden sm:inline" id="hud-shift-stat">next shift 01:15 PM</span>
+        </div>
+
+        <!-- Map Controls overlay: Center on Bus 14 -->
+        <div class="absolute bottom-6 left-4 z-[400] flex flex-col gap-2">
+          <button id="recenter-bus-btn" class="glass-hud px-3.5 py-2 rounded-xl text-xs font-semibold text-white hover:text-indigo-400 transition flex items-center gap-2">
+            <span>🎯</span>
+            <span>Focus Bus 14</span>
+          </button>
+        </div>
+
+        <!-- Low Data Mode Fallback View (Section 6) -->
+        <div id="low-data-view" class="hidden absolute inset-0 bg-[#090D16] p-6 overflow-y-auto z-[500]">
+          <div class="max-w-xl mx-auto space-y-4">
+            <div class="p-4 rounded-xl bg-indigo-950/40 border border-indigo-500/40 text-xs text-indigo-300">
+              ⚡ <strong>Low-Data Mode Enabled</strong>: Heavy map tiles and glides paused to conserve mobile bandwidth. Real-time ETA updates continue over text.
+            </div>
+            <div class="bento-card p-4 space-y-3">
+              <h3 class="text-sm font-bold text-white uppercase tracking-wider">Fast Text Departures</h3>
+              <div class="p-3 bg-[#0B101D] rounded-lg border border-slate-800 flex justify-between items-center">
+                <div>
+                  <div class="font-bold text-white">Route 14 • Bus 14</div>
+                  <div class="text-xs text-slate-400">Approaching Market Circle (32 km/h)</div>
+                </div>
+                <div class="text-right font-mono">
+                  <div class="text-lg font-bold text-emerald-400">06:24</div>
+                  <div class="text-[10px] text-slate-500">ETA at Gate 2</div>
+                </div>
+              </div>
+              <div class="p-3 bg-[#0B101D] rounded-lg border border-slate-800 flex justify-between items-center">
+                <div>
+                  <div class="font-bold text-white">Route 7 • Bus 7</div>
+                  <div class="text-xs text-amber-400">+8m Traffic on South Ave</div>
+                </div>
+                <div class="text-right font-mono">
+                  <div class="text-lg font-bold text-amber-400">11:10</div>
+                  <div class="text-[10px] text-slate-500">ETA Tech Park</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 2. DRIVER VIEW CONTAINER -->
+    <div id="driver-layout" class="hidden w-full h-full bg-[#090D16] overflow-y-auto">
+      <!-- Injected by driver-view.js -->
+    </div>
+
+    <!-- 3. ADMIN FLEET COMMAND CONTAINER -->
+    <div id="admin-layout" class="hidden w-full h-full bg-[#090D16] overflow-y-auto">
+      <!-- Injected by admin-view.js -->
+    </div>
+
+    <!-- 4. GATE DISPLAY TV CONTAINER -->
+    <div id="gate-layout" class="hidden w-full h-full bg-[#070A11] overflow-y-auto">
+      <!-- Injected by gate-display-view.js -->
+    </div>
+
+  </main>
+
+  <!-- INTERACTIVE DEMO SCENARIOS & TEST RUNNER DRAWER (Sections 11 & 12) -->
+  <aside id="demo-drawer" class="fixed top-16 right-0 bottom-0 w-80 md:w-96 bg-[#111827] border-l border-[#1F2937] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+    <div class="p-4 border-b border-[#1F2937] flex items-center justify-between">
+      <div class="flex items-center gap-2">
+        <span class="text-xl">🧪</span>
+        <div>
+          <h2 class="text-sm font-bold text-white">Demo & Test Runner</h2>
+          <p class="text-[11px] text-slate-400">Section 11 Demo & Section 12 Test Cases</p>
+        </div>
+      </div>
+      <button id="close-demo-drawer-btn" class="text-slate-400 hover:text-white text-xl">&times;</button>
+    </div>
+
+    <div class="p-4 flex-1 overflow-y-auto space-y-4 text-xs">
+      <!-- 4-Minute Guided Script Button -->
+      <div class="p-3.5 rounded-xl bg-gradient-to-r from-indigo-900/60 to-purple-900/40 border border-indigo-500/40">
+        <div class="font-bold text-indigo-300 text-xs mb-1 flex items-center justify-between">
+          <span>🎬 4-Minute Guided Demo Script</span>
+          <span class="text-[10px] bg-indigo-500 text-white px-1.5 py-0.2 rounded font-mono">Sect. 11</span>
+        </div>
+        <p class="text-[11px] text-slate-300 mb-2">Automates the 8 presentation steps: normal glide, slow speed amber delay, 5m proximity alert, walk vs bus matrix, breakdown & rescue bus, exam schedule, gate TV.</p>
+        <button id="run-demo-script-btn" class="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition flex items-center justify-center gap-2">
+          <span>▶️</span>
+          <span>Start 4-Min Demo Script</span>
+        </button>
+      </div>
+
+      <!-- T1 to T12 Individual Test Triggers -->
+      <div>
+        <div class="font-bold text-slate-300 text-xs mb-2 uppercase tracking-wider flex items-center justify-between">
+          <span>Individual Test Cases (T1 - T12)</span>
+          <span class="text-[10px] text-slate-500">Page 9</span>
+        </div>
+
+        <div class="space-y-1.5">
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T1">
+            <span><strong>T1</strong>: Bus moves normally</span>
+            <span class="text-[10px] text-emerald-400 font-mono">Glide / ETA</span>
+          </button>
+
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T2">
+            <span><strong>T2</strong>: Bus speed halves</span>
+            <span class="text-[10px] text-amber-400 font-mono">Amber Delay</span>
+          </button>
+
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T3">
+            <span><strong>T3</strong>: No GPS for 20 s</span>
+            <span class="text-[10px] text-amber-400 font-mono">Estimated Pos</span>
+          </button>
+
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T4">
+            <span><strong>T4</strong>: No GPS for 3 min</span>
+            <span class="text-[10px] text-red-400 font-mono">Signal Lost</span>
+          </button>
+
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T5">
+            <span><strong>T5</strong>: Bus enters 150m stop circle</span>
+            <span class="text-[10px] text-indigo-400 font-mono">Log Arrival</span>
+          </button>
+
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T6">
+            <span><strong>T6</strong>: Alert set to 5 min away</span>
+            <span class="text-[10px] text-indigo-400 font-mono">Trigger Alert</span>
+          </button>
+
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T7">
+            <span><strong>T7</strong>: Driver taps Breakdown</span>
+            <span class="text-[10px] text-red-400 font-mono">Rescue Bus</span>
+          </button>
+
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T8">
+            <span><strong>T8</strong>: Mixed occupancy reports</span>
+            <span class="text-[10px] text-emerald-400 font-mono">Conductor Wins</span>
+          </button>
+
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T9">
+            <span><strong>T9</strong>: Walk 4 min (ETA 10/5/3m)</span>
+            <span class="text-[10px] text-indigo-400 font-mono">Catch Matrix</span>
+          </button>
+
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T10">
+            <span><strong>T10</strong>: Exam schedule switched on</span>
+            <span class="text-[10px] text-indigo-400 font-mono">Timetable</span>
+          </button>
+
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T11">
+            <span><strong>T11</strong>: 100+ simulated viewers</span>
+            <span class="text-[10px] text-emerald-400 font-mono">Load &lt;2s</span>
+          </button>
+
+          <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T12">
+            <span><strong>T12</strong>: Expired pass scanned</span>
+            <span class="text-[10px] text-red-400 font-mono">Denied</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- TOAST NOTIFICATION CONTAINER -->
+  <div id="toast-container" class="fixed bottom-6 right-6 z-[999] flex flex-col gap-2 pointer-events-none"></div>
+
+  <!-- MODAL ROOT (Proximity Alert, QR Pass, Emergency SOS, Lost & Found, Search) -->
+  <div id="modal-root" class="hidden"></div>
+
+  <!-- APPLICATION SCRIPTS (ES Modules) -->
+  <script type="module" src="src/js/app.js"></script>
+</body>
+</html>
+
