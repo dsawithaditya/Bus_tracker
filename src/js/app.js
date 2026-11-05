@@ -268,6 +268,42 @@ window.addEventListener('DOMContentLoaded', () => {
   // Setup Demo & Test Suite
   initDemoSuite();
 
+  // TurboStarter FAQ Accordion
+  document.querySelectorAll('.faq-item').forEach(item => {
+    item.addEventListener('click', () => {
+      const isActive = item.classList.contains('active');
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('active'));
+      if (!isActive) item.classList.add('active');
+    });
+  });
+
+  // TurboStarter Theme Switcher Dots
+  document.querySelectorAll('.theme-dot').forEach(dot => {
+    dot.addEventListener('click', () => {
+      const theme = dot.getAttribute('data-theme');
+      if (theme === 'indigo') {
+        document.documentElement.removeAttribute('data-theme');
+      } else {
+        document.documentElement.setAttribute('data-theme', theme);
+      }
+      showToast(`Theme accent updated: ${theme.toUpperCase()}`, 'indigo');
+    });
+  });
+
+  // Hero Watch Demo Button
+  const heroDemoBtn = document.getElementById('hero-start-demo-btn');
+  if (heroDemoBtn) {
+    heroDemoBtn.onclick = () => {
+      const drawer = document.getElementById('demo-drawer');
+      if (drawer) drawer.classList.remove('translate-x-full');
+      if (demoSuite) {
+        demoSuite.runFullDemoScript((stepInfo) => {
+          showToast(`🎬 [${stepInfo.title}] ${stepInfo.desc}`, 'indigo');
+        });
+      }
+    };
+  }
+
   // Render initial commuter view dock
   const dock = document.getElementById('commuter-dock');
   if (dock) renderCommuterView(dock);
