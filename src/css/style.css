@@ -355,7 +355,8 @@ body.low-data-mode #low-data-view {
   transition: max-height 0.3s ease-in;
 }
 
-.faq-item.active .faq-icon {
+.faq-item.active .faq-icon,
+.faq-item.active .faq-chevron {
   transform: rotate(180deg);
 }
 

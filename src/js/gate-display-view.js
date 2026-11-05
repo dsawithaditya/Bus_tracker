@@ -129,7 +129,7 @@ export function renderGateDisplayView(containerEl) {
                   <td class="py-3 px-3 text-white font-semibold">
                     <div class="flex items-center gap-1.5">
                       <span>${d.dest}</span>
-                      ${d.accessible ? '<span class="text-xs text-slate-400" title="Wheelchair accessible">♿</span>' : ''}
+                      ${d.accessible ? '<span class="text-[9px] font-mono px-1.5 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 font-normal" title="Wheelchair Accessible">Accessible</span>' : ''}
                     </div>
                   </td>
                   <td class="py-3 px-3 text-slate-300 font-mono text-xs">${d.bay}</td>

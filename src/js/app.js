@@ -158,7 +158,7 @@ function initDemoSuite() {
   if (runDemoBtn) {
     runDemoBtn.onclick = () => {
       demoSuite.runFullDemoScript((stepInfo) => {
-        showToast(`🎬 [${stepInfo.title}] ${stepInfo.desc}`, 'indigo');
+        showToast(`[${stepInfo.title}] ${stepInfo.desc}`, 'indigo');
       });
     };
   }
@@ -181,13 +181,13 @@ window.addEventListener('DOMContentLoaded', () => {
   mapController.init(12.7800, 77.5100, 11);
   mapController.drawRoutes(state.routes);
   mapController.drawStops(state.stops, (stop) => {
-    showToast(`🚏 Stop: <strong>${stop.name}</strong> • Geofence Radius: 150m. Distance: ${stop.distanceFromStart}m`, 'indigo');
+    showToast(`Stop: <strong>${stop.name}</strong> • Geofence: 150m. Distance: ${stop.distanceFromStart}m`, 'indigo');
   });
 
   // Plot initial active buses
   Object.values(state.buses).forEach(bus => {
     mapController.updateBusMarker(bus, (clickedBus) => {
-      showToast(`🚌 Selected Bus <strong>${clickedBus.number}</strong> (${clickedBus.regNo}) • Driver: ${clickedBus.driverName} • Speed: ${clickedBus.speed} km/h`, 'emerald');
+      showToast(`Selected Bus <strong>${clickedBus.number}</strong> (${clickedBus.regNo}) • Driver: ${clickedBus.driverName} • Speed: ${clickedBus.speed} km/h`, 'emerald');
     });
   });
 
@@ -272,6 +272,12 @@ window.addEventListener('DOMContentLoaded', () => {
   // Initialize initial language bindings
   applyLanguageToDOM(state.language);
 
+  // Re-render when language changes
+  state.events.on('language:changed', (lang) => {
+    applyLanguageToDOM(lang);
+    switchPortal(state.activeView);
+  });
+
   // TurboStarter FAQ Accordion
   document.querySelectorAll('.faq-item').forEach(item => {
     item.addEventListener('click', () => {
@@ -302,7 +308,7 @@ window.addEventListener('DOMContentLoaded', () => {
       if (drawer) drawer.classList.remove('translate-x-full');
       if (demoSuite) {
         demoSuite.runFullDemoScript((stepInfo) => {
-          showToast(`🎬 [${stepInfo.title}] ${stepInfo.desc}`, 'indigo');
+          showToast(`[${stepInfo.title}] ${stepInfo.desc}`, 'indigo');
         });
       }
     };

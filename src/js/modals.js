@@ -306,7 +306,7 @@ function bindModalEvents(type) {
     if (saveBtn) {
       saveBtn.onclick = () => {
         playChime('notification');
-        showToast('🔔 Alert active: You will be notified 5 minutes before Bus 335-E reaches your stop.', 'emerald');
+        showToast('Alert active: You will be notified 5 minutes before Bus 335-E reaches your stop.', 'emerald');
         window.closeModal();
       };
     }
@@ -330,7 +330,7 @@ function bindModalEvents(type) {
     if (triggerBtn) {
       triggerBtn.onclick = () => {
         playChime('sos');
-        showToast('🚨 Emergency SOS dispatched to BMTC Central Control & Police with live GPS.', 'coral');
+        showToast('Emergency SOS dispatched to BMTC Central Control & Police with live GPS.', 'coral');
         window.closeModal();
       };
     }
@@ -352,7 +352,7 @@ function bindModalEvents(type) {
             status: 'held_at_office',
             reportedBy: state.currentUser.name
           });
-          showToast(`🎒 Item "${itemVal}" logged into Lost & Found repository.`, 'indigo');
+          showToast(`Item "${itemVal}" logged into Lost & Found repository.`, 'indigo');
           window.openModal('lost_found');
         }
       };
