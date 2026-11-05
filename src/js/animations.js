@@ -109,3 +109,4 @@ export function animateViewEntrance(containerEl) {
   void containerEl.offsetWidth; // Force DOM reflow
   containerEl.classList.add('animate-view-appear');
 }
+
