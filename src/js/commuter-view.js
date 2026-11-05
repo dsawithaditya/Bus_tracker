@@ -91,8 +91,8 @@ export function renderCommuterView(containerEl, onBusSelect) {
             <span id="catch-prob-subtext" class="text-[11px] text-slate-400">${catchProb.subtext}</span>
           </div>
 
-          <div class="flex items-center gap-1 text-[11px] text-slate-400 font-mono">
-            <span>🚶</span>
+          <div class="flex items-center gap-1.5 text-[11px] text-slate-400 font-mono">
+            <svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="2"></circle><path d="m9 20 3-6 3 6M6 11l6-3 6 3"></path></svg>
             <span id="walk-dist-label">${state.currentUser.walkingDistanceMeters}m</span>
           </div>
         </div>
@@ -162,26 +162,26 @@ export function renderCommuterView(containerEl, onBusSelect) {
           <span class="text-[10px] text-slate-500 font-mono">1-Tap</span>
         </div>
         <div class="grid grid-cols-4 gap-1.5">
-          <button id="open-alert-modal-btn" class="p-2 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/50 hover:bg-slate-800/80 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group">
-            <span class="text-sm mb-0.5 group-hover:scale-110 transition-transform">🔔</span>
+          <button id="open-alert-modal-btn" class="p-2 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/50 hover:bg-slate-800/80 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group cursor-pointer">
+            <svg class="w-4 h-4 text-indigo-400 mb-0.5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
             <span class="text-[11px] font-medium text-slate-200">${t.toolAlerts}</span>
             <span class="text-[9px] text-slate-400">5m</span>
           </button>
 
-          <button id="open-pass-modal-btn" class="p-2 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/50 hover:bg-slate-800/80 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group">
-            <span class="text-sm mb-0.5 group-hover:scale-110 transition-transform">🎟️</span>
+          <button id="open-pass-modal-btn" class="p-2 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/50 hover:bg-slate-800/80 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group cursor-pointer">
+            <svg class="w-4 h-4 text-emerald-400 mb-0.5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="6" width="20" height="12" rx="2"></rect><circle cx="6" cy="12" r="1.5"></circle><circle cx="18" cy="12" r="1.5"></circle><path d="M10 6v12M14 6v12"></path></svg>
             <span class="text-[11px] font-medium text-slate-200">${t.toolBusPass}</span>
             <span class="text-[9px] text-emerald-400 font-medium">Valid</span>
           </button>
 
-          <button id="open-lf-modal-btn" class="p-2 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/50 hover:bg-slate-800/80 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group">
-            <span class="text-sm mb-0.5 group-hover:scale-110 transition-transform">🎒</span>
+          <button id="open-lf-modal-btn" class="p-2 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/50 hover:bg-slate-800/80 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group cursor-pointer">
+            <svg class="w-4 h-4 text-amber-400 mb-0.5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
             <span class="text-[11px] font-medium text-slate-200">${t.toolLostFound}</span>
             <span class="text-[9px] text-slate-400">2 items</span>
           </button>
 
-          <button id="open-sos-modal-btn" class="p-2 rounded-xl bg-red-950/30 border border-red-500/40 hover:border-red-500 hover:bg-red-950/50 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group">
-            <span class="text-sm mb-0.5 text-red-400 group-hover:scale-110 transition-transform">🚨</span>
+          <button id="open-sos-modal-btn" class="p-2 rounded-xl bg-red-950/30 border border-red-500/40 hover:border-red-500 hover:bg-red-950/50 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group cursor-pointer">
+            <svg class="w-4 h-4 text-red-400 mb-0.5 group-hover:scale-110 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             <span class="text-[11px] font-bold text-red-400">${t.toolSafetySos}</span>
             <span class="text-[9px] text-red-300">SOS</span>
           </button>

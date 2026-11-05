@@ -52,7 +52,7 @@
       <!-- Brand Logo -->
       <a href="#hero" class="flex items-center gap-2.5">
         <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-sm font-bold shadow-md shadow-indigo-600/30 text-white">
-          🚌
+          <svg class="w-4 h-4 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="4" width="18" height="15" rx="3"></rect><circle cx="7.5" cy="19" r="1.5"></circle><circle cx="16.5" cy="19" r="1.5"></circle><path d="M3 10h18M7 4v6M17 4v6"></path></svg>
         </div>
         <div>
           <span class="font-bold text-base tracking-tight text-white" data-i18n="brandName">Campus Transit</span>
@@ -74,18 +74,20 @@
       <!-- Action Controls -->
       <div class="flex items-center gap-2.5">
         <!-- Language Switcher: EN / HI -->
-        <button id="toggle-lang-btn" class="px-2.5 py-1.5 rounded-lg bg-[#111827] border border-slate-800 text-slate-300 hover:text-white text-xs font-medium transition cursor-pointer" title="Switch Language">
-          🌐 <span id="current-lang-label">EN</span>
+        <button id="toggle-lang-btn" class="px-2.5 py-1.5 rounded-lg bg-[#111827] border border-slate-800 text-slate-300 hover:text-white text-xs font-medium transition cursor-pointer flex items-center gap-1.5" title="Switch Language">
+          <svg class="w-3.5 h-3.5 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path></svg>
+          <span id="current-lang-label">EN</span>
         </button>
 
         <!-- Low Data Mode Toggle -->
-        <button id="toggle-low-data-btn" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-lg bg-[#111827] border border-slate-800 text-slate-300 hover:text-white text-xs transition cursor-pointer" title="Toggle Low-Data Mode">
-          📶 Low-Data
+        <button id="toggle-low-data-btn" class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg bg-[#111827] border border-slate-800 text-slate-300 hover:text-white text-xs transition cursor-pointer" title="Toggle Low-Data Mode">
+          <svg class="w-3 h-3 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12.55a11 11 0 0 1 14.08 0M1.42 9a16 16 0 0 1 21.16 0M8.53 16.11a6 6 0 0 1 6.95 0M12 20h.01"></path></svg>
+          <span>Low-Data</span>
         </button>
 
         <!-- Test Suite Drawer Trigger -->
         <button id="toggle-demo-drawer-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-950/70 border border-indigo-500/40 text-indigo-300 text-xs font-semibold hover:bg-indigo-900/80 transition cursor-pointer">
-          <span>🧪</span>
+          <svg class="w-3.5 h-3.5 text-indigo-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 2v7.527a2 2 0 0 1-.211.896L4.72 20.55a1 1 0 0 0 .9 1.45h12.76a1 1 0 0 0 .9-1.45l-5.07-10.127A2 2 0 0 1 14 9.527V2"></path><path d="M8.5 2h7M7 16h10"></path></svg>
           <span data-i18n="navRunTests">Run Tests</span>
         </button>
 
@@ -98,7 +100,7 @@
   </header>
 
   <!-- HERO SECTION -->
-  <section id="hero" class="relative pt-12 md:pt-20 pb-12 px-4 md:px-8 overflow-hidden bg-radial-gradient">
+  <section id="hero" class="relative pt-12 md:pt-20 pb-16 px-4 md:px-8 overflow-hidden bg-radial-gradient">
     <!-- Ambient floating glowing orbs for modern visual depth -->
     <div class="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[550px] h-[300px] bg-indigo-600/15 rounded-full blur-[100px] pointer-events-none ambient-hero-orb"></div>
     <div class="absolute top-1/3 left-1/4 w-[280px] h-[200px] bg-emerald-500/10 rounded-full blur-[80px] pointer-events-none ambient-hero-orb" style="animation-delay: -3s;"></div>
@@ -126,11 +128,11 @@
       <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
         <a href="#live-app" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-lg shadow-indigo-600/30 transition flex items-center gap-1.5" data-i18n="heroOpenBtn">
           <span>Open Live Tracker</span>
-          <span>↓</span>
+          <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
         </a>
 
         <button id="hero-start-demo-btn" class="px-5 py-2.5 rounded-xl bg-[#111827] hover:bg-slate-800 text-slate-200 border border-slate-700 font-medium text-xs transition flex items-center gap-1.5 cursor-pointer" data-i18n="heroDemoBtn">
-          <span>🎬 Run Demo Walkthrough</span>
+          <span>Run Demo Walkthrough</span>
         </button>
       </div>
 
@@ -154,35 +156,11 @@
         </div>
       </div>
 
-      <!-- Mouse Scroll Indicator ("mouse wala") with Radial Glow Spotlight (2nd Image) -->
-      <div class="mt-14 relative flex flex-col items-center justify-center">
-        <!-- Soft Radial Glow Orb from 2nd Image -->
-        <div class="absolute -top-10 w-64 h-64 rounded-full radial-mouse-glow pointer-events-none"></div>
-
-        <!-- Interactive Clickable Mouse Scroll Anchor -->
-        <a href="#live-app" class="group relative z-10 flex flex-col items-center gap-2 cursor-pointer transition hover:scale-105 active:scale-95" title="Scroll down to Live Tracker">
-          <!-- Mouse Shape -->
-          <div class="w-6 h-10 rounded-full border-2 border-indigo-400/80 group-hover:border-emerald-400 bg-[#0B101D]/80 backdrop-blur-md flex items-start justify-center pt-2 shadow-lg shadow-indigo-500/25 transition-colors">
-            <!-- Animated Scroll Wheel Dot -->
-            <span class="w-1.5 h-2.5 rounded-full bg-indigo-400 group-hover:bg-emerald-400 animate-scroll-wheel"></span>
-          </div>
-
-          <!-- Animated Down Arrow -->
-          <div class="flex flex-col items-center text-indigo-400 group-hover:text-emerald-400 transition-colors animate-scroll-arrow">
-            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
-            </svg>
-          </div>
-
-          <span class="text-[10px] font-mono tracking-wider text-slate-400 group-hover:text-slate-200 uppercase transition-colors">Scroll to explore</span>
-        </a>
-      </div>
-
     </div>
   </section>
 
-  <!-- LIVE APPLICATION WORKSPACE (Core Tracking System with 3D Container Scroll) -->
-  <section id="live-app" class="py-10 md:py-16 px-4 md:px-8 max-w-7xl mx-auto container-scroll-perspective relative">
+  <!-- LIVE APPLICATION WORKSPACE (Enlarged Table Size: max-w-[1440px], h-[720px]) -->
+  <section id="live-app" class="py-8 md:py-14 px-3 sm:px-6 md:px-10 max-w-[1440px] mx-auto container-scroll-perspective relative">
     
     <!-- Title Component for 3D Tilt Header (Aceternity UI style) -->
     <div id="live-app-header-title" class="text-center mb-8 max-w-3xl mx-auto transition-transform duration-100 will-change-transform">
@@ -196,11 +174,11 @@
       </h2>
     </div>
 
-    <!-- 3D Card (Aceternity UI Container Scroll Card) -->
-    <div id="live-app-card" class="container-scroll-card overflow-hidden bg-[#090D16]">
+    <!-- 3D Card (Aceternity UI Container Scroll Card - Enlarged Table Size) -->
+    <div id="live-app-card" class="container-scroll-card overflow-hidden bg-[#090D16] shadow-2xl">
       
       <!-- Top Window Header Bar -->
-      <div class="px-4 py-3 bg-[#0E1526] border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
+      <div class="px-5 py-3.5 bg-[#0E1526] border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
         <!-- Brand & Context -->
         <div class="flex items-center gap-2 text-xs font-semibold text-white">
           <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
@@ -211,16 +189,16 @@
 
         <!-- 4-Pillar Portal Tabs Switcher -->
         <div class="flex items-center bg-[#090D16] p-1 rounded-xl border border-slate-800 text-xs font-medium">
-          <button class="nav-tab-btn px-3 py-1 rounded-lg transition active-tab text-white bg-indigo-600 shadow cursor-pointer" data-view="commuter" data-i18n="tabCommuter">
+          <button class="nav-tab-btn px-3.5 py-1.5 rounded-lg transition active-tab text-white bg-indigo-600 shadow cursor-pointer font-semibold" data-view="commuter" data-i18n="tabCommuter">
             Commuter
           </button>
-          <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white cursor-pointer" data-view="driver" data-i18n="tabDriver">
+          <button class="nav-tab-btn px-3.5 py-1.5 rounded-lg transition text-slate-400 hover:text-white cursor-pointer font-medium" data-view="driver" data-i18n="tabDriver">
             Driver Console
           </button>
-          <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white cursor-pointer" data-view="admin" data-i18n="tabAdmin">
+          <button class="nav-tab-btn px-3.5 py-1.5 rounded-lg transition text-slate-400 hover:text-white cursor-pointer font-medium" data-view="admin" data-i18n="tabAdmin">
             Fleet Dispatch
           </button>
-          <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white cursor-pointer" data-view="gate" data-i18n="tabGate">
+          <button class="nav-tab-btn px-3.5 py-1.5 rounded-lg transition text-slate-400 hover:text-white cursor-pointer font-medium" data-view="gate" data-i18n="tabGate">
             Gate Departures
           </button>
         </div>
@@ -228,22 +206,22 @@
         <!-- Latency Indicator -->
         <div class="hidden sm:flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
           <span data-i18n="latencyLabel">Latency:</span>
-          <span class="text-emerald-400">42ms</span>
+          <span class="text-emerald-400 font-semibold">42ms</span>
         </div>
       </div>
 
-      <!-- MAIN APP VIEWPORTS -->
-      <div class="min-h-[560px] h-[620px] relative bg-[#090D16] flex">
+      <!-- MAIN APP VIEWPORTS (Enlarged Height: 720px) -->
+      <div class="min-h-[640px] h-[720px] relative bg-[#090D16] flex">
         
         <!-- 1. COMMUTER SPLIT VIEW -->
         <div id="commuter-layout" class="w-full h-full flex flex-col md:flex-row relative">
-          <!-- Left Dock (30% width) -->
-          <div id="commuter-dock" class="w-full md:w-[420px] lg:w-[440px] bg-[#090D16] border-r border-[#1F2937] z-20 flex-shrink-0 commuter-sheet overflow-y-auto">
+          <!-- Left Dock (Expanded to 460px-480px) -->
+          <div id="commuter-dock" class="w-full md:w-[460px] lg:w-[480px] bg-[#090D16] border-r border-[#1F2937] z-20 flex-shrink-0 commuter-sheet overflow-y-auto">
             <!-- Rendered by commuter-view.js -->
           </div>
 
-          <!-- Right Area: Interactive Dark Map (70% width) -->
-          <div class="flex-1 relative h-[380px] md:h-full">
+          <!-- Right Area: Interactive Dark Map (Expanded Full Table Space) -->
+          <div class="flex-1 relative h-[420px] md:h-full">
             <div id="leaflet-map-container" class="w-full h-full bg-[#090D16]"></div>
 
             <!-- HUD Pill on Map -->
@@ -260,12 +238,12 @@
 
             <!-- Map Controls Overlay -->
             <div class="absolute bottom-6 left-4 z-[400] flex items-center gap-2">
-              <button id="recenter-bus-btn" class="glass-card px-3 py-1.5 rounded-xl text-xs font-medium text-white hover:text-indigo-400 transition flex items-center gap-1.5 shadow-lg">
-                <span>🎯</span>
-                <span>Focus 335-E</span>
+              <button id="recenter-bus-btn" class="glass-card px-3 py-1.5 rounded-xl text-xs font-medium text-white hover:text-indigo-400 transition flex items-center gap-1.5 shadow-lg cursor-pointer">
+                <svg class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="3"></circle><line x1="12" y1="2" x2="12" y2="6"></line><line x1="12" y1="18" x2="12" y2="22"></line><line x1="2" y1="12" x2="6" y2="12"></line><line x1="18" y1="12" x2="22" y2="12"></line></svg>
+                <span>Focus 216-J</span>
               </button>
-              <button id="toggle-map-layer-btn" class="glass-card px-3 py-1.5 rounded-xl text-xs font-medium text-white hover:text-indigo-400 transition flex items-center gap-1.5 shadow-lg" title="Switch Google Maps Style">
-                <span>🗺️</span>
+              <button id="toggle-map-layer-btn" class="glass-card px-3 py-1.5 rounded-xl text-xs font-medium text-white hover:text-indigo-400 transition flex items-center gap-1.5 shadow-lg cursor-pointer" title="Switch Google Maps Style">
+                <svg class="w-3.5 h-3.5 text-slate-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
                 <span id="map-layer-label">Satellite</span>
               </button>
             </div>
@@ -408,7 +386,9 @@
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       <!-- 1 -->
       <div class="bento-card p-5">
-        <div class="text-xl mb-2">📍</div>
+        <div class="w-9 h-9 rounded-xl bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400 mb-3">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a8 8 0 0 0-8 8c0 5.25 8 12 8 12s8-6.75 8-12a8 8 0 0 0-8-8z"></path><circle cx="12" cy="10" r="3"></circle></svg>
+        </div>
         <h3 class="text-sm font-bold text-white mb-1.5" data-i18n="how1Title">Smooth Gliding GPS</h3>
         <p class="text-xs text-slate-400 leading-relaxed" data-i18n="how1Desc">
           Buses update position every 3 seconds and interpolate smoothly along the road line rather than jumping across the map.
@@ -417,7 +397,9 @@
 
       <!-- 2 -->
       <div class="bento-card p-5">
-        <div class="text-xl mb-2">⏱️</div>
+        <div class="w-9 h-9 rounded-xl bg-emerald-600/20 border border-emerald-500/40 flex items-center justify-center text-emerald-400 mb-3">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+        </div>
         <h3 class="text-sm font-bold text-white mb-1.5" data-i18n="how2Title">Traffic-Adjusted ETAs</h3>
         <p class="text-xs text-slate-400 leading-relaxed" data-i18n="how2Desc">
           Arrival times calculate distance, recent segment speed, traffic bottlenecks, and stop dwell times with confidence ranges.
@@ -426,7 +408,9 @@
 
       <!-- 3 -->
       <div class="bento-card p-5">
-        <div class="text-xl mb-2">🚶</div>
+        <div class="w-9 h-9 rounded-xl bg-amber-600/20 border border-amber-500/40 flex items-center justify-center text-amber-400 mb-3">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="5" r="2"></circle><path d="m9 20 3-6 3 6M6 11l6-3 6 3"></path></svg>
+        </div>
         <h3 class="text-sm font-bold text-white mb-1.5" data-i18n="how3Title">Walk vs. Bus Timing</h3>
         <p class="text-xs text-slate-400 leading-relaxed" data-i18n="how3Desc">
           Compares your walking distance to the stop against the bus's live arrival time, showing whether you can walk normally or need to hurry.
@@ -435,7 +419,9 @@
 
       <!-- 4 -->
       <div class="bento-card p-5">
-        <div class="text-xl mb-2">🚨</div>
+        <div class="w-9 h-9 rounded-xl bg-purple-600/20 border border-purple-500/40 flex items-center justify-center text-purple-400 mb-3">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+        </div>
         <h3 class="text-sm font-bold text-white mb-1.5" data-i18n="how4Title">Standby Bus Dispatch</h3>
         <p class="text-xs text-slate-400 leading-relaxed" data-i18n="how4Desc">
           When an unexpected delay or mechanical breakdown occurs, dispatchers can reroute the nearest standby bus in one click.
@@ -484,7 +470,7 @@
   <section id="faq" class="py-16 px-4 md:px-8 max-w-4xl mx-auto border-t border-slate-800/80">
     <div class="text-center mb-10">
       <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-xs text-indigo-300 font-medium mb-3">
-        <span>💬</span>
+        <svg class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
         <span>Got Questions?</span>
       </div>
       <h2 class="text-2xl md:text-3xl font-black text-white" data-i18n="faqTitle">Frequently Asked Questions</h2>
@@ -621,8 +607,7 @@
         <p class="text-[11px] text-slate-300 mb-2.5 leading-relaxed">
           Sequences through regular gliding, simulated delay, proximity alerts, walk-versus-bus timing, and standby bus dispatch.
         </p>
-        <button id="run-demo-script-btn" class="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition flex items-center justify-center gap-1.5">
-          <span>▶️</span>
+        <button id="run-demo-script-btn" class="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition flex items-center justify-center gap-1.5 cursor-pointer">
           <span>Start Demo Walkthrough</span>
         </button>
       </div>
@@ -686,9 +671,6 @@
       </div>
     </div>
   </aside>
-
-  <!-- TOAST NOTIFICATION CONTAINER -->
-  <div id="toast-container" class="fixed bottom-6 right-6 z-[999] flex flex-col gap-2 pointer-events-none"></div>
 
   <!-- MODAL ROOT -->
   <div id="modal-root" class="hidden"></div>

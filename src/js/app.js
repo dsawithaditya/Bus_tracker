@@ -14,42 +14,10 @@ let mapController = null;
 let demoSuite = null;
 let simulationInterval = null;
 
-// Toast notification helper
+// Toast notification helper (Disabled per design specifications)
 export function showToast(message, type = 'indigo') {
-  const container = document.getElementById('toast-container');
-  if (!container) return;
-
-  const toast = document.createElement('div');
-  let borderColor = 'border-indigo-500/50';
-  let bgColor = 'bg-[#111827]/95';
-  let badgeColor = 'bg-indigo-500';
-
-  if (type === 'emerald') {
-    borderColor = 'border-emerald-500/60';
-    badgeColor = 'bg-emerald-400';
-  } else if (type === 'amber') {
-    borderColor = 'border-amber-500/60';
-    badgeColor = 'bg-amber-400';
-  } else if (type === 'coral' || type === 'red') {
-    borderColor = 'border-red-500/80';
-    badgeColor = 'bg-red-500';
-  }
-
-  toast.className = `p-3.5 max-w-sm rounded-xl border ${borderColor} ${bgColor} shadow-2xl backdrop-blur-md text-xs text-white flex items-start gap-3 pointer-events-auto transition transform translate-y-2 opacity-0 animate-fade-in`;
-  toast.innerHTML = `
-    <span class="w-2.5 h-2.5 rounded-full ${badgeColor} mt-1 shrink-0 animate-pulse"></span>
-    <div class="flex-1 font-medium leading-relaxed">${message}</div>
-  `;
-
-  container.appendChild(toast);
-  requestAnimationFrame(() => {
-    toast.classList.remove('translate-y-2', 'opacity-0');
-  });
-
-  setTimeout(() => {
-    toast.classList.add('opacity-0', 'translate-y-2');
-    setTimeout(() => toast.remove(), 300);
-  }, 4500);
+  // Popups disabled
+  return;
 }
 
 // Start GPS Simulation Loop (Section 7.8 pseudocode: runs every 3 seconds)

@@ -57,7 +57,9 @@ function getModalHTML(type) {
           <button onclick="closeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">&times;</button>
           
           <div class="flex items-center gap-2.5 mb-3">
-            <span class="text-xl">🔔</span>
+            <div class="w-8 h-8 rounded-lg bg-indigo-600/20 border border-indigo-500/40 flex items-center justify-center text-indigo-400">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg>
+            </div>
             <div>
               <h3 class="text-sm font-bold text-white">Arrival Alert</h3>
               <p class="text-xs text-slate-400">Receive a one-time alert before the bus reaches your stop.</p>
@@ -165,8 +167,8 @@ function getModalHTML(type) {
           <button onclick="closeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">&times;</button>
           
           <div class="flex items-center gap-2.5 mb-3">
-            <div class="w-9 h-9 rounded-xl bg-red-600/20 border border-red-500 flex items-center justify-center text-lg text-red-400">
-              🚨
+            <div class="w-9 h-9 rounded-xl bg-red-600/20 border border-red-500 flex items-center justify-center text-red-400">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             </div>
             <div>
               <h3 class="text-sm font-bold text-white">Emergency Safety Alert</h3>
@@ -216,7 +218,9 @@ function getModalHTML(type) {
           <button onclick="closeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">&times;</button>
           
           <div class="flex items-center gap-2.5 mb-3">
-            <span class="text-xl">🎒</span>
+            <div class="w-8 h-8 rounded-lg bg-amber-600/20 border border-amber-500/40 flex items-center justify-center text-amber-400">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="2" y="7" width="20" height="14" rx="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+            </div>
             <div>
               <h3 class="text-sm font-bold text-white">Lost & Found</h3>
               <p class="text-xs text-slate-400">Items tagged by bus number and trip date</p>
@@ -256,7 +260,7 @@ function getModalHTML(type) {
       <div class="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/80 backdrop-blur-sm modal-backdrop-anim">
         <div class="bento-card p-3 max-w-md w-full bg-[#111827] border border-slate-700 shadow-2xl relative modal-box-anim">
           <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
-            <span class="text-slate-400 text-sm">🔍</span>
+            <svg class="w-4 h-4 text-slate-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"></circle><path d="m21 21-4.3-4.3"></path></svg>
             <input type="text" id="cmd-input" placeholder="Search route, stop, or bus number..." class="flex-1 bg-transparent text-xs text-white focus:outline-none" autofocus>
             <kbd class="text-[10px] font-mono bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded">ESC</kbd>
           </div>
@@ -280,7 +284,7 @@ function getModalHTML(type) {
 
             <button class="cmd-jump-btn w-full p-2 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white active:scale-98" data-target="stop_domlur">
               <div class="flex items-center gap-2">
-                <span>🚏</span>
+                <svg class="w-3.5 h-3.5 text-indigo-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="6" r="3"></circle><path d="M12 9v12M9 21h6"></path></svg>
                 <span>Domlur (Old Airport Road)</span>
               </div>
               <span class="text-slate-400 text-[10px]">Bus 335-E, 500-D</span>

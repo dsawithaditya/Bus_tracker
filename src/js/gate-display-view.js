@@ -78,8 +78,8 @@ export function renderGateDisplayView(containerEl) {
       <!-- Departures Header -->
       <div class="flex items-center justify-between border-b border-slate-800 pb-4">
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-lg font-bold">
-            🚌
+          <div class="w-10 h-10 rounded-xl bg-indigo-600 flex items-center justify-center text-white">
+            <svg class="w-5 h-5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="15" rx="3"></rect><circle cx="7.5" cy="19" r="1.5"></circle><circle cx="16.5" cy="19" r="1.5"></circle><path d="M3 10h18M7 4v6M17 4v6"></path></svg>
           </div>
           <div>
             <h1 class="text-xl md:text-2xl font-bold tracking-tight">Banashankari & Jain University Corridor</h1>

@@ -61,15 +61,30 @@ export const state = {
       ],
       path: [
         [12.9156, 77.5736], // Banashankari TTMC
-        [12.9010, 77.5650], // Sarakki Signal
-        [12.8885, 77.5582], // Konanakunte Cross
-        [12.8750, 77.5450], // Vajrahalli
+        [12.9085, 77.5695], // Banashankari 2nd Stage
+        [12.9015, 77.5658], // Sarakki Signal Junction
+        [12.8950, 77.5620], // Jaraganahalli
+        [12.8885, 77.5582], // Konanakunte Cross Metro
+        [12.8810, 77.5510], // Doddakallasandra Metro
+        [12.8750, 77.5450], // Vajrahalli Metro
+        [12.8690, 77.5385], // Talaghattapura Police Station
         [12.8631, 77.5312], // Silk Institute Metro Terminal
-        [12.8350, 77.5180], // Thalaghattapura
-        [12.7981, 77.5028], // Kaggalipura
-        [12.7400, 77.4800], // Art of Living / Haragadde Cross
+        [12.8550, 77.5265], // Purva Highlands & NICE Road Overpass
+        [12.8465, 77.5230], // KSIT / Holiday Village Road
+        [12.8385, 77.5200], // Thalaghattapura
+        [12.8310, 77.5175], // Dayananda Sagar Academy (DSATM)
+        [12.8220, 77.5135], // Guhantara Cross
+        [12.8115, 77.5085], // Somanahalli / Ravishankar Ashram Approach
+        [12.7981, 77.5028], // Kaggalipura Town
+        [12.7830, 77.4950], // Kaggalipura Gate / Gabbadi
+        [12.7660, 77.4885], // Art of Living International Center
+        [12.7400, 77.4780], // Pattareddypalya / Haragadde Cross
+        [12.7150, 77.4680], // Kanakapura Road Toll Plaza
+        [12.6850, 77.4550], // Thally Cross
         [12.6462, 77.4418], // Jain University (JGI Global Campus)
-        [12.6074, 77.4332]  // Harohalli Bus Stand & Industrial Area
+        [12.6280, 77.4370], // Ravugodlu Cross
+        [12.6180, 77.4350], // Harohalli Industrial Area Phase 1
+        [12.6074, 77.4332]  // Harohalli Bus Stand & Terminal
       ]
     },
     {
@@ -157,7 +172,7 @@ export const state = {
       accessible: true,
       capacity: 52,
       lat: 12.7400,
-      lon: 77.4800, // Approaching Jain University
+      lon: 77.4780, // Approaching Jain University along NH 948
       heading: 205,
       speed: 38,
       rollingSpeed: 36,

@@ -13,8 +13,8 @@ export function renderDriverView(containerEl) {
       <!-- Driver Top Header (Spans full width) -->
       <div class="bento-card p-3.5 px-4 flex items-center justify-between border-slate-800 bg-[#0E1526]">
         <div class="flex items-center gap-3">
-          <div class="w-9 h-9 rounded-xl bg-indigo-600/30 border border-indigo-500/50 flex items-center justify-center text-base">
-            👨‍✈️
+          <div class="w-9 h-9 rounded-xl bg-indigo-600/30 border border-indigo-500/50 flex items-center justify-center text-indigo-400">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"></circle><path d="m4.93 4.93 4.24 4.24M14.83 9.17l4.24-4.24M14.83 14.83l4.24 4.24M9.17 14.83l-4.24 4.24"></path><circle cx="12" cy="12" r="2"></circle></svg>
           </div>
           <div>
             <div class="flex items-center gap-2">
@@ -59,13 +59,12 @@ export function renderDriverView(containerEl) {
           <button id="driver-toggle-trip-btn" class="w-full py-3 px-4 rounded-xl text-sm font-bold tracking-wide shadow-lg flex items-center justify-center gap-2 transition cursor-pointer ${
             isTripRunning ? 'bg-amber-600 hover:bg-amber-500 text-white' : 'bg-emerald-600 hover:bg-emerald-500 text-white'
           }">
-            <span>${isTripRunning ? '⏹️ End Active Trip' : '▶️ Start Scheduled Trip'}</span>
+            <span>${isTripRunning ? 'End Active Trip' : 'Start Scheduled Trip'}</span>
           </button>
 
           <!-- Speed Limit Status Strip -->
           <div class="p-2.5 px-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-xs">
             <div class="flex items-center gap-2">
-              <span>⚡</span>
               <span class="text-slate-400 text-[11px]">Campus Speed Limit: 40 km/h</span>
             </div>
             <span class="text-emerald-400 font-mono text-[11px] font-semibold">NORMAL (${bus.speed} km/h)</span>
@@ -85,7 +84,7 @@ export function renderDriverView(containerEl) {
             <div class="grid grid-cols-2 gap-2">
               <button id="driver-traffic-delay-btn" class="p-2.5 rounded-lg bg-[#111827] border border-amber-500/40 hover:bg-amber-950/20 text-left transition cursor-pointer">
                 <div class="flex items-center gap-1.5">
-                  <span class="text-base">🚧</span>
+                  <svg class="w-3.5 h-3.5 text-amber-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                   <span class="text-xs font-bold text-amber-300">Report Delay</span>
                 </div>
                 <div class="text-[10px] text-slate-400 mt-1">+6 min traffic hold</div>
@@ -93,7 +92,7 @@ export function renderDriverView(containerEl) {
 
               <button id="driver-breakdown-btn" class="p-2.5 rounded-lg bg-[#111827] border border-red-500/40 hover:bg-red-950/20 text-left transition cursor-pointer">
                 <div class="flex items-center gap-1.5">
-                  <span class="text-base">⚠️</span>
+                  <svg class="w-3.5 h-3.5 text-red-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
                   <span class="text-xs font-bold text-red-400">Breakdown</span>
                 </div>
                 <div class="text-[10px] text-slate-400 mt-1">Request Standby Bus</div>
@@ -127,8 +126,8 @@ export function renderDriverView(containerEl) {
           </div>
 
           <!-- EMERGENCY SOS BUTTON -->
-          <button id="driver-sos-btn" class="w-full py-2.5 rounded-xl bg-red-600/90 hover:bg-red-600 text-white font-bold text-xs tracking-wider shadow-md transition flex items-center justify-center gap-1.5 cursor-pointer">
-            <span>🚨</span>
+          <button id="driver-sos-btn" class="w-full py-2.5 rounded-xl bg-red-600/90 hover:bg-red-600 text-white font-bold text-xs tracking-wider shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
+            <svg class="w-3.5 h-3.5 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
             <span>EMERGENCY SOS TO DISPATCH</span>
           </button>
 
