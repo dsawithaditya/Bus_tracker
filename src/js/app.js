@@ -217,17 +217,29 @@ window.addEventListener('DOMContentLoaded', () => {
     };
   }
 
-  // Language toggle
+  // Language toggle (English -> ಕನ್ನಡ -> हिन्दी)
   const langBtn = document.getElementById('toggle-lang-btn');
   const langLabel = document.getElementById('current-lang-label');
+  const langCycle = {
+    'en': { next: 'kn', activeBadge: 'EN', name: 'ಕನ್ನಡ (Kannada)' },
+    'kn': { next: 'hi', activeBadge: 'ಕನ್ನಡ', name: 'हिन्दी (Hindi)' },
+    'hi': { next: 'en', activeBadge: 'HI', name: 'English' }
+  };
+
   if (langBtn) {
+    if (langLabel) {
+      langLabel.textContent = langCycle[state.language]?.activeBadge || 'EN';
+    }
+
     langBtn.onclick = () => {
-      const next = state.language === 'en' ? 'hi' : 'en';
-      setLanguage(next);
-      applyLanguageToDOM(next);
-      if (langLabel) langLabel.textContent = next === 'hi' ? 'EN' : 'HI';
+      const current = state.language || 'en';
+      const target = langCycle[current] || langCycle['en'];
+      const nextLang = target.next;
+      
+      setLanguage(nextLang);
+      applyLanguageToDOM(nextLang);
+      if (langLabel) langLabel.textContent = langCycle[nextLang]?.activeBadge || 'EN';
       switchPortal(state.activeView);
-      showToast(`Language switched to: ${next === 'hi' ? 'हिन्दी (Hindi)' : 'English'}`, 'indigo');
     };
   }
 
