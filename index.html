@@ -154,14 +154,50 @@
         </div>
       </div>
 
+      <!-- Mouse Scroll Indicator ("mouse wala") with Radial Glow Spotlight (2nd Image) -->
+      <div class="mt-14 relative flex flex-col items-center justify-center">
+        <!-- Soft Radial Glow Orb from 2nd Image -->
+        <div class="absolute -top-10 w-64 h-64 rounded-full radial-mouse-glow pointer-events-none"></div>
+
+        <!-- Interactive Clickable Mouse Scroll Anchor -->
+        <a href="#live-app" class="group relative z-10 flex flex-col items-center gap-2 cursor-pointer transition hover:scale-105 active:scale-95" title="Scroll down to Live Tracker">
+          <!-- Mouse Shape -->
+          <div class="w-6 h-10 rounded-full border-2 border-indigo-400/80 group-hover:border-emerald-400 bg-[#0B101D]/80 backdrop-blur-md flex items-start justify-center pt-2 shadow-lg shadow-indigo-500/25 transition-colors">
+            <!-- Animated Scroll Wheel Dot -->
+            <span class="w-1.5 h-2.5 rounded-full bg-indigo-400 group-hover:bg-emerald-400 animate-scroll-wheel"></span>
+          </div>
+
+          <!-- Animated Down Arrow -->
+          <div class="flex flex-col items-center text-indigo-400 group-hover:text-emerald-400 transition-colors animate-scroll-arrow">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M19 9l-7 7-7-7"></path>
+            </svg>
+          </div>
+
+          <span class="text-[10px] font-mono tracking-wider text-slate-400 group-hover:text-slate-200 uppercase transition-colors">Scroll to explore</span>
+        </a>
+      </div>
+
     </div>
   </section>
 
-  <!-- LIVE APPLICATION WORKSPACE (Core Tracking System) -->
-  <section id="live-app" class="py-6 px-4 md:px-8 max-w-7xl mx-auto">
+  <!-- LIVE APPLICATION WORKSPACE (Core Tracking System with 3D Container Scroll) -->
+  <section id="live-app" class="py-10 md:py-16 px-4 md:px-8 max-w-7xl mx-auto container-scroll-perspective relative">
     
-    <!-- Clean Application Frame -->
-    <div class="bento-card overflow-hidden shadow-2xl border-slate-800">
+    <!-- Title Component for 3D Tilt Header (Aceternity UI style) -->
+    <div id="live-app-header-title" class="text-center mb-8 max-w-3xl mx-auto transition-transform duration-100 will-change-transform">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-950/70 border border-indigo-500/40 text-xs text-indigo-300 font-medium mb-3">
+        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Interactive Fleet Radar & Telemetry</span>
+      </div>
+      <h2 class="text-2xl sm:text-3xl md:text-5xl font-extrabold text-white tracking-tight leading-tight">
+        Campus Navigation Deck, <br/>
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-indigo-400 via-purple-300 to-emerald-400">Live 3D Fleet Dashboard</span>
+      </h2>
+    </div>
+
+    <!-- 3D Card (Aceternity UI Container Scroll Card) -->
+    <div id="live-app-card" class="container-scroll-card overflow-hidden bg-[#090D16]">
       
       <!-- Top Window Header Bar -->
       <div class="px-4 py-3 bg-[#0E1526] border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">

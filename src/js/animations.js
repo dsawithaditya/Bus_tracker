@@ -4,6 +4,7 @@ export function initAnimations() {
   initScrollReveal();
   initClickRipples();
   initCardShimmer();
+  initContainerScrollAnimation();
 }
 
 // 1. Fixed Top Scroll Progress Bar
@@ -100,6 +101,53 @@ function initCardShimmer() {
       card.style.setProperty('--mouse-y', `${y}px`);
     });
   });
+}
+
+// 5. Aceternity UI 3D Container Scroll Animation
+function initContainerScrollAnimation() {
+  const container = document.getElementById('live-app') || document.getElementById('live-app-scroll-container');
+  const card = document.getElementById('live-app-card');
+  const header = document.getElementById('live-app-header-title');
+  if (!container || !card) return;
+
+  let ticking = false;
+
+  function updateScrollTransform() {
+    const rect = container.getBoundingClientRect();
+    const windowHeight = window.innerHeight;
+
+    // Start rotation when container enters viewport, finish when top reaches 100px
+    const startY = windowHeight;
+    const endY = 100;
+    const current = rect.top;
+
+    let progress = (startY - current) / (startY - endY);
+    progress = Math.max(0, Math.min(1, progress));
+
+    const isMobile = window.innerWidth <= 768;
+    const maxRotate = isMobile ? 12 : 20;
+    const rotate = maxRotate * (1 - progress);
+    const scale = isMobile ? (0.88 + 0.12 * progress) : (0.92 + 0.08 * progress);
+    const translateY = -40 * progress;
+
+    card.style.transform = `rotateX(${rotate}deg) scale(${scale})`;
+    if (header) {
+      header.style.transform = `translateY(${translateY}px)`;
+      header.style.opacity = `${0.6 + 0.4 * progress}`;
+    }
+
+    ticking = false;
+  }
+
+  window.addEventListener('scroll', () => {
+    if (!ticking) {
+      requestAnimationFrame(updateScrollTransform);
+      ticking = true;
+    }
+  }, { passive: true });
+
+  window.addEventListener('resize', updateScrollTransform, { passive: true });
+  updateScrollTransform();
 }
 
 // Trigger smooth entrance animation when changing portal views

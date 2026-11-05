@@ -359,6 +359,70 @@ body.low-data-mode #low-data-view {
   transform: rotate(180deg);
 }
 
+/* Aceternity UI 3D Container Scroll Animation */
+.container-scroll-perspective {
+  perspective: 1200px;
+  perspective-origin: center top;
+}
+
+.container-scroll-card {
+  transform-origin: center top;
+  transform-style: preserve-3d;
+  will-change: transform, box-shadow;
+  transition: transform 0.12s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.2s ease;
+  box-shadow:
+    0 0 #0000004d,
+    0 9px 20px #0000004a,
+    0 37px 37px #00000042,
+    0 84px 50px #00000026,
+    0 149px 60px #0000000a,
+    0 233px 65px #00000003,
+    0 0 50px rgba(99, 102, 241, 0.2);
+  border: 4px solid #374151;
+  border-radius: 28px;
+}
+
+/* Mouse Scroll Indicator ("mouse wala") */
+@keyframes scrollWheelMove {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  50% {
+    opacity: 0.9;
+    transform: translateY(8px);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+.animate-scroll-wheel {
+  animation: scrollWheelMove 1.6s cubic-bezier(0.65, 0, 0.35, 1) infinite;
+}
+
+@keyframes scrollArrowBounce {
+  0%, 100% {
+    transform: translateY(0);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(5px);
+    opacity: 1;
+  }
+}
+
+.animate-scroll-arrow {
+  animation: scrollArrowBounce 1.6s ease-in-out infinite;
+}
+
+/* 2nd Image Radial Glow Spotlight Orb */
+.radial-mouse-glow {
+  background: radial-gradient(circle at center, rgba(255, 255, 255, 0.22) 0%, rgba(99, 102, 241, 0.18) 32%, rgba(16, 185, 129, 0.1) 58%, transparent 74%);
+  filter: blur(28px);
+}
+
 @media (prefers-reduced-motion: reduce) {
   *, ::after, ::before {
     animation-duration: 0.001ms !important;
