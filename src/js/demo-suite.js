@@ -59,12 +59,12 @@ export class DemoSuite {
 
   // Run Test Case T5: Bus enters stop circle slowly (<10 km/h) -> Arrival logged
   runT5() {
-    const targetStop = state.stops.stop_marathahalli || Object.values(state.stops)[3];
+    const targetStop = state.stops.stop_jainuniv || Object.values(state.stops)[0];
     updateBusTelemetry('bus_14', {
       speed: 8,
       lat: targetStop.lat,
       lon: targetStop.lon,
-      currentStopIndex: 5
+      currentStopIndex: 4
     });
     this.showToast(`Test T5: Bus entered ${targetStop.name} radius (<10 km/h). Stop arrival logged.`, 'emerald');
     return 'PASS: Arrival logged and timeline updated';
@@ -72,14 +72,14 @@ export class DemoSuite {
 
   // Run Test Case T6: Alert set to 5 min away fires once
   runT6() {
-    this.showToast('Test T6: Proximity alert: Bus 335-E is 5 minutes from Domlur (Old Airport Rd).', 'indigo');
+    this.showToast('Test T6: Proximity alert: Bus 216-J is 5 minutes from Silk Institute Metro.', 'indigo');
     return 'PASS: Notification fired once';
   }
 
   // Run Test Case T7: Driver taps Breakdown -> subscribers notified & rescue bus suggested
   runT7() {
     triggerDriverBreakdown('bus_14', 'Mechanical hold');
-    this.showToast('Test T7: Incident reported: Bus 335-E stalled. Standby Unit 99-R ready for dispatch.', 'coral');
+    this.showToast('Test T7: Incident reported: Bus 216-J stalled. Standby Unit 99-R ready at Harohalli Depot.', 'coral');
     return 'PASS: Breakdown broadcasted and rescue bus suggested';
   }
 

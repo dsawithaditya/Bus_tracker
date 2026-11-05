@@ -7,7 +7,7 @@ import { renderAdminView } from './admin-view.js';
 import { renderGateDisplayView } from './gate-display-view.js';
 import { DemoSuite } from './demo-suite.js';
 import { initModals, playChime } from './modals.js';
-import { translations } from './translations.js';
+import { translations, applyLanguageToDOM } from './translations.js';
 import { initAnimations, animateViewEntrance } from './animations.js';
 
 let mapController = null;
@@ -60,11 +60,11 @@ function startGpsSimulation() {
     const bus = state.buses.bus_14;
     if (bus.status === 'breakdown' || bus.status === 'done') return;
 
-    // Advance bus progress smoothly along Route 335-E
+    // Advance bus progress smoothly along its assigned route
     bus.progressIndex = (bus.progressIndex + 0.008) % 1.0;
     
-    // Calculate current interpolated position along Route 335-E path
-    const route = state.routes.find(r => r.id === 'route_335e');
+    // Calculate current interpolated position along route path
+    const route = state.routes.find(r => r.id === bus.routeId) || state.routes[0];
     if (route && route.path.length > 1) {
       const totalSegments = route.path.length - 1;
       const exactIndex = bus.progressIndex * totalSegments;
@@ -208,9 +208,9 @@ function initDemoSuite() {
 
 // Initial Bootstrapping
 window.addEventListener('DOMContentLoaded', () => {
-  // Initialize Google Maps Controller centered on Bangalore Transit Corridor
+  // Initialize Google Maps Controller centered on Bangalore & Jain University Transit Corridor
   mapController = new CampusMapController('leaflet-map-container');
-  mapController.init(12.9650, 77.6500, 13);
+  mapController.init(12.7800, 77.5100, 11);
   mapController.drawRoutes(state.routes);
   mapController.drawStops(state.stops, (stop) => {
     showToast(`🚏 Stop: <strong>${stop.name}</strong> • Geofence Radius: 150m. Distance: ${stop.distanceFromStart}m`, 'indigo');
@@ -256,7 +256,8 @@ window.addEventListener('DOMContentLoaded', () => {
     langBtn.onclick = () => {
       const next = state.language === 'en' ? 'hi' : 'en';
       setLanguage(next);
-      if (langLabel) langLabel.textContent = next.toUpperCase();
+      applyLanguageToDOM(next);
+      if (langLabel) langLabel.textContent = next === 'hi' ? 'EN' : 'HI';
       switchPortal(state.activeView);
       showToast(`Language switched to: ${next === 'hi' ? 'हिन्दी (Hindi)' : 'English'}`, 'indigo');
     };
@@ -299,6 +300,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Initialize Global Scroll & Click Animations
   initAnimations();
+
+  // Initialize initial language bindings
+  applyLanguageToDOM(state.language);
 
   // TurboStarter FAQ Accordion
   document.querySelectorAll('.faq-item').forEach(item => {

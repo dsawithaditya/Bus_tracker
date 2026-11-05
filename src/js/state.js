@@ -21,71 +21,85 @@ export const state = {
   lowDataMode: false,
   mapStyle: 'google-dark', // 'google-dark' | 'google-satellite' | 'google-standard'
   
-  // Current user (Commuter in Bangalore)
+  // Current user (Student commuter at Jain University)
   currentUser: {
     id: 'usr_blr_4091',
     name: 'Aarav Patel',
     role: 'student',
-    rollNo: '23CS0482',
-    department: 'Computer Science & Engineering',
-    homeStopId: 'stop_domlur', // Domlur
-    targetStopId: 'stop_itpl', // ITPL Tech Park
-    firstClassTime: '08:30 AM',
-    walkingDistanceMeters: 320, // default ~4 mins walk
+    rollNo: '23JUCS0482',
+    department: 'Jain University (FET - Computer Science)',
+    homeStopId: 'stop_silkinstitute', // Silk Institute Metro
+    targetStopId: 'stop_jainuniv', // Jain University Global Campus
+    firstClassTime: '08:45 AM',
+    walkingDistanceMeters: 280, // default ~3.5 mins walk
     pass: {
-      id: 'BMTC-PASS-2026-8831',
+      id: 'JU-BMTC-PASS-2026-8831',
       validFrom: '2026-08-01',
       validTo: '2026-12-31',
       feeStatus: 'Active',
-      qrToken: 'BMTC-TRANSIT:usr_blr_4091:ROUTE335E:VALID'
+      qrToken: 'BMTC-CAMPUS:usr_blr_4091:ROUTE216J:VALID'
     }
   },
 
   scheduleMode: 'regular', // 'regular' | 'exam' | 'half-day'
   
-  // Bangalore BMTC Routes
+  // Bangalore BMTC Routes (Featuring Jain University / Kanakapura Rd Corridor)
   routes: [
     {
-      id: 'route_335e',
-      name: 'Route 335-E: Majestic to ITPL / Kadugodi',
-      shortName: '335-E',
+      id: 'route_216j',
+      name: 'Route 216-J: Banashankari to Jain University / Harohalli',
+      shortName: '216-J',
       color: '#6366F1',
       active: true,
       stops: [
+        'stop_banashankari',
+        'stop_konanakunte',
+        'stop_silkinstitute',
+        'stop_kaggalipura',
+        'stop_jainuniv',
+        'stop_harohalli'
+      ],
+      path: [
+        [12.9156, 77.5736], // Banashankari TTMC
+        [12.9010, 77.5650], // Sarakki Signal
+        [12.8885, 77.5582], // Konanakunte Cross
+        [12.8750, 77.5450], // Vajrahalli
+        [12.8631, 77.5312], // Silk Institute Metro Terminal
+        [12.8350, 77.5180], // Thalaghattapura
+        [12.7981, 77.5028], // Kaggalipura
+        [12.7400, 77.4800], // Art of Living / Haragadde Cross
+        [12.6462, 77.4418], // Jain University (JGI Global Campus)
+        [12.6074, 77.4332]  // Harohalli Bus Stand & Industrial Area
+      ]
+    },
+    {
+      id: 'route_335e',
+      name: 'Route 335-E: Majestic to ITPL',
+      shortName: '335-E',
+      color: '#10B981',
+      active: true,
+      stops: [
         'stop_majestic',
-        'stop_corporation',
         'stop_richmond',
         'stop_domlur',
         'stop_hal',
         'stop_marathahalli',
-        'stop_kundalahalli',
-        'stop_itpl',
-        'stop_kadugodi'
+        'stop_itpl'
       ],
       path: [
-        [12.9781, 77.5724], // Kempegowda Bus Station (Majestic)
-        [12.9757, 77.5804], // Mysore Bank
-        [12.9647, 77.5915], // Corporation Circle
+        [12.9781, 77.5724], // Majestic
         [12.9632, 77.5982], // Richmond Circle
-        [12.9731, 77.6083], // Mayo Hall
-        [12.9698, 77.6171], // Hosmat / Trinity
-        [12.9634, 77.6385], // Domlur (Old Airport Road)
-        [12.9587, 77.6481], // Manipal Hospital
-        [12.9563, 77.6534], // Murugeshpalya
-        [12.9538, 77.6687], // HAL Main Gate
+        [12.9634, 77.6385], // Domlur
+        [12.9538, 77.6687], // HAL Gate
         [12.9561, 77.7019], // Marathahalli Bridge
-        [12.9575, 77.7196], // Kundalahalli Gate
-        [12.9801, 77.7185], // Graphite India
-        [12.9859, 77.7360], // ITPL (International Tech Park Bangalore)
-        [12.9798, 77.7516], // Hope Farm Junction
-        [12.9957, 77.7585]  // Kadugodi Bus Station
+        [12.9859, 77.7360]  // ITPL
       ]
     },
     {
       id: 'route_500d',
-      name: 'Route 500-D: Silk Board to Hebbal (Outer Ring Road)',
+      name: 'Route 500-D: Silk Board to Hebbal (ORR)',
       shortName: '500-D',
-      color: '#10B981',
+      color: '#F59E0B',
       active: true,
       stops: [
         'stop_silkboard',
@@ -93,109 +107,74 @@ export const state = {
         'stop_bellandur',
         'stop_marathahalli',
         'stop_tinfactory',
-        'stop_manyata',
         'stop_hebbal'
       ],
       path: [
-        [12.9176, 77.6234], // Central Silk Board
-        [12.9116, 77.6433], // HSR Layout
-        [12.9260, 77.6762], // Bellandur EcoSpace
-        [12.9370, 77.6910], // Kadubeesanahalli
-        [12.9561, 77.7019], // Marathahalli Bridge
-        [12.9850, 77.6850], // Mahadevapura
-        [13.0006, 77.6625], // Tin Factory / KR Puram
-        [13.0180, 77.6450], // Kasturi Nagar
-        [13.0300, 77.6300], // Kalyannagar
-        [13.0450, 77.6208], // Manyata Tech Park
-        [13.0358, 77.5970]  // Hebbal Bus Station
-      ]
-    },
-    {
-      id: 'route_365',
-      name: 'Route 365: Majestic to Electronic City Phase 1',
-      shortName: '365',
-      color: '#F59E0B',
-      active: true,
-      stops: [
-        'stop_majestic',
-        'stop_corporation',
-        'stop_lalbagh',
-        'stop_dairycircle',
-        'stop_stjohns',
-        'stop_silkboard',
-        'stop_ecity'
-      ],
-      path: [
-        [12.9781, 77.5724], // Majestic
-        [12.9647, 77.5915], // Corporation
-        [12.9507, 77.5848], // Lalbagh Main Gate
-        [12.9372, 77.6033], // Dairy Circle
-        [12.9298, 77.6186], // St. John's Hospital
         [12.9176, 77.6234], // Silk Board
-        [12.8900, 77.6400], // Kudlu Gate
-        [12.8452, 77.6602]  // Electronic City Phase 1
+        [12.9116, 77.6433], // HSR
+        [12.9260, 77.6762], // Bellandur EcoSpace
+        [12.9561, 77.7019], // Marathahalli Bridge
+        [13.0006, 77.6625], // Tin Factory
+        [13.0358, 77.5970]  // Hebbal
       ]
     }
   ],
 
   // Real Bangalore Bus Stops Database with 150m Geofences
   stops: {
+    'stop_banashankari': { id: 'stop_banashankari', name: 'Banashankari TTMC', lat: 12.9156, lon: 77.5736, radius_m: 150, distanceFromStart: 0 },
+    'stop_konanakunte': { id: 'stop_konanakunte', name: 'Konanakunte Cross', lat: 12.8885, lon: 77.5582, radius_m: 150, distanceFromStart: 3800 },
+    'stop_silkinstitute': { id: 'stop_silkinstitute', name: 'Silk Institute Metro', lat: 12.8631, lon: 77.5312, radius_m: 150, distanceFromStart: 8200 },
+    'stop_kaggalipura': { id: 'stop_kaggalipura', name: 'Kaggalipura', lat: 12.7981, lon: 77.5028, radius_m: 150, distanceFromStart: 16500 },
+    'stop_jainuniv': { id: 'stop_jainuniv', name: 'Jain University (Global Campus)', lat: 12.6462, lon: 77.4418, radius_m: 150, distanceFromStart: 34000 },
+    'stop_harohalli': { id: 'stop_harohalli', name: 'Harohalli Bus Station', lat: 12.6074, lon: 77.4332, radius_m: 150, distanceFromStart: 39500 },
+
     'stop_majestic': { id: 'stop_majestic', name: 'Kempegowda Bus Station (Majestic)', lat: 12.9781, lon: 77.5724, radius_m: 150, distanceFromStart: 0 },
-    'stop_corporation': { id: 'stop_corporation', name: 'Corporation Circle', lat: 12.9647, lon: 77.5915, radius_m: 150, distanceFromStart: 2400 },
     'stop_richmond': { id: 'stop_richmond', name: 'Richmond Circle', lat: 12.9632, lon: 77.5982, radius_m: 150, distanceFromStart: 3200 },
     'stop_domlur': { id: 'stop_domlur', name: 'Domlur (Old Airport Road)', lat: 12.9634, lon: 77.6385, radius_m: 150, distanceFromStart: 7600 },
     'stop_hal': { id: 'stop_hal', name: 'HAL Main Gate', lat: 12.9538, lon: 77.6687, radius_m: 150, distanceFromStart: 11200 },
     'stop_marathahalli': { id: 'stop_marathahalli', name: 'Marathahalli Bridge', lat: 12.9561, lon: 77.7019, radius_m: 150, distanceFromStart: 15400 },
-    'stop_kundalahalli': { id: 'stop_kundalahalli', name: 'Kundalahalli Gate', lat: 12.9575, lon: 77.7196, radius_m: 150, distanceFromStart: 17300 },
     'stop_itpl': { id: 'stop_itpl', name: 'ITPL Tech Park (Whitefield)', lat: 12.9859, lon: 77.7360, radius_m: 150, distanceFromStart: 21500 },
-    'stop_kadugodi': { id: 'stop_kadugodi', name: 'Kadugodi Bus Station', lat: 12.9957, lon: 77.7585, radius_m: 150, distanceFromStart: 25200 },
-    
+
     'stop_silkboard': { id: 'stop_silkboard', name: 'Central Silk Board', lat: 12.9176, lon: 77.6234, radius_m: 150, distanceFromStart: 0 },
     'stop_hsr': { id: 'stop_hsr', name: 'HSR Layout 14th Main', lat: 12.9116, lon: 77.6433, radius_m: 150, distanceFromStart: 2800 },
     'stop_bellandur': { id: 'stop_bellandur', name: 'Bellandur EcoSpace', lat: 12.9260, lon: 77.6762, radius_m: 150, distanceFromStart: 7100 },
     'stop_tinfactory': { id: 'stop_tinfactory', name: 'Tin Factory (KR Puram)', lat: 13.0006, lon: 77.6625, radius_m: 150, distanceFromStart: 16500 },
-    'stop_manyata': { id: 'stop_manyata', name: 'Manyata Tech Park', lat: 13.0450, lon: 77.6208, radius_m: 150, distanceFromStart: 22800 },
-    'stop_hebbal': { id: 'stop_hebbal', name: 'Hebbal Bus Station', lat: 13.0358, lon: 77.5970, radius_m: 150, distanceFromStart: 26500 },
-
-    'stop_lalbagh': { id: 'stop_lalbagh', name: 'Lalbagh Main Gate', lat: 12.9507, lon: 77.5848, radius_m: 150, distanceFromStart: 4100 },
-    'stop_dairycircle': { id: 'stop_dairycircle', name: 'Dairy Circle', lat: 12.9372, lon: 77.6033, radius_m: 150, distanceFromStart: 6800 },
-    'stop_stjohns': { id: 'stop_stjohns', name: "St. John's Hospital", lat: 12.9298, lon: 77.6186, radius_m: 150, distanceFromStart: 9200 },
-    'stop_ecity': { id: 'stop_ecity', name: 'Electronic City Toll Gate', lat: 12.8452, lon: 77.6602, radius_m: 150, distanceFromStart: 21000 }
+    'stop_hebbal': { id: 'stop_hebbal', name: 'Hebbal Bus Station', lat: 13.0358, lon: 77.5970, radius_m: 150, distanceFromStart: 26500 }
   },
 
   // Active BMTC Buses Telemetry
   buses: {
     'bus_14': {
       id: 'bus_14',
-      number: '335-E',
-      regNo: 'KA-01-F-4521',
-      fleetType: 'BMTC Volvo Vajra',
-      routeId: 'route_335e',
+      number: '216-J',
+      regNo: 'KA-42-F-3388',
+      fleetType: 'BMTC Campus Suvarna',
+      routeId: 'route_216j',
       driverId: 'drv_01',
-      driverName: 'Ramesh Gowda',
-      driverPhone: '+91 98451 23450',
+      driverName: 'Kishore Kumar',
+      driverPhone: '+91 98451 99201',
       accessible: true,
-      capacity: 54,
-      lat: 12.9561,
-      lon: 77.7019, // Marathahalli Bridge
-      heading: 65,
-      speed: 34,
-      rollingSpeed: 30,
-      trafficFactor: 1.05,
-      progressIndex: 0.62,
-      currentStopIndex: 5,
+      capacity: 52,
+      lat: 12.7400,
+      lon: 77.4800, // Approaching Jain University
+      heading: 205,
+      speed: 38,
+      rollingSpeed: 36,
+      trafficFactor: 1.02,
+      progressIndex: 0.72,
+      currentStopIndex: 3,
       status: 'running',
-      delayMinutes: 2,
+      delayMinutes: 0,
       delayReason: null,
       lastPingTimestamp: Date.now(),
       isEstimated: false,
       signalLost: false,
       occupancyLevel: 'seats',
       occupancyVotes: [
-        { level: 'seats', isConductor: false, time: Date.now() - 60000 },
         { level: 'seats', isConductor: true, time: Date.now() - 30000 }
       ],
-      tripStartTime: '08:00 AM'
+      tripStartTime: '08:15 AM'
     },
     'bus_7': {
       id: 'bus_7',

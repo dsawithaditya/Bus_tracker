@@ -55,7 +55,7 @@
           🚌
         </div>
         <div>
-          <span class="font-bold text-base tracking-tight text-white">Campus Transit</span>
+          <span class="font-bold text-base tracking-tight text-white" data-i18n="brandName">Campus Transit</span>
         </div>
       </a>
 
@@ -63,34 +63,34 @@
       <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-300">
         <a href="#live-app" class="hover:text-white transition flex items-center gap-1.5 text-indigo-300">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Live Tracker</span>
+          <span data-i18n="navLiveTracker">Live Tracker</span>
         </a>
-        <a href="#routes" class="hover:text-white transition">Routes</a>
-        <a href="#how-it-works" class="hover:text-white transition">How It Works</a>
-        <a href="#architecture" class="hover:text-white transition">Architecture</a>
-        <a href="#faq" class="hover:text-white transition">FAQ</a>
+        <a href="#routes" class="hover:text-white transition" data-i18n="navRoutes">Routes</a>
+        <a href="#how-it-works" class="hover:text-white transition" data-i18n="navHowItWorks">How It Works</a>
+        <a href="#architecture" class="hover:text-white transition" data-i18n="navArchitecture">Architecture</a>
+        <a href="#faq" class="hover:text-white transition" data-i18n="navFaq">FAQ</a>
       </nav>
 
       <!-- Action Controls -->
       <div class="flex items-center gap-2.5">
         <!-- Language Switcher: EN / HI -->
-        <button id="toggle-lang-btn" class="px-2.5 py-1.5 rounded-lg bg-[#111827] border border-slate-800 text-slate-300 hover:text-white text-xs font-medium transition" title="Language">
+        <button id="toggle-lang-btn" class="px-2.5 py-1.5 rounded-lg bg-[#111827] border border-slate-800 text-slate-300 hover:text-white text-xs font-medium transition cursor-pointer" title="Switch Language">
           🌐 <span id="current-lang-label">EN</span>
         </button>
 
         <!-- Low Data Mode Toggle -->
-        <button id="toggle-low-data-btn" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-lg bg-[#111827] border border-slate-800 text-slate-300 hover:text-white text-xs transition" title="Toggle Low-Data Mode">
+        <button id="toggle-low-data-btn" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-lg bg-[#111827] border border-slate-800 text-slate-300 hover:text-white text-xs transition cursor-pointer" title="Toggle Low-Data Mode">
           📶 Low-Data
         </button>
 
         <!-- Test Suite Drawer Trigger -->
-        <button id="toggle-demo-drawer-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-950/70 border border-indigo-500/40 text-indigo-300 text-xs font-semibold hover:bg-indigo-900/80 transition">
+        <button id="toggle-demo-drawer-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-950/70 border border-indigo-500/40 text-indigo-300 text-xs font-semibold hover:bg-indigo-900/80 transition cursor-pointer">
           <span>🧪</span>
-          <span>Run Tests</span>
+          <span data-i18n="navRunTests">Run Tests</span>
         </button>
 
         <!-- Primary CTA Button -->
-        <a href="#live-app" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-md shadow-indigo-600/30 transition">
+        <a href="#live-app" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-md shadow-indigo-600/30 transition" data-i18n="navOpenTracker">
           Open Tracker
         </a>
       </div>
@@ -106,30 +106,30 @@
     <div class="max-w-4xl mx-auto text-center relative z-10">
       
       <!-- Understated Status Badge -->
-      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-xs text-indigo-300 font-medium mb-5">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-xs text-indigo-300 font-medium mb-5">
         <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-        <span>Real-time campus transit & arrival predictions</span>
+        <span data-i18n="heroBadge">Real-time campus transit & arrival predictions</span>
       </div>
 
       <!-- Main Headline -->
       <h1 class="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight text-white leading-tight">
-        Campus bus tracking,
-        <span class="text-indigo-400">down to the minute.</span>
+        <span data-i18n="heroTitle1">Campus bus tracking,</span>
+        <span class="text-indigo-400" data-i18n="heroTitle2">down to the minute.</span>
       </h1>
 
       <!-- Subtitle -->
-      <p class="mt-4 text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
+      <p class="mt-4 text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed" data-i18n="heroSubtitle">
         Track active buses along your route, check stop arrival times adjusted for traffic, and know whether to walk or wait.
       </p>
 
       <!-- Action Buttons -->
       <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
-        <a href="#live-app" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-lg shadow-indigo-600/30 transition flex items-center gap-1.5">
+        <a href="#live-app" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-lg shadow-indigo-600/30 transition flex items-center gap-1.5" data-i18n="heroOpenBtn">
           <span>Open Live Tracker</span>
           <span>↓</span>
         </a>
 
-        <button id="hero-start-demo-btn" class="px-5 py-2.5 rounded-xl bg-[#111827] hover:bg-slate-800 text-slate-200 border border-slate-700 font-medium text-xs transition flex items-center gap-1.5">
+        <button id="hero-start-demo-btn" class="px-5 py-2.5 rounded-xl bg-[#111827] hover:bg-slate-800 text-slate-200 border border-slate-700 font-medium text-xs transition flex items-center gap-1.5 cursor-pointer" data-i18n="heroDemoBtn">
           <span>🎬 Run Demo Walkthrough</span>
         </button>
       </div>
@@ -138,19 +138,19 @@
       <div class="mt-9 inline-flex flex-wrap items-center justify-center gap-6 px-5 py-2.5 rounded-2xl bg-[#111827]/80 border border-slate-800 text-xs text-slate-400 font-mono">
         <div class="flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-          <span class="text-white font-semibold">3 Active Routes</span>
+          <span class="text-white font-semibold" data-i18n="heroStatRoutes">3 Active Corridors</span>
         </div>
         <span class="text-slate-700 hidden sm:inline">•</span>
         <div class="flex items-center gap-1.5">
-          <span class="text-white font-semibold">4 Fleet Buses</span>
+          <span class="text-white font-semibold" data-i18n="heroStatFleet">4 Fleet Buses</span>
         </div>
         <span class="text-slate-700 hidden sm:inline">•</span>
         <div class="flex items-center gap-1.5">
-          <span class="text-emerald-400 font-semibold">94% On-Time</span>
+          <span class="text-emerald-400 font-semibold" data-i18n="heroStatOnTime">94% On-Time</span>
         </div>
         <span class="text-slate-700 hidden sm:inline">•</span>
         <div class="flex items-center gap-1.5 text-slate-300">
-          <span>3s GPS Interval</span>
+          <span data-i18n="heroStatGps">3s GPS Ping</span>
         </div>
       </div>
 
@@ -167,31 +167,31 @@
       <div class="px-4 py-3 bg-[#0E1526] border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
         <!-- Brand & Context -->
         <div class="flex items-center gap-2 text-xs font-semibold text-white">
-          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
-          <span>Live Fleet Operations</span>
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span data-i18n="portalTitle">Live Fleet Operations</span>
           <span class="text-slate-600">|</span>
-          <span class="text-slate-400 font-normal">BMTC Route 335-E Active</span>
+          <span class="text-slate-400 font-normal" data-i18n="portalSubtitle">Route 216-J Active (Jain University Corridor)</span>
         </div>
 
         <!-- 4-Pillar Portal Tabs Switcher -->
         <div class="flex items-center bg-[#090D16] p-1 rounded-xl border border-slate-800 text-xs font-medium">
-          <button class="nav-tab-btn px-3 py-1 rounded-lg transition active-tab text-white bg-indigo-600 shadow" data-view="commuter">
+          <button class="nav-tab-btn px-3 py-1 rounded-lg transition active-tab text-white bg-indigo-600 shadow cursor-pointer" data-view="commuter" data-i18n="tabCommuter">
             Commuter
           </button>
-          <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white" data-view="driver">
+          <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white cursor-pointer" data-view="driver" data-i18n="tabDriver">
             Driver Console
           </button>
-          <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white" data-view="admin">
+          <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white cursor-pointer" data-view="admin" data-i18n="tabAdmin">
             Fleet Dispatch
           </button>
-          <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white" data-view="gate">
+          <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white cursor-pointer" data-view="gate" data-i18n="tabGate">
             Gate Departures
           </button>
         </div>
 
         <!-- Latency Indicator -->
         <div class="hidden sm:flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
-          <span>Latency:</span>
+          <span data-i18n="latencyLabel">Latency:</span>
           <span class="text-emerald-400">42ms</span>
         </div>
       </div>
@@ -284,55 +284,77 @@
   <!-- CAMPUS ROUTES OVERVIEW -->
   <section id="routes" class="py-16 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800/80">
     <div class="text-center mb-10">
-      <h2 class="text-2xl md:text-3xl font-black text-white">Bangalore Transit Corridors</h2>
-      <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-xl mx-auto">
-        High-frequency BMTC commuter corridors mapped live with Google Maps.
+      <h2 class="text-2xl md:text-3xl font-black text-white" data-i18n="routesTitle">Bangalore Transit Corridors</h2>
+      <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-xl mx-auto" data-i18n="routesSubtitle">
+        High-frequency commuter corridors mapped live with Google Maps.
       </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      <!-- Route 335-E -->
-      <div class="bento-card p-5">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+      <!-- Route 216-J (Jain University Corridor) -->
+      <div class="bento-card p-4 hover:border-indigo-500/50 transition">
+        <div class="flex items-center justify-between pb-2.5 border-b border-slate-800/80 mb-2.5">
           <div class="flex items-center gap-2">
-            <span class="w-12 h-6 rounded bg-indigo-900 text-indigo-300 font-mono flex items-center justify-center font-bold text-xs">335-E</span>
-            <span class="font-bold text-sm text-white">Majestic to ITPL / Kadugodi</span>
+            <span class="px-2 py-0.5 rounded-md bg-indigo-600 text-white font-mono font-bold text-xs">216-J</span>
+            <span class="font-bold text-sm text-white">Banashankari ⇄ Harohalli</span>
           </div>
-          <span class="text-[11px] font-mono text-emerald-400 font-medium">Every 10 min</span>
+          <span class="text-[11px] font-mono text-emerald-400 font-semibold">Every 15 min</span>
         </div>
-        <p class="text-xs text-slate-400 mb-3">Volvo Vajra express along Old Airport Road linking Majestic central terminal to Whitefield tech parks.</p>
-        <div class="text-[11px] text-slate-300 space-y-1 font-mono">
-          <div>Stops: Majestic → Richmond Circle → Domlur → HAL Gate → Marathahalli → ITPL</div>
+        <div class="text-xs text-slate-400 mb-3">Kanakapura Road • Jain University Express</div>
+        <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-300 font-mono">
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Banashankari</span>
+          <span class="text-slate-600">→</span>
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Silk Institute</span>
+          <span class="text-slate-600">→</span>
+          <span class="px-2 py-0.5 rounded bg-emerald-950 border border-emerald-500/40 text-emerald-300 font-semibold">Jain University</span>
+          <span class="text-slate-600">→</span>
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Harohalli</span>
+        </div>
+      </div>
+
+      <!-- Route 335-E -->
+      <div class="bento-card p-4 hover:border-indigo-500/50 transition">
+        <div class="flex items-center justify-between pb-2.5 border-b border-slate-800/80 mb-2.5">
+          <div class="flex items-center gap-2">
+            <span class="px-2 py-0.5 rounded-md bg-emerald-600 text-white font-mono font-bold text-xs">335-E</span>
+            <span class="font-bold text-sm text-white">Majestic ⇄ ITPL</span>
+          </div>
+          <span class="text-[11px] font-mono text-emerald-400 font-semibold">Every 10 min</span>
+        </div>
+        <div class="text-xs text-slate-400 mb-3">Old Airport Road • Whitefield Tech Corridor</div>
+        <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-300 font-mono">
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Majestic</span>
+          <span class="text-slate-600">→</span>
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Domlur</span>
+          <span class="text-slate-600">→</span>
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">HAL Gate</span>
+          <span class="text-slate-600">→</span>
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Marathahalli</span>
+          <span class="text-slate-600">→</span>
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">ITPL</span>
         </div>
       </div>
 
       <!-- Route 500-D -->
-      <div class="bento-card p-5">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+      <div class="bento-card p-4 hover:border-indigo-500/50 transition">
+        <div class="flex items-center justify-between pb-2.5 border-b border-slate-800/80 mb-2.5">
           <div class="flex items-center gap-2">
-            <span class="w-12 h-6 rounded bg-emerald-900 text-emerald-300 font-mono flex items-center justify-center font-bold text-xs">500-D</span>
-            <span class="font-bold text-sm text-white">Silk Board to Hebbal (ORR)</span>
+            <span class="px-2 py-0.5 rounded-md bg-amber-600 text-white font-mono font-bold text-xs">500-D</span>
+            <span class="font-bold text-sm text-white">Silk Board ⇄ Hebbal</span>
           </div>
-          <span class="text-[11px] font-mono text-emerald-400 font-medium">Every 12 min</span>
+          <span class="text-[11px] font-mono text-emerald-400 font-semibold">Every 12 min</span>
         </div>
-        <p class="text-xs text-slate-400 mb-3">Electric AC express across the Outer Ring Road tech corridor connecting Bellandur, Marathahalli & Manyata.</p>
-        <div class="text-[11px] text-slate-300 space-y-1 font-mono">
-          <div>Stops: Silk Board → HSR → Bellandur EcoSpace → Tin Factory → Manyata → Hebbal</div>
-        </div>
-      </div>
-
-      <!-- Route 365 -->
-      <div class="bento-card p-5">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
-          <div class="flex items-center gap-2">
-            <span class="w-12 h-6 rounded bg-amber-900 text-amber-300 font-mono flex items-center justify-center font-bold text-xs">365</span>
-            <span class="font-bold text-sm text-white">Majestic to Electronic City</span>
-          </div>
-          <span class="text-[11px] font-mono text-emerald-400 font-medium">Every 15 min</span>
-        </div>
-        <p class="text-xs text-slate-400 mb-3">South corridor express along Hosur Road connecting Central Bangalore with Electronic City Phase 1.</p>
-        <div class="text-[11px] text-slate-300 space-y-1 font-mono">
-          <div>Stops: Majestic → Corporation → Lalbagh → St. John's → Silk Board → Electronic City</div>
+        <div class="text-xs text-slate-400 mb-3">Outer Ring Road • Bellandur to Manyata</div>
+        <div class="flex flex-wrap items-center gap-1.5 text-[11px] text-slate-300 font-mono">
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Silk Board</span>
+          <span class="text-slate-600">→</span>
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">HSR</span>
+          <span class="text-slate-600">→</span>
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Bellandur</span>
+          <span class="text-slate-600">→</span>
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Tin Factory</span>
+          <span class="text-slate-600">→</span>
+          <span class="px-2 py-0.5 rounded bg-slate-900 border border-slate-800">Hebbal</span>
         </div>
       </div>
     </div>
@@ -341,8 +363,8 @@
   <!-- HOW IT WORKS -->
   <section id="how-it-works" class="py-16 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800/80">
     <div class="text-center mb-10">
-      <h2 class="text-2xl md:text-3xl font-black text-white">How It Works</h2>
-      <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-xl mx-auto">
+      <h2 class="text-2xl md:text-3xl font-black text-white" data-i18n="howTitle">How It Works</h2>
+      <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-xl mx-auto" data-i18n="howSubtitle">
         Practical features built specifically for the day-to-day realities of campus transit.
       </p>
     </div>
@@ -351,8 +373,8 @@
       <!-- 1 -->
       <div class="bento-card p-5">
         <div class="text-xl mb-2">📍</div>
-        <h3 class="text-sm font-bold text-white mb-1.5">Smooth Gliding GPS</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
+        <h3 class="text-sm font-bold text-white mb-1.5" data-i18n="how1Title">Smooth Gliding GPS</h3>
+        <p class="text-xs text-slate-400 leading-relaxed" data-i18n="how1Desc">
           Buses update position every 3 seconds and interpolate smoothly along the road line rather than jumping across the map.
         </p>
       </div>
@@ -360,8 +382,8 @@
       <!-- 2 -->
       <div class="bento-card p-5">
         <div class="text-xl mb-2">⏱️</div>
-        <h3 class="text-sm font-bold text-white mb-1.5">Traffic-Adjusted ETAs</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
+        <h3 class="text-sm font-bold text-white mb-1.5" data-i18n="how2Title">Traffic-Adjusted ETAs</h3>
+        <p class="text-xs text-slate-400 leading-relaxed" data-i18n="how2Desc">
           Arrival times calculate distance, recent segment speed, traffic bottlenecks, and stop dwell times with confidence ranges.
         </p>
       </div>
@@ -369,8 +391,8 @@
       <!-- 3 -->
       <div class="bento-card p-5">
         <div class="text-xl mb-2">🚶</div>
-        <h3 class="text-sm font-bold text-white mb-1.5">Walk vs. Bus Timing</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
+        <h3 class="text-sm font-bold text-white mb-1.5" data-i18n="how3Title">Walk vs. Bus Timing</h3>
+        <p class="text-xs text-slate-400 leading-relaxed" data-i18n="how3Desc">
           Compares your walking distance to the stop against the bus's live arrival time, showing whether you can walk normally or need to hurry.
         </p>
       </div>
@@ -378,8 +400,8 @@
       <!-- 4 -->
       <div class="bento-card p-5">
         <div class="text-xl mb-2">🚨</div>
-        <h3 class="text-sm font-bold text-white mb-1.5">Standby Bus Dispatch</h3>
-        <p class="text-xs text-slate-400 leading-relaxed">
+        <h3 class="text-sm font-bold text-white mb-1.5" data-i18n="how4Title">Standby Bus Dispatch</h3>
+        <p class="text-xs text-slate-400 leading-relaxed" data-i18n="how4Desc">
           When an unexpected delay or mechanical breakdown occurs, dispatchers can reroute the nearest standby bus in one click.
         </p>
       </div>
@@ -389,8 +411,8 @@
   <!-- ARCHITECTURE PIPELINE -->
   <section id="architecture" class="py-16 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800/80">
     <div class="text-center mb-10">
-      <h2 class="text-2xl md:text-3xl font-black text-white">System Architecture</h2>
-      <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-lg mx-auto">
+      <h2 class="text-2xl md:text-3xl font-black text-white" data-i18n="archTitle">System Architecture</h2>
+      <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-lg mx-auto" data-i18n="archSubtitle">
         Low-latency synchronization across driver phones, dispatchers, and campus displays.
       </p>
     </div>
@@ -398,76 +420,122 @@
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
       <div class="bento-card p-5">
         <div class="text-indigo-400 font-mono text-xs font-bold mb-1">01 • TELEMETRY</div>
-        <div class="font-bold text-white text-sm">Driver PWA</div>
-        <div class="text-xs text-slate-400 mt-1">Browser Geolocation and Wake Lock stream GPS coordinates every 1–3s.</div>
+        <div class="font-bold text-white text-sm" data-i18n="arch1Title">Driver PWA</div>
+        <div class="text-xs text-slate-400 mt-1" data-i18n="arch1Desc">Browser Geolocation and Wake Lock stream GPS coordinates every 1–3s.</div>
       </div>
 
       <div class="bento-card p-5">
         <div class="text-indigo-400 font-mono text-xs font-bold mb-1">02 • REALTIME HUB</div>
-        <div class="font-bold text-white text-sm">WebSocket Broker</div>
-        <div class="text-xs text-slate-400 mt-1">Sub-second broadcast of coordinates, speed, and delay tags to connected screens.</div>
+        <div class="font-bold text-white text-sm" data-i18n="arch2Title">WebSocket Broker</div>
+        <div class="text-xs text-slate-400 mt-1" data-i18n="arch2Desc">Sub-second broadcast of coordinates, speed, and delay tags to connected screens.</div>
       </div>
 
       <div class="bento-card p-5">
         <div class="text-indigo-400 font-mono text-xs font-bold mb-1">03 • PREDICTION</div>
-        <div class="font-bold text-white text-sm">ETA Engine</div>
-        <div class="text-xs text-slate-400 mt-1">Road snapping, 150m stop geofence checking, and rolling speed estimates.</div>
+        <div class="font-bold text-white text-sm" data-i18n="arch3Title">ETA Engine</div>
+        <div class="text-xs text-slate-400 mt-1" data-i18n="arch3Desc">Road snapping, 150m stop geofence checking, and rolling speed estimates.</div>
       </div>
 
       <div class="bento-card p-5">
         <div class="text-indigo-400 font-mono text-xs font-bold mb-1">04 • CLIENTS</div>
-        <div class="font-bold text-white text-sm">Student & Gate Displays</div>
-        <div class="text-xs text-slate-400 mt-1">Responsive mobile web app, dispatch dashboard, and full-screen TV displays.</div>
+        <div class="font-bold text-white text-sm" data-i18n="arch4Title">Student & Gate Displays</div>
+        <div class="text-xs text-slate-400 mt-1" data-i18n="arch4Desc">Responsive mobile web app, dispatch dashboard, and full-screen TV displays.</div>
       </div>
     </div>
   </section>
 
-  <!-- FAQ SECTION -->
-  <section id="faq" class="py-16 px-4 md:px-8 max-w-3xl mx-auto border-t border-slate-800/80">
+  <!-- FAQ SECTION (Redesigned & Modern) -->
+  <section id="faq" class="py-16 px-4 md:px-8 max-w-4xl mx-auto border-t border-slate-800/80">
     <div class="text-center mb-10">
-      <h2 class="text-2xl md:text-3xl font-black text-white">Frequently Asked Questions</h2>
+      <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-xs text-indigo-300 font-medium mb-3">
+        <span>💬</span>
+        <span>Got Questions?</span>
+      </div>
+      <h2 class="text-2xl md:text-3xl font-black text-white" data-i18n="faqTitle">Frequently Asked Questions</h2>
     </div>
 
-    <div class="space-y-3" id="faq-container">
-      <div class="faq-item bento-card p-4 cursor-pointer">
-        <div class="flex items-center justify-between font-semibold text-xs md:text-sm text-white">
-          <span>How are stop arrival times calculated?</span>
-          <span class="faq-icon transition text-indigo-400 font-mono text-sm">↓</span>
+    <div class="space-y-3.5" id="faq-container">
+      
+      <!-- FAQ 1 -->
+      <div class="faq-item bento-card p-4 md:p-5 cursor-pointer hover:border-indigo-500/50 transition group">
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-indigo-950 border border-indigo-500/40 text-indigo-300">
+              ETA & GPS
+            </span>
+            <span class="font-semibold text-xs sm:text-sm text-white group-hover:text-indigo-200 transition" data-i18n="faqQ1">
+              How are stop arrival times calculated?
+            </span>
+          </div>
+          <div class="w-7 h-7 rounded-lg bg-slate-800/80 border border-slate-700 flex items-center justify-center text-xs text-indigo-400 shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">
+            <span class="faq-icon transition-transform">↓</span>
+          </div>
         </div>
-        <div class="faq-content text-xs text-slate-400 mt-2 leading-relaxed">
-          Arrival times use remaining route distance divided by recent rolling speed on that road segment, scaled by a real-time traffic multiplier, plus scheduled passenger dwell time at intermediate stops.
-        </div>
-      </div>
-
-      <div class="faq-item bento-card p-4 cursor-pointer">
-        <div class="flex items-center justify-between font-semibold text-xs md:text-sm text-white">
-          <span>What happens if cellular reception drops?</span>
-          <span class="faq-icon transition text-indigo-400 font-mono text-sm">↓</span>
-        </div>
-        <div class="faq-content text-xs text-slate-400 mt-2 leading-relaxed">
-          If no GPS ping is received for 15 seconds, the bus marker is labeled "Estimated position" and continues along the planned route at its last known speed. After 2 minutes without reception, it displays a "Signal lost" badge and defaults to the timetable.
-        </div>
-      </div>
-
-      <div class="faq-item bento-card p-4 cursor-pointer">
-        <div class="flex items-center justify-between font-semibold text-xs md:text-sm text-white">
-          <span>Is student location tracked or stored?</span>
-          <span class="faq-icon transition text-indigo-400 font-mono text-sm">↓</span>
-        </div>
-        <div class="faq-content text-xs text-slate-400 mt-2 leading-relaxed">
-          No. All walking distance calculations and proximity alarms run locally in the student's browser. No rider location data is ever transmitted to or stored on servers.
+        <div class="faq-content text-xs text-slate-400 mt-3 pt-3 border-t border-slate-800/60 leading-relaxed" data-i18n="faqA1">
+          Arrival times use remaining route distance divided by rolling speed on that road segment, scaled by real-time traffic factors and stop dwell times.
         </div>
       </div>
 
-      <div class="faq-item bento-card p-4 cursor-pointer">
-        <div class="flex items-center justify-between font-semibold text-xs md:text-sm text-white">
-          <span>How does occupancy reporting work?</span>
-          <span class="faq-icon transition text-indigo-400 font-mono text-sm">↓</span>
+      <!-- FAQ 2 -->
+      <div class="faq-item bento-card p-4 md:p-5 cursor-pointer hover:border-indigo-500/50 transition group">
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-amber-950 border border-amber-500/40 text-amber-300">
+              NETWORK
+            </span>
+            <span class="font-semibold text-xs sm:text-sm text-white group-hover:text-indigo-200 transition" data-i18n="faqQ2">
+              What happens if cellular reception drops?
+            </span>
+          </div>
+          <div class="w-7 h-7 rounded-lg bg-slate-800/80 border border-slate-700 flex items-center justify-center text-xs text-indigo-400 shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">
+            <span class="faq-icon transition-transform">↓</span>
+          </div>
         </div>
-        <div class="faq-content text-xs text-slate-400 mt-2 leading-relaxed">
-          Riders can submit seat availability status, which takes the majority vote of the last 3 reports within 10 minutes. A driver or conductor update immediately overrides student reports to prevent inaccurate crowd estimates.
+        <div class="faq-content text-xs text-slate-400 mt-3 pt-3 border-t border-slate-800/60 leading-relaxed" data-i18n="faqA2">
+          If no GPS ping is received for 15s, the bus marker is labeled 'Estimated position' and glides along the route at its last speed. After 2 minutes, it falls back to timetable.
         </div>
       </div>
+
+      <!-- FAQ 3 -->
+      <div class="faq-item bento-card p-4 md:p-5 cursor-pointer hover:border-indigo-500/50 transition group">
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-emerald-950 border border-emerald-500/40 text-emerald-300">
+              PRIVACY
+            </span>
+            <span class="font-semibold text-xs sm:text-sm text-white group-hover:text-indigo-200 transition" data-i18n="faqQ3">
+              Is student or commuter location tracked?
+            </span>
+          </div>
+          <div class="w-7 h-7 rounded-lg bg-slate-800/80 border border-slate-700 flex items-center justify-center text-xs text-indigo-400 shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">
+            <span class="faq-icon transition-transform">↓</span>
+          </div>
+        </div>
+        <div class="faq-content text-xs text-slate-400 mt-3 pt-3 border-t border-slate-800/60 leading-relaxed" data-i18n="faqA3">
+          No. All walking distance calculations and proximity alarms run entirely locally inside your browser. No personal location data is ever stored.
+        </div>
+      </div>
+
+      <!-- FAQ 4 -->
+      <div class="faq-item bento-card p-4 md:p-5 cursor-pointer hover:border-indigo-500/50 transition group">
+        <div class="flex items-center justify-between gap-4">
+          <div class="flex items-center gap-3">
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-semibold bg-purple-950 border border-purple-500/40 text-purple-300">
+              CROWD
+            </span>
+            <span class="font-semibold text-xs sm:text-sm text-white group-hover:text-indigo-200 transition" data-i18n="faqQ4">
+              How does seat occupancy reporting work?
+            </span>
+          </div>
+          <div class="w-7 h-7 rounded-lg bg-slate-800/80 border border-slate-700 flex items-center justify-center text-xs text-indigo-400 shrink-0 group-hover:bg-indigo-600 group-hover:text-white transition">
+            <span class="faq-icon transition-transform">↓</span>
+          </div>
+        </div>
+        <div class="faq-content text-xs text-slate-400 mt-3 pt-3 border-t border-slate-800/60 leading-relaxed" data-i18n="faqA4">
+          Commuters can submit crowd levels. To guarantee accuracy, verified driver and conductor reports immediately take precedence.
+        </div>
+      </div>
+
     </div>
   </section>
 

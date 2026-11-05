@@ -47,7 +47,7 @@ export function renderAdminView(containerEl) {
                 Stalled on ${state.routes.find(r => r.id === breakdownBus.routeId)?.name || 'Route'} • Driver: ${breakdownBus.driverName}
               </div>
               <div class="text-[11px] text-amber-300 font-medium mt-0.5">
-                Recommendation: Standby Bus 99-R is ready at Domlur Depot (4 min away).
+                Recommendation: Standby Bus 99-R is ready at Harohalli Depot (4 min away).
               </div>
             </div>
           </div>
@@ -82,7 +82,7 @@ export function renderAdminView(containerEl) {
         <div class="bento-card p-3.5">
           <div class="text-[11px] text-slate-400 uppercase font-semibold">Standby Units</div>
           <div class="text-2xl font-bold text-indigo-400 font-mono mt-0.5">1 Ready</div>
-          <div class="text-[10px] text-slate-400 mt-0.5">Bus 99-R at Domlur Depot</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">Bus 99-R at Harohalli Depot</div>
         </div>
       </div>
 
