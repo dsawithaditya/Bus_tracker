@@ -1,5 +1,6 @@
 // Interactive Modals & Audio Chimes for Alerts and SOS
 import { state } from './state.js';
+import { showToast } from './app.js';
 
 // Web Audio API Sound Synthesizer for notifications and alerts
 export function playChime(type = 'notification') {
@@ -51,8 +52,8 @@ export function initModals() {
 function getModalHTML(type) {
   if (type === 'alert') {
     return `
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-        <div class="bento-card p-5 max-w-sm w-full bg-[#111827] border border-slate-700 shadow-2xl relative">
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm modal-backdrop-anim">
+        <div class="bento-card p-5 max-w-sm w-full bg-[#111827] border border-slate-700 shadow-2xl relative modal-box-anim">
           <button onclick="closeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">&times;</button>
           
           <div class="flex items-center gap-2.5 mb-3">
@@ -67,9 +68,10 @@ function getModalHTML(type) {
             <div>
               <label class="block text-[11px] font-semibold text-slate-300 mb-1">Boarding Stop</label>
               <select class="w-full px-3 py-1.5 rounded-lg bg-[#0B101D] border border-slate-700 text-xs text-white">
-                <option value="stop_5">Gate 2 (Default)</option>
-                <option value="stop_6">Main Campus Quad</option>
-                <option value="stop_3">Market Circle</option>
+                <option value="stop_domlur">Domlur (Old Airport Road)</option>
+                <option value="stop_hal">HAL Main Gate</option>
+                <option value="stop_marathahalli">Marathahalli Bridge</option>
+                <option value="stop_itpl">ITPL Tech Park (Whitefield)</option>
               </select>
             </div>
 
@@ -94,7 +96,7 @@ function getModalHTML(type) {
               </label>
             </div>
 
-            <button id="save-alert-btn" class="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition mt-2">
+            <button id="save-alert-btn" class="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition mt-2 shadow-md">
               Save Alert
             </button>
           </div>
@@ -109,11 +111,11 @@ function getModalHTML(type) {
     const currentTimeStr = new Date().toLocaleTimeString();
 
     return `
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-        <div class="bento-card p-5 max-w-xs w-full bg-[#111827] border border-slate-700 shadow-2xl relative text-center">
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm modal-backdrop-anim">
+        <div class="bento-card p-5 max-w-xs w-full bg-[#111827] border border-slate-700 shadow-2xl relative text-center modal-box-anim">
           <button onclick="closeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">&times;</button>
           
-          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-0.5">Student Transit Pass</div>
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-0.5">BMTC Digital Commuter Pass</div>
           <h3 class="text-base font-bold text-white">${state.currentUser.name}</h3>
 
           <!-- Watermark clock -->
@@ -132,8 +134,8 @@ function getModalHTML(type) {
           <!-- Pass Details -->
           <div class="text-left space-y-1 text-xs text-slate-300 bg-slate-900 p-2.5 rounded-lg border border-slate-800">
             <div class="flex justify-between">
-              <span class="text-slate-400">Roll No:</span>
-              <span class="font-mono text-white">${state.currentUser.rollNo}</span>
+              <span class="text-slate-400">Pass ID:</span>
+              <span class="font-mono text-white">${p.id}</span>
             </div>
             <div class="flex justify-between">
               <span class="text-slate-400">Valid Through:</span>
@@ -158,8 +160,8 @@ function getModalHTML(type) {
   if (type === 'sos') {
     const bus = state.buses.bus_14;
     return `
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
-        <div class="bento-card p-5 max-w-sm w-full bg-[#111827] border border-red-500/70 shadow-2xl relative text-left">
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md modal-backdrop-anim">
+        <div class="bento-card p-5 max-w-sm w-full bg-[#111827] border border-red-500/70 shadow-2xl relative text-left modal-box-anim">
           <button onclick="closeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">&times;</button>
           
           <div class="flex items-center gap-2.5 mb-3">
@@ -168,15 +170,15 @@ function getModalHTML(type) {
             </div>
             <div>
               <h3 class="text-sm font-bold text-white">Emergency Safety Alert</h3>
-              <p class="text-xs text-red-300">Direct notification to Campus Security</p>
+              <p class="text-xs text-red-300">Direct notification to Transit Security & Control</p>
             </div>
           </div>
 
           <div class="space-y-2.5 text-xs">
             <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
               <div class="flex justify-between">
-                <span class="text-slate-400">Bus:</span>
-                <span class="font-bold text-white">Bus 14 (Route 14)</span>
+                <span class="text-slate-400">Bus Unit:</span>
+                <span class="font-bold text-white">${bus.number} (${bus.regNo})</span>
               </div>
               <div class="flex justify-between">
                 <span class="text-slate-400">Coordinates:</span>
@@ -191,14 +193,14 @@ function getModalHTML(type) {
             <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
               <div class="text-[11px] font-medium text-indigo-300 mb-1">Shareable Live Trip Link:</div>
               <div class="flex items-center gap-1.5">
-                <input type="text" readonly value="https://campusbus.live/trip/share/TRIP-1402" class="flex-1 px-2 py-1 rounded bg-[#0B101D] border border-slate-700 text-[10px] font-mono text-slate-300">
-                <button onclick="navigator.clipboard?.writeText('https://campusbus.live/trip/share/TRIP-1402'); alert('Trip link copied.');" class="px-2.5 py-1 rounded bg-indigo-600 text-white font-semibold text-xs hover:bg-indigo-500">
+                <input type="text" readonly value="https://campusbus.live/trip/share/BLR-335E-4521" class="flex-1 px-2 py-1 rounded bg-[#0B101D] border border-slate-700 text-[10px] font-mono text-slate-300">
+                <button onclick="navigator.clipboard?.writeText('https://campusbus.live/trip/share/BLR-335E-4521');" class="px-2.5 py-1 rounded bg-indigo-600 text-white font-semibold text-xs hover:bg-indigo-500">
                   Copy
                 </button>
               </div>
             </div>
 
-            <button id="trigger-emergency-btn" class="w-full py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs tracking-wide transition mt-1 shadow-md">
+            <button id="trigger-emergency-btn" class="w-full py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs tracking-wide transition mt-1 shadow-md active:scale-95">
               Send Emergency SOS
             </button>
           </div>
@@ -209,8 +211,8 @@ function getModalHTML(type) {
 
   if (type === 'lost_found') {
     return `
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-        <div class="bento-card p-5 max-w-sm w-full bg-[#111827] border border-slate-700 shadow-2xl relative">
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm modal-backdrop-anim">
+        <div class="bento-card p-5 max-w-sm w-full bg-[#111827] border border-slate-700 shadow-2xl relative modal-box-anim">
           <button onclick="closeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">&times;</button>
           
           <div class="flex items-center gap-2.5 mb-3">
@@ -240,7 +242,7 @@ function getModalHTML(type) {
               <div class="text-[11px] font-medium text-slate-300 mb-1">Report a Found or Lost Item</div>
               <div class="flex gap-2">
                 <input type="text" id="lf-item-input" placeholder="Item description and bus..." class="flex-1 px-2.5 py-1.5 rounded-lg bg-[#0B101D] border border-slate-700 text-xs text-white">
-                <button id="lf-submit-btn" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs">Log</button>
+                <button id="lf-submit-btn" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs active:scale-95">Log</button>
               </div>
             </div>
           </div>
@@ -251,8 +253,8 @@ function getModalHTML(type) {
 
   if (type === 'search') {
     return `
-      <div class="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/80 backdrop-blur-sm">
-        <div class="bento-card p-3 max-w-md w-full bg-[#111827] border border-slate-700 shadow-2xl relative">
+      <div class="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/80 backdrop-blur-sm modal-backdrop-anim">
+        <div class="bento-card p-3 max-w-md w-full bg-[#111827] border border-slate-700 shadow-2xl relative modal-box-anim">
           <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
             <span class="text-slate-400 text-sm">🔍</span>
             <input type="text" id="cmd-input" placeholder="Search route, stop, or bus number..." class="flex-1 bg-transparent text-xs text-white focus:outline-none" autofocus>
@@ -260,28 +262,28 @@ function getModalHTML(type) {
           </div>
 
           <div class="mt-2 space-y-1 text-xs">
-            <button class="cmd-jump-btn w-full p-2 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white" data-target="route_14">
+            <button class="cmd-jump-btn w-full p-2 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white active:scale-98" data-target="route_335e">
               <div class="flex items-center gap-2">
-                <span class="w-5 h-5 rounded bg-indigo-900 text-indigo-300 font-mono flex items-center justify-center font-bold text-xs">14</span>
-                <span>Route 14 (Hostel to Main Campus)</span>
+                <span class="w-12 h-5 rounded bg-indigo-900 text-indigo-300 font-mono flex items-center justify-center font-bold text-xs">335-E</span>
+                <span>Majestic to ITPL / Kadugodi</span>
               </div>
               <span class="text-emerald-400 font-mono text-[10px]">On time</span>
             </button>
 
-            <button class="cmd-jump-btn w-full p-2 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white" data-target="route_7">
+            <button class="cmd-jump-btn w-full p-2 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white active:scale-98" data-target="route_500d">
               <div class="flex items-center gap-2">
-                <span class="w-5 h-5 rounded bg-emerald-900 text-emerald-300 font-mono flex items-center justify-center font-bold text-xs">7</span>
-                <span>Route 7 (Metro to Tech Complex)</span>
+                <span class="w-12 h-5 rounded bg-emerald-900 text-emerald-300 font-mono flex items-center justify-center font-bold text-xs">500-D</span>
+                <span>Silk Board to Hebbal (ORR)</span>
               </div>
               <span class="text-amber-400 font-mono text-[10px]">+8m delay</span>
             </button>
 
-            <button class="cmd-jump-btn w-full p-2 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white" data-target="stop_5">
+            <button class="cmd-jump-btn w-full p-2 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white active:scale-98" data-target="stop_domlur">
               <div class="flex items-center gap-2">
                 <span>🚏</span>
-                <span>Gate 2 (Boarding Point)</span>
+                <span>Domlur (Old Airport Road)</span>
               </div>
-              <span class="text-slate-400 text-[10px]">Bus 14, 14B</span>
+              <span class="text-slate-400 text-[10px]">Bus 335-E, 500-D</span>
             </button>
           </div>
         </div>
@@ -300,7 +302,7 @@ function bindModalEvents(type) {
     if (saveBtn) {
       saveBtn.onclick = () => {
         playChime('notification');
-        alert('Alert configured: You will be notified 5 minutes before Bus 14 reaches Gate 2.');
+        showToast('🔔 Alert active: You will be notified 5 minutes before Bus 335-E reaches your stop.', 'emerald');
         window.closeModal();
       };
     }
@@ -313,6 +315,7 @@ function bindModalEvents(type) {
         const next = state.currentUser.pass.feeStatus === 'Active' ? 'Expired' : 'Active';
         state.currentUser.pass.feeStatus = next;
         state.events.emit('pass:updated', state.currentUser.pass);
+        showToast(`Pass status switched: ${next}`, next === 'Active' ? 'emerald' : 'coral');
         window.openModal('pass');
       };
     }
@@ -323,7 +326,7 @@ function bindModalEvents(type) {
     if (triggerBtn) {
       triggerBtn.onclick = () => {
         playChime('sos');
-        alert('Emergency alert dispatched to campus security with coordinates 12.9775, 77.5975.');
+        showToast('🚨 Emergency SOS dispatched to BMTC Central Control & Police with live GPS.', 'coral');
         window.closeModal();
       };
     }
@@ -338,13 +341,14 @@ function bindModalEvents(type) {
         if (itemVal) {
           state.lostAndFound.unshift({
             id: `lf_${Date.now()}`,
-            busNumber: '14',
+            busNumber: '335-E',
             tripTime: 'Current Trip',
             item: itemVal,
             date: 'Today',
             status: 'held_at_office',
             reportedBy: state.currentUser.name
           });
+          showToast(`🎒 Item "${itemVal}" logged into Lost & Found repository.`, 'indigo');
           window.openModal('lost_found');
         }
       };

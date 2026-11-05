@@ -8,7 +8,7 @@ export function renderDriverView(containerEl) {
   const isTripRunning = bus.status === 'running' || bus.status === 'delayed';
 
   containerEl.innerHTML = `
-    <div class="max-w-md mx-auto p-4 md:p-6 space-y-4">
+    <div class="max-w-md mx-auto p-4 md:p-6 space-y-4 pb-8">
       
       <!-- Driver Top Header -->
       <div class="bento-card p-4 flex items-center justify-between border-slate-800">

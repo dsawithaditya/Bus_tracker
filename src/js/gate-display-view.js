@@ -73,7 +73,7 @@ export function renderGateDisplayView(containerEl) {
   const nowTime = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', second: '2-digit' });
 
   containerEl.innerHTML = `
-    <div class="h-full bg-[#070A11] p-6 md:p-8 flex flex-col justify-between text-white font-sans overflow-hidden">
+    <div class="min-h-full bg-[#070A11] p-6 md:p-8 flex flex-col justify-between text-white font-sans overflow-y-auto pb-8">
       
       <!-- Departures Header -->
       <div class="flex items-center justify-between border-b border-slate-800 pb-4">
@@ -101,7 +101,7 @@ export function renderGateDisplayView(containerEl) {
 
       <!-- Departures Board -->
       <div class="my-4 flex-1 flex flex-col justify-center overflow-x-auto">
-        <table class="w-full text-left text-sm">
+        <table class="w-full text-left text-sm min-w-[640px]">
           <thead>
             <tr class="text-slate-400 text-xs uppercase tracking-wider border-b border-slate-800 pb-2">
               <th class="py-2.5 px-3">Line</th>

@@ -10,13 +10,16 @@ export function renderCommuterView(containerEl, onBusSelect) {
   const delayInfo = getDelayStatus(currentBus.delayMinutes);
   const signalInfo = evaluateSignalState(currentBus.lastPingTimestamp);
 
+  // Preserve scroll position across live telemetry updates
+  const savedScrollTop = containerEl.scrollTop;
+
   // ETA Calculation for Target Stop (Gate 2)
   const remainingDist = 1800; // meters from current pos
   const etaData = calculateETA(remainingDist, currentBus.rollingSpeed, currentBus.trafficFactor, 1, 30);
   const catchProb = calculateCatchProbability(etaData.roundedMinutes, state.currentUser.walkingDistanceMeters);
 
   containerEl.innerHTML = `
-    <div class="h-full flex flex-col justify-between p-4 md:p-5 overflow-y-auto space-y-4">
+    <div class="min-h-full flex flex-col p-4 md:p-5 space-y-4 pb-8">
       
       <!-- Search & Jump (Ctrl+K) -->
       <div class="relative">
@@ -91,10 +94,10 @@ export function renderCommuterView(containerEl, onBusSelect) {
           <!-- Catch-Probability Matrix -->
           <div class="p-2.5 rounded-xl bg-[#0B101D] border border-slate-800 min-w-[160px]">
             <div class="flex items-center gap-1.5 mb-1">
-              <span class="w-2 h-2 rounded-full" style="background-color: ${catchProb.color};"></span>
-              <span class="text-xs font-bold" style="color: ${catchProb.color};">${catchProb.message}</span>
+              <span id="catch-prob-dot" class="w-2 h-2 rounded-full" style="background-color: ${catchProb.color};"></span>
+              <span id="catch-prob-badge" class="text-xs font-bold" style="color: ${catchProb.color};">${catchProb.message}</span>
             </div>
-            <div class="text-[10px] text-slate-400">${catchProb.subtext}</div>
+            <div id="catch-prob-subtext" class="text-[10px] text-slate-400">${catchProb.subtext}</div>
             
             <div class="mt-2 pt-1.5 border-t border-slate-800 flex items-center justify-between text-[10px] text-slate-400">
               <span>Walking distance:</span>
@@ -210,45 +213,75 @@ export function renderCommuterView(containerEl, onBusSelect) {
         </div>
       </div>
 
-      <!-- Quick Action Utilities -->
-      <div class="grid grid-cols-2 md:grid-cols-4 gap-2">
-        <button id="open-alert-modal-btn" class="p-2.5 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/40 flex flex-col items-center justify-center text-center transition">
-          <span class="text-sm mb-1">🔔</span>
-          <span class="text-xs font-medium text-slate-200">Alerts</span>
-          <span class="text-[10px] text-slate-400">5 min away</span>
-        </button>
+      <!-- Quick Action Utilities Box (Fixed & Contained) -->
+      <div class="bento-card p-3.5 bg-[#0B101D] border border-slate-800 shadow-md">
+        <div class="flex items-center justify-between mb-2.5 px-0.5">
+          <span class="text-[11px] font-semibold text-slate-300 uppercase tracking-wider flex items-center gap-1.5">
+            <span class="w-1.5 h-1.5 rounded-full bg-indigo-400"></span>
+            Commuter Utilities
+          </span>
+          <span class="text-[10px] text-slate-500 font-mono">Quick Tools</span>
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
+          <button id="open-alert-modal-btn" class="p-2.5 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/50 hover:bg-slate-800/80 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group">
+            <span class="text-sm mb-1 group-hover:scale-110 transition-transform">🔔</span>
+            <span class="text-xs font-medium text-slate-200">Alerts</span>
+            <span class="text-[10px] text-slate-400">5 min away</span>
+          </button>
 
-        <button id="open-pass-modal-btn" class="p-2.5 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/40 flex flex-col items-center justify-center text-center transition">
-          <span class="text-sm mb-1">🎟️</span>
-          <span class="text-xs font-medium text-slate-200">Bus Pass</span>
-          <span class="text-[10px] text-emerald-400">Active</span>
-        </button>
+          <button id="open-pass-modal-btn" class="p-2.5 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/50 hover:bg-slate-800/80 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group">
+            <span class="text-sm mb-1 group-hover:scale-110 transition-transform">🎟️</span>
+            <span class="text-xs font-medium text-slate-200">Bus Pass</span>
+            <span class="text-[10px] text-emerald-400 font-medium">Active</span>
+          </button>
 
-        <button id="open-lf-modal-btn" class="p-2.5 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/40 flex flex-col items-center justify-center text-center transition">
-          <span class="text-sm mb-1">🎒</span>
-          <span class="text-xs font-medium text-slate-200">Lost & Found</span>
-          <span class="text-[10px] text-slate-400">2 items</span>
-        </button>
+          <button id="open-lf-modal-btn" class="p-2.5 rounded-xl bg-[#111827] border border-[#1F2937] hover:border-indigo-500/50 hover:bg-slate-800/80 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group">
+            <span class="text-sm mb-1 group-hover:scale-110 transition-transform">🎒</span>
+            <span class="text-xs font-medium text-slate-200">Lost & Found</span>
+            <span class="text-[10px] text-slate-400">2 items</span>
+          </button>
 
-        <button id="open-sos-modal-btn" class="p-2.5 rounded-xl bg-red-950/30 border border-red-500/40 hover:border-red-500/70 flex flex-col items-center justify-center text-center transition">
-          <span class="text-sm mb-1 text-red-400">🚨</span>
-          <span class="text-xs font-bold text-red-400">Safety SOS</span>
-          <span class="text-[10px] text-red-300">Live GPS</span>
-        </button>
+          <button id="open-sos-modal-btn" class="p-2.5 rounded-xl bg-red-950/30 border border-red-500/40 hover:border-red-500 hover:bg-red-950/50 flex flex-col items-center justify-center text-center transition active:scale-95 shadow-sm group">
+            <span class="text-sm mb-1 text-red-400 group-hover:scale-110 transition-transform">🚨</span>
+            <span class="text-xs font-bold text-red-400">Safety SOS</span>
+            <span class="text-[10px] text-red-300">Live GPS</span>
+          </button>
+        </div>
       </div>
 
     </div>
   `;
 
+  // Restore scroll position after DOM update
+  if (savedScrollTop > 0) {
+    containerEl.scrollTop = savedScrollTop;
+  }
+
   // Attach event listeners
   const walkSlider = containerEl.querySelector('#walk-slider');
   const walkLabel = containerEl.querySelector('#walk-dist-label');
+  const probBadge = containerEl.querySelector('#catch-prob-badge');
+  const probSubtext = containerEl.querySelector('#catch-prob-subtext');
+  const probDot = containerEl.querySelector('#catch-prob-dot');
+
   if (walkSlider) {
     walkSlider.addEventListener('input', (e) => {
       const dist = parseInt(e.target.value, 10);
       state.currentUser.walkingDistanceMeters = dist;
       if (walkLabel) walkLabel.textContent = `${dist}m`;
-      renderCommuterView(containerEl, onBusSelect);
+
+      // Recalculate catch probability in-place without rebuilding DOM
+      const newProb = calculateCatchProbability(etaData.roundedMinutes, dist);
+      if (probBadge) {
+        probBadge.textContent = newProb.message;
+        probBadge.style.color = newProb.color;
+      }
+      if (probSubtext) {
+        probSubtext.textContent = newProb.subtext;
+      }
+      if (probDot) {
+        probDot.style.backgroundColor = newProb.color;
+      }
     });
   }
 

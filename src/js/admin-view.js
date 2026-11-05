@@ -10,7 +10,7 @@ export function renderAdminView(containerEl) {
   const breakdownBus = busesList.find(b => b.status === 'breakdown');
 
   containerEl.innerHTML = `
-    <div class="p-4 md:p-6 space-y-4 max-w-7xl mx-auto overflow-y-auto">
+    <div class="p-4 md:p-6 space-y-4 max-w-7xl mx-auto pb-8">
       
       <!-- Console Top Bar -->
       <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-800 pb-3">
@@ -97,7 +97,7 @@ export function renderAdminView(containerEl) {
         </div>
 
         <div class="overflow-x-auto">
-          <table class="w-full text-left text-xs">
+          <table class="w-full text-left text-xs min-w-[700px]">
             <thead class="bg-[#0B101D] text-slate-400 uppercase tracking-wider text-[10px] border-b border-slate-800">
               <tr>
                 <th class="p-2.5">Bus</th>

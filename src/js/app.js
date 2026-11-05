@@ -8,6 +8,7 @@ import { renderGateDisplayView } from './gate-display-view.js';
 import { DemoSuite } from './demo-suite.js';
 import { initModals, playChime } from './modals.js';
 import { translations } from './translations.js';
+import { initAnimations, animateViewEntrance } from './animations.js';
 
 let mapController = null;
 let demoSuite = null;
@@ -96,10 +97,14 @@ function startGpsSimulation() {
       mapController.updateBusMarker(bus);
     }
 
-    // Refresh active view if in commuter or driver
+    // Refresh active view if in commuter or driver (preserving scroll positions)
     if (state.activeView === 'commuter') {
       const dock = document.getElementById('commuter-dock');
-      if (dock) renderCommuterView(dock);
+      if (dock) {
+        const savedScroll = dock.scrollTop;
+        renderCommuterView(dock);
+        if (savedScroll > 0) dock.scrollTop = savedScroll;
+      }
     } else if (state.activeView === 'driver') {
       const driverLayout = document.getElementById('driver-layout');
       if (driverLayout) renderDriverView(driverLayout);
@@ -110,7 +115,7 @@ function startGpsSimulation() {
   }, 3000);
 }
 
-// Switch Active View
+// Switch Active View with Smooth Box Appearing Animation
 function switchPortal(viewName) {
   state.activeView = viewName;
 
@@ -129,25 +134,29 @@ function switchPortal(viewName) {
   document.querySelectorAll('.nav-tab-btn').forEach(btn => {
     const isTarget = btn.getAttribute('data-view') === viewName;
     if (isTarget) {
-      btn.className = 'nav-tab-btn px-3.5 py-1.5 rounded-lg transition text-white bg-indigo-600 shadow font-bold';
+      btn.className = 'nav-tab-btn px-3.5 py-1.5 rounded-lg transition text-white bg-indigo-600 shadow font-bold scale-100';
     } else {
-      btn.className = 'nav-tab-btn px-3.5 py-1.5 rounded-lg transition text-slate-400 hover:text-white font-medium';
+      btn.className = 'nav-tab-btn px-3.5 py-1.5 rounded-lg transition text-slate-400 hover:text-white font-medium hover:bg-slate-800/40';
     }
   });
 
   if (viewName === 'commuter') {
     commuterLayout.classList.remove('hidden');
+    animateViewEntrance(commuterLayout);
     const dock = document.getElementById('commuter-dock');
     if (dock) renderCommuterView(dock);
     if (mapController) mapController.invalidateSize();
   } else if (viewName === 'driver') {
     driverLayout.classList.remove('hidden');
+    animateViewEntrance(driverLayout);
     renderDriverView(driverLayout);
   } else if (viewName === 'admin') {
     adminLayout.classList.remove('hidden');
+    animateViewEntrance(adminLayout);
     renderAdminView(adminLayout);
   } else if (viewName === 'gate') {
     gateLayout.classList.remove('hidden');
+    animateViewEntrance(gateLayout);
     renderGateDisplayView(gateLayout);
   }
 }
@@ -287,6 +296,9 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Setup Demo & Test Suite
   initDemoSuite();
+
+  // Initialize Global Scroll & Click Animations
+  initAnimations();
 
   // TurboStarter FAQ Accordion
   document.querySelectorAll('.faq-item').forEach(item => {
