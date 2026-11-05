@@ -1,81 +1,102 @@
 # Real-Time Campus Bus Tracking and Arrival Prediction
-## Dark-Theme Web Application (Project Blueprint Implementation)
+## Dark-Theme Web Application (Bangalore Transit & Jain University Corridor)
 
-A comprehensive, production-grade real-time campus transit tracking and arrival prediction web app built strictly according to the 10-page project blueprint specification.
+A production-grade, real-time campus transit tracking and arrival prediction web application designed with modern dark UI, 3D container scroll animations, and bilingual localization (English and Hindi).
 
----
-
-### 🌟 Key Pillars Implemented
-
-1. **Commuter Web App (Students, Faculty, Staff, Visitors)**
-   - **Modern Dark UI**: `#090D16` canvas, `#111827` bento surfaces, `#6366F1` electric indigo accents.
-   - **Interactive Dark Map**: Leaflet map with CartoDB Dark Matter tiles, glowing GeoJSON routes, 150m geofence stop circles, and 60fps smoothly gliding SVG bus markers with directional light beams.
-   - **"Your Bus Today" Saved Profile Card**: Quick glance for saved home stop, target stop (Gate 2), first class time, and live status.
-   - **Smart Arrival Prediction (ETA)**: Implements Section 7.1 mathematical formula:
-     $$\text{ETA} = \left(\frac{\text{remaining\_distance}}{\text{rolling\_5min\_speed}}\right) \times \text{traffic\_factor} + \text{dwell\_time\_of\_stops\_before\_it}$$
-     Includes confidence intervals (e.g., `11 min (9 to 13)`).
-   - **Metro-Style Vertical Route Timeline**: Clear stop progression (passed stops dimmed, current bus marker between stops, minutes to upcoming stops).
-   - **Catch-Probability Algorithm (Walk vs Bus)**:
-     $$\text{buffer} = \text{bus\_ETA} - \text{walking\_time} - 1\text{ min safety}$$
-     Displays:
-     - $\ge 3\text{ min}$: `Walk normally (n min buffer)` (Emerald)
-     - $0 \le \text{buffer} < 3\text{ min}$: `Hurry up! (n min buffer)` (Amber)
-     - $< 0$: `Missed - next bus in 20 min` (Coral)
-     Includes an interactive walking distance slider for instant testing.
-   - **Live Occupancy Meter**: Shows Seats Available (Green), Standing Only (Amber), and Full Bus (Red), with crowd voting and conductor override.
-   - **Proximity Alerts ("Notify Me")**: Time-based (5 min away) or radial geofence (2 km away) triggers with audio chimes.
-   - **Digital QR Bus Pass**: Live dynamic timestamp watermark, student details, semester expiry, and fee status check.
-   - **Night Shuttle Safe-Drop & Emergency SOS**: Generates 2-hour shareable trip links and triggers immediate dispatch alert.
-   - **Lost & Found Bus Ledger**: Search and log lost items tagged by bus and trip time.
-   - **Low-Data Mode & Multi-Language**: Text-only ETA board toggle for weak mobile networks, English & Hindi (`हिन्दी`) toggle, and large-text accessibility toggle.
-
-2. **Driver Telemetry App (PWA Cockpit)**
-   - High-contrast, tactile cockpit layout with extra-large touch buttons ($\ge 48\text{px}$).
-   - One-tap **Start / End Trip** with live GPS streaming.
-   - Three quick reports:
-     - 🚧 **Traffic Delay** (+5 to 10 min bottleneck)
-     - ⚠️ **Breakdown** (instantly alerts route passengers & requests rescue bus)
-     - 💺 **Seats Status** (conductor override)
-   - Screen Wake Lock API simulation.
-   - Vehicle safety pre-trip checklist (Fuel, Tyres, Lights, Brakes).
-   - Emergency SOS dispatch.
-
-3. **Fleet Command Center (Transport Admin Dashboard)**
-   - Bento grid statistics: Active fleet, on-time percentage (94.2%), delayed count, rescue readiness.
-   - **Schedule Mode Switcher**: Instant one-click switch between `Regular`, `Exam Shifts`, and `Half-Day` timetables (recalculates all countdowns across all screens).
-   - **Breakdown Rerouting & Rescue Bus Dispatch**: When a breakdown occurs, a high-priority banner recommends the nearest standby bus (Bus 99 at Depot) with 1-click dispatch.
-   - **Fleet Notice & Announcements Composer**: Instantly broadcasts alerts and route diversions to all student apps and TV screens.
-   - Live telemetry table with real-time status, driver phone numbers, speed, and delay reasons.
-
-4. **Gate Display Screen (Full-Screen TV / Kiosk Display)**
-   - High-contrast departures board designed for 1080p / 4K lobby & bus gate displays.
-   - Large fonts, Bay / Platform assignments, Scheduled vs Live ETA countdowns, and delay badges.
-   - Live scrolling campus notice marquee ticker.
-
-5. **Demo Suite & Automated Test Runner (Sections 11 & 12)**
-   - Slide-out drawer containing:
-     - **4-Minute Guided Presentation Script**: Step-by-step walkthrough covering the problem, live tracking, traffic delay, proximity alert, catch-probability, breakdown & rescue bus, exam mode, and TV display.
-     - **Individual Test Cases T1 through T12**:
-       - `T1`: Bus moves normally (gliding marker, dropping ETA)
-       - `T2`: Bus speed halves (ETA rises, Amber delay status)
-       - `T3`: No GPS for 20s (Marker labeled "Estimated position")
-       - `T4`: No GPS for 3 min ("Signal lost" badge + timetable fallback)
-       - `T5`: Bus enters 150m stop circle slowly ($< 10\text{ km/h}$) $\to$ logs arrival
-       - `T6`: Alert set to 5 min away $\to$ single notification
-       - `T7`: Driver taps Breakdown $\to$ subscribers notified & rescue bus suggested
-       - `T8`: Mixed occupancy reports $\to$ conductor override
-       - `T9`: Walk 4 min with ETA 10 / 5 / 3 min $\to$ Walk normally / Hurry up / Missed
-       - `T10`: Exam schedule mode switch $\to$ all countdowns update
-       - `T11`: 100+ simulated subscribers load test
-       - `T12`: Expired bus pass scan $\to$ access denied
+Repository: [https://github.com/dsawithaditya/Bus_tracker.git](https://github.com/dsawithaditya/Bus_tracker.git)
 
 ---
 
-### 🚀 Running the Project
+### Project Structure
 
-Open `http://localhost:3000` in any web browser, or run:
-```bash
-python -m http.server 3000
+```text
+Bus_tracker/
+├── .github/
+│   └── workflows/
+│       └── deploy.yml                   # Automated GitHub Pages CI/CD workflow
+├── components/
+│   ├── ui/
+│   │   └── container-scroll-animation.tsx # Aceternity UI 3D Scroll component
+│   └── demo.tsx                         # Component demo walkthrough
+├── lib/
+│   └── utils.ts                         # shadcn cn() classname merger utility
+├── src/
+│   ├── css/
+│   │   └── style.css                    # Bento grid dark theme & 3D perspective styles
+│   └── js/
+│       ├── admin-view.js                # Fleet dispatch command console
+│       ├── animations.js                # 3D Container scroll & micro-interactions
+│       ├── app.js                       # Main application bootstrapper & GPS engine
+│       ├── commuter-view.js             # Student commuter arrival deck & tools
+│       ├── demo-suite.js                # Automated test runner (T1–T12)
+│       ├── driver-view.js               # 2-Column driver telemetry cockpit
+│       ├── eta-engine.js                # Traffic-adjusted ETA math & catch probability
+│       ├── gate-display-view.js         # Full-screen TV departures board
+│       ├── map-controller.js            # Leaflet & Google Maps tile controller
+│       ├── modals.js                    # Modal dialogs & Web Audio chimes
+│       ├── state.js                     # Reactive centralized state store
+│       └── translations.js              # Bilingual English / Hindi localization engine
+├── components.json                      # Official shadcn UI configuration file
+├── index.html                           # Main web application entry point
+├── package.json                         # Scripts & npm dependencies
+├── tailwind.config.js                   # Tailwind CSS configuration
+├── tsconfig.json                        # TypeScript configuration
+└── README.md                            # Documentation
 ```
-All assets are self-contained with no external build requirements.
 
+---
+
+### Key Capabilities
+
+1. **Active Bangalore Corridor (Route 216-J)**
+   - High-density highway coordinates along **Kanakapura Road (NH 948)** curving accurately along the road line:
+     *Banashankari TTMC -> Konanakunte Cross -> Silk Institute Metro -> Purva Highlands -> KSIT -> Thalaghattapura -> Dayananda Sagar (DSATM) -> Guhantara -> Kaggalipura -> Art of Living -> Jain University Global Campus -> Harohalli*.
+   - Live 60fps bus position interpolation updated every 3 seconds.
+
+2. **Commuter Deck & Smart Predictions**
+   - **Traffic-Adjusted ETA Formula**:
+     $$\text{ETA} = \left(\frac{\text{remaining\_distance}}{\text{rolling\_speed}}\right) \times \text{traffic\_factor} + \text{dwell\_time}$$
+   - **Catch-Probability Algorithm (Walk vs. Bus)**: Compares your walking distance against live bus arrival time to indicate whether to walk normally or hurry up.
+   - **Quick Tools Toolbar**: Proximity arrival alarms (5 min away), Digital QR Bus Pass, Lost & Found repository ledger, and Safety SOS dispatch.
+
+3. **Driver Telemetry Cockpit**
+   - Streamlined 2-column dashboard fitted directly into the table frame with zero inner scrollbars or clipping:
+     - Left Column: Live Speed, Heading, Next Stop (Jain University), Start/End Trip button, and Speed Limit indicator.
+     - Right Column: 1-Tap Incident Quick-Reports (Traffic Delay, Mechanical Breakdown), Seat Occupancy Conductor Override, and Emergency SOS.
+
+4. **3D Container Scroll Animation (Aceternity UI Style)**
+   - Hardware-accelerated 3D scroll tilt effect applied to the live tracking table.
+   - Tilts smoothly from 20deg perspective into 0deg flat view as you scroll down the page.
+
+5. **Bilingual Localization (English & Hindi)**
+   - Immediate one-click toggle (`EN / HI`) dynamically translating all navigation, status cards, routes, architecture, and FAQ content.
+
+6. **Automated Test Suite (T1 through T12)**
+   - Slide-out testing console for simulating normal gliding, traffic delays, GPS dropouts (estimated position / signal lost), stop geofence entry, proximity alerts, breakdown rescue bus recommendations, and expired pass checks.
+
+---
+
+### How to Run
+
+#### Option 1: Zero-Install Static Server (Recommended)
+You can open `index.html` directly using any HTTP server:
+```bash
+# Using Python
+python -m http.server 3000
+
+# Or using npx
+npx serve . -p 3000
+```
+Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+#### Option 2: Modern Node.js / Vite Development
+```bash
+# Install dependencies
+npm install
+
+# Start Vite dev server
+npm run dev
+
+# Or build for production
+npm run build
+```
