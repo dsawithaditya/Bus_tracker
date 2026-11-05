@@ -59,11 +59,11 @@ function startGpsSimulation() {
     const bus = state.buses.bus_14;
     if (bus.status === 'breakdown' || bus.status === 'done') return;
 
-    // Advance bus progress smoothly along Route 14
+    // Advance bus progress smoothly along Route 335-E
     bus.progressIndex = (bus.progressIndex + 0.008) % 1.0;
     
-    // Calculate current interpolated position along Route 14 path
-    const route = state.routes.find(r => r.id === 'route_14');
+    // Calculate current interpolated position along Route 335-E path
+    const route = state.routes.find(r => r.id === 'route_335e');
     if (route && route.path.length > 1) {
       const totalSegments = route.path.length - 1;
       const exactIndex = bus.progressIndex * totalSegments;
@@ -199,9 +199,9 @@ function initDemoSuite() {
 
 // Initial Bootstrapping
 window.addEventListener('DOMContentLoaded', () => {
-  // Initialize Leaflet Map
+  // Initialize Google Maps Controller centered on Bangalore Transit Corridor
   mapController = new CampusMapController('leaflet-map-container');
-  mapController.init(12.9785, 77.6010, 15);
+  mapController.init(12.9650, 77.6500, 13);
   mapController.drawRoutes(state.routes);
   mapController.drawStops(state.stops, (stop) => {
     showToast(`🚏 Stop: <strong>${stop.name}</strong> • Geofence Radius: 150m. Distance: ${stop.distanceFromStart}m`, 'indigo');
@@ -218,6 +218,26 @@ window.addEventListener('DOMContentLoaded', () => {
   const focusBtn = document.getElementById('recenter-bus-btn');
   if (focusBtn) {
     focusBtn.onclick = () => mapController.panToBus('bus_14');
+  }
+
+  // Google Maps Style Switcher (Dark -> Satellite -> Standard)
+  const mapLayerBtn = document.getElementById('toggle-map-layer-btn');
+  const mapLayerLabel = document.getElementById('map-layer-label');
+  if (mapLayerBtn) {
+    const styles = ['google-dark', 'google-satellite', 'google-standard'];
+    const labels = {
+      'google-dark': 'Satellite',
+      'google-satellite': 'Standard',
+      'google-standard': 'Dark Mode'
+    };
+    let currentIdx = 0;
+    mapLayerBtn.onclick = () => {
+      currentIdx = (currentIdx + 1) % styles.length;
+      const nextStyle = styles[currentIdx];
+      mapController.setGoogleMapStyle(nextStyle);
+      if (mapLayerLabel) mapLayerLabel.textContent = labels[nextStyle];
+      showToast(`Google Maps view: ${nextStyle.replace('google-', '').toUpperCase()}`, 'indigo');
+    };
   }
 
   // Language toggle
@@ -313,7 +333,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Welcome Toast
   setTimeout(() => {
-    showToast('Campus Transit live. Real-time bus positions and stop arrival estimates active.', 'emerald');
+    showToast('Bangalore BMTC Transit live. Real-time bus positions and Google Maps active.', 'emerald');
   }, 1000);
 });
 

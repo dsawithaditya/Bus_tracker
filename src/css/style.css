@@ -57,6 +57,16 @@ body {
   letter-spacing: -0.02em;
 }
 
+/* Google Maps Dark Mode Filter & Attribution */
+.google-maps-dark {
+  filter: invert(100%) hue-rotate(180deg) brightness(95%) contrast(92%);
+}
+
+.google-maps-attribution {
+  margin-left: 12px;
+  margin-bottom: 12px;
+}
+
 /* Glass Header & Surfaces */
 .glass-header {
   background: rgba(9, 13, 22, 0.85);

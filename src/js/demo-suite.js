@@ -59,26 +59,27 @@ export class DemoSuite {
 
   // Run Test Case T5: Bus enters stop circle slowly (<10 km/h) -> Arrival logged
   runT5() {
+    const targetStop = state.stops.stop_marathahalli || Object.values(state.stops)[3];
     updateBusTelemetry('bus_14', {
       speed: 8,
-      lat: state.stops.stop_3.lat,
-      lon: state.stops.stop_3.lon,
-      currentStopIndex: 3
+      lat: targetStop.lat,
+      lon: targetStop.lon,
+      currentStopIndex: 5
     });
-    this.showToast('Test T5: Bus entered Market Circle radius (<10 km/h). Stop arrival logged.', 'emerald');
+    this.showToast(`Test T5: Bus entered ${targetStop.name} radius (<10 km/h). Stop arrival logged.`, 'emerald');
     return 'PASS: Arrival logged and timeline updated';
   }
 
   // Run Test Case T6: Alert set to 5 min away fires once
   runT6() {
-    this.showToast('Test T6: Proximity alert: Bus 14 is 5 minutes from Gate 2.', 'indigo');
+    this.showToast('Test T6: Proximity alert: Bus 335-E is 5 minutes from Domlur (Old Airport Rd).', 'indigo');
     return 'PASS: Notification fired once';
   }
 
   // Run Test Case T7: Driver taps Breakdown -> subscribers notified & rescue bus suggested
   runT7() {
     triggerDriverBreakdown('bus_14', 'Mechanical hold');
-    this.showToast('Test T7: Incident reported: Bus 14 stalled. Standby Bus 99 ready for dispatch.', 'coral');
+    this.showToast('Test T7: Incident reported: Bus 335-E stalled. Standby Unit 99-R ready for dispatch.', 'coral');
     return 'PASS: Breakdown broadcasted and rescue bus suggested';
   }
 
@@ -149,7 +150,7 @@ export class DemoSuite {
       {
         step: 3,
         title: "Proximity Alert",
-        desc: "Automated alert fires when bus reaches 5 minutes from Gate 2.",
+        desc: "Automated alert fires when bus reaches 5 minutes from Domlur Stop.",
         action: () => this.runT6()
       },
       {
@@ -161,12 +162,12 @@ export class DemoSuite {
       {
         step: 5,
         title: "Breakdown & Standby Dispatch",
-        desc: "Vehicle breakdown reported; standby Bus 99 assigned to take over route.",
+        desc: "Vehicle breakdown reported; standby Unit 99-R assigned to take over BMTC Route 335-E.",
         action: () => {
           this.runT7();
           setTimeout(() => {
             setView('admin');
-            setTimeout(() => assignRescueBus('bus_99', 'route_14'), 1200);
+            setTimeout(() => assignRescueBus('bus_99', 'route_335e'), 1200);
           }, 1000);
         }
       },

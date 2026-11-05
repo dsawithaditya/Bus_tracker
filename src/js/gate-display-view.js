@@ -6,51 +6,51 @@ import { translations } from './translations.js';
 export function renderGateDisplayView(containerEl) {
   const t = translations[state.language] || translations.en;
   
-  // Next 6 departures
+  // Next 6 departures from Kempegowda Bus Station (Majestic) / Domlur Hub
   const departures = [
     {
-      routeNum: '14',
-      dest: 'Main Campus Quad via Gate 2',
+      routeNum: '335-E',
+      dest: 'Kadugodi / ITPL via Domlur & Marathahalli',
       bay: 'Bay 1',
       scheduled: '08:40 AM',
-      etaMin: 6,
+      etaMin: 4,
       status: state.buses.bus_14.status === 'breakdown' ? 'BREAKDOWN' : (state.buses.bus_14.delayMinutes > 5 ? 'DELAYED' : 'ON TIME'),
       delay: state.buses.bus_14.delayMinutes,
       accessible: true
     },
     {
-      routeNum: '7',
-      dest: 'Tech Complex via Metro Terminal',
+      routeNum: '500-D',
+      dest: 'Hebbal via Outer Ring Road (Silk Board)',
       bay: 'Bay 3',
       scheduled: '08:45 AM',
-      etaMin: 11,
+      etaMin: 9,
       status: 'DELAYED',
       delay: 8,
-      accessible: false
+      accessible: true
     },
     {
-      routeNum: '21',
-      dest: 'Medical Center & Faculty Quarters',
+      routeNum: '365',
+      dest: 'Electronic City Phase 1 via Silk Board',
       bay: 'Bay 2',
       scheduled: '08:50 AM',
-      etaMin: 16,
+      etaMin: 14,
       status: 'ON TIME',
       delay: 0,
       accessible: true
     },
     {
-      routeNum: '14B',
-      dest: 'Hostel Block (Return Loop)',
+      routeNum: '335-E',
+      dest: 'Majestic Terminal (Return Express)',
       bay: 'Bay 1',
       scheduled: '09:00 AM',
-      etaMin: 26,
+      etaMin: 24,
       status: 'ON TIME',
       delay: 0,
       accessible: true
     },
     {
-      routeNum: '99',
-      dest: 'Depot Standby / Rescue Ready',
+      routeNum: '99-R',
+      dest: 'Domlur Depot Standby / Rescue Ready',
       bay: 'Bay 4',
       scheduled: 'STANDBY',
       etaMin: 0,
@@ -59,11 +59,11 @@ export function renderGateDisplayView(containerEl) {
       accessible: true
     },
     {
-      routeNum: '3',
-      dest: 'City South Gate Express',
-      bay: 'Bay 2',
+      routeNum: 'KIA-8',
+      dest: 'Kempegowda International Airport (Vayu Vajra)',
+      bay: 'Bay 5',
       scheduled: '09:15 AM',
-      etaMin: 41,
+      etaMin: 35,
       status: 'ON TIME',
       delay: 1,
       accessible: true
@@ -82,8 +82,8 @@ export function renderGateDisplayView(containerEl) {
             🚌
           </div>
           <div>
-            <h1 class="text-xl md:text-2xl font-bold tracking-tight">Gate 1 • Live Departures</h1>
-            <div class="text-xs text-slate-400">Campus Transit Authority</div>
+            <h1 class="text-xl md:text-2xl font-bold tracking-tight">Majestic Terminal • Live Departures</h1>
+            <div class="text-xs text-slate-400">Bangalore Metropolitan Transport Corporation (BMTC)</div>
           </div>
         </div>
 

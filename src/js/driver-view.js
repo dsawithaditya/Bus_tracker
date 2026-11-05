@@ -13,7 +13,7 @@ export function renderDriverView(containerEl) {
       <!-- Driver Top Header -->
       <div class="bento-card p-4 flex items-center justify-between border-slate-800">
         <div>
-          <div class="text-[11px] text-slate-400 font-medium">Driver Console • Route 14</div>
+          <div class="text-[11px] text-slate-400 font-medium">Driver Console • BMTC Route 335-E</div>
           <div class="text-base font-bold text-white font-mono mt-0.5">Bus ${bus.number} (${bus.regNo})</div>
           <div class="text-xs text-slate-400">Driver: ${bus.driverName}</div>
         </div>
@@ -38,7 +38,7 @@ export function renderDriverView(containerEl) {
         </div>
         <div class="bento-card p-3">
           <div class="text-[10px] text-slate-400 uppercase font-semibold">Next Stop</div>
-          <div class="text-xs font-semibold text-indigo-400 truncate mt-1">Market Circle</div>
+          <div class="text-xs font-semibold text-indigo-400 truncate mt-1">Domlur Bridge</div>
         </div>
       </div>
 

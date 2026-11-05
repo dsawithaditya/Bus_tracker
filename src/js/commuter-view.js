@@ -44,9 +44,9 @@ export function renderCommuterView(containerEl, onBusSelect) {
       <div class="bento-card p-4 relative overflow-hidden bg-gradient-to-br from-[#111827] to-[#151e33] border border-[#1F2937]">
         <div class="flex items-center justify-between border-b border-slate-800 pb-2.5 mb-3">
           <div class="flex items-center gap-2">
-            <span class="text-xs font-bold text-white tracking-wide">Route 14 • Bus ${currentBus.number}</span>
-            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-400 font-mono">
-              Class ${state.currentUser.firstClassTime}
+            <span class="text-xs font-bold text-white tracking-wide">BMTC Route ${currentBus.number}</span>
+            <span class="text-[10px] px-2 py-0.5 rounded-full bg-slate-800 text-slate-300 font-mono">
+              ${currentBus.regNo}
             </span>
           </div>
 
@@ -133,9 +133,9 @@ export function renderCommuterView(containerEl, onBusSelect) {
         <div class="flex items-center justify-between mb-3 pb-2 border-b border-slate-800">
           <div class="flex items-center gap-2">
             <span class="w-2 h-2 rounded-full bg-indigo-500"></span>
-            <span class="font-bold text-xs text-white">Route 14 Timeline</span>
+            <span class="font-bold text-xs text-white">Route 335-E (Old Airport Rd Corridor)</span>
           </div>
-          <span class="text-[10px] text-slate-400 font-mono">6 Stops Total</span>
+          <span class="text-[10px] text-slate-400 font-mono">Majestic → ITPL</span>
         </div>
 
         <div class="space-y-2.5 relative pl-3">
@@ -145,7 +145,7 @@ export function renderCommuterView(containerEl, onBusSelect) {
           <div class="flex items-center justify-between text-xs text-slate-500 py-0.5">
             <div class="flex items-center gap-3">
               <span class="w-3.5 h-3.5 rounded-full bg-slate-800 border-2 border-slate-700 z-10"></span>
-              <span class="line-through text-slate-500 text-[11px]">Hostel Block</span>
+              <span class="line-through text-slate-500 text-[11px]">Majestic (KBS)</span>
             </div>
             <span class="text-[10px] text-slate-600 font-mono">Passed</span>
           </div>
@@ -153,7 +153,15 @@ export function renderCommuterView(containerEl, onBusSelect) {
           <div class="flex items-center justify-between text-xs text-slate-500 py-0.5">
             <div class="flex items-center gap-3">
               <span class="w-3.5 h-3.5 rounded-full bg-slate-800 border-2 border-slate-700 z-10"></span>
-              <span class="line-through text-slate-500 text-[11px]">Library Road</span>
+              <span class="line-through text-slate-500 text-[11px]">Richmond Circle</span>
+            </div>
+            <span class="text-[10px] text-slate-600 font-mono">Passed</span>
+          </div>
+
+          <div class="flex items-center justify-between text-xs text-slate-500 py-0.5">
+            <div class="flex items-center gap-3">
+              <span class="w-3.5 h-3.5 rounded-full bg-slate-800 border-2 border-slate-700 z-10"></span>
+              <span class="line-through text-slate-500 text-[11px]">Domlur Flyover</span>
             </div>
             <span class="text-[10px] text-slate-600 font-mono">Passed</span>
           </div>
@@ -161,17 +169,17 @@ export function renderCommuterView(containerEl, onBusSelect) {
           <!-- Active Bus Indicator -->
           <div class="relative py-0.5 flex items-center pl-7 text-[11px] text-indigo-400 font-semibold">
             <span class="absolute left-2 w-4 h-4 rounded-full bg-indigo-600 border border-indigo-400 flex items-center justify-center text-[9px] text-white font-mono z-10">
-              14
+              335
             </span>
             <span class="bg-indigo-950/70 px-2 py-0.5 rounded border border-indigo-500/30 text-[10px]">
-              En route to Market Circle (${currentBus.speed} km/h)
+              Crossing HAL Gate (${currentBus.speed} km/h)
             </span>
           </div>
 
           <div class="flex items-center justify-between text-xs text-slate-200 py-0.5">
             <div class="flex items-center gap-3">
               <span class="w-3.5 h-3.5 rounded-full bg-indigo-500 border-2 border-indigo-400 z-10"></span>
-              <span class="font-medium text-white text-[11px]">Market Circle</span>
+              <span class="font-medium text-white text-[11px]">Marathahalli Bridge</span>
             </div>
             <span class="text-xs font-mono text-indigo-400 font-semibold">3 min</span>
           </div>
@@ -179,7 +187,7 @@ export function renderCommuterView(containerEl, onBusSelect) {
           <div class="flex items-center justify-between text-xs text-slate-300 py-0.5">
             <div class="flex items-center gap-3">
               <span class="w-3.5 h-3.5 rounded-full bg-slate-700 border-2 border-slate-500 z-10"></span>
-              <span class="text-[11px]">Bus Depot</span>
+              <span class="text-[11px]">Kundalahalli Gate</span>
             </div>
             <span class="text-xs font-mono text-slate-300">7 min</span>
           </div>
@@ -187,7 +195,7 @@ export function renderCommuterView(containerEl, onBusSelect) {
           <div class="flex items-center justify-between text-xs py-1 bg-emerald-950/20 px-2 rounded-lg border border-emerald-900/40">
             <div class="flex items-center gap-3">
               <span class="w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-emerald-300 z-10"></span>
-              <span class="font-semibold text-white text-[11px]">Gate 2 (Your Stop)</span>
+              <span class="font-semibold text-white text-[11px]">ITPL Tech Park (Your Stop)</span>
             </div>
             <span class="text-xs font-mono font-bold text-emerald-400">11 min</span>
           </div>
@@ -195,9 +203,9 @@ export function renderCommuterView(containerEl, onBusSelect) {
           <div class="flex items-center justify-between text-xs text-slate-300 py-0.5">
             <div class="flex items-center gap-3">
               <span class="w-3.5 h-3.5 rounded-full bg-slate-700 border-2 border-slate-500 z-10"></span>
-              <span class="text-[11px]">Main Campus Quad</span>
+              <span class="text-[11px]">Kadugodi Bus Station</span>
             </div>
-            <span class="text-xs font-mono text-slate-300">14 min</span>
+            <span class="text-xs font-mono text-slate-300">16 min</span>
           </div>
         </div>
       </div>

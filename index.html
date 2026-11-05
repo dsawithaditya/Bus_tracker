@@ -166,7 +166,7 @@
           <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
           <span>Live Fleet Operations</span>
           <span class="text-slate-600">|</span>
-          <span class="text-slate-400 font-normal">Route 14 Active</span>
+          <span class="text-slate-400 font-normal">BMTC Route 335-E Active</span>
         </div>
 
         <!-- 4-Pillar Portal Tabs Switcher -->
@@ -218,11 +218,15 @@
               <span class="text-slate-300 hidden sm:inline font-mono" id="hud-shift-stat">next shift 01:15 PM</span>
             </div>
 
-            <!-- Recenter Button -->
-            <div class="absolute bottom-6 left-4 z-[400]">
-              <button id="recenter-bus-btn" class="glass-card px-3 py-1.5 rounded-xl text-xs font-medium text-white hover:text-indigo-400 transition flex items-center gap-1.5">
+            <!-- Map Controls Overlay -->
+            <div class="absolute bottom-6 left-4 z-[400] flex items-center gap-2">
+              <button id="recenter-bus-btn" class="glass-card px-3 py-1.5 rounded-xl text-xs font-medium text-white hover:text-indigo-400 transition flex items-center gap-1.5 shadow-lg">
                 <span>🎯</span>
-                <span>Focus Bus 14</span>
+                <span>Focus 335-E</span>
+              </button>
+              <button id="toggle-map-layer-btn" class="glass-card px-3 py-1.5 rounded-xl text-xs font-medium text-white hover:text-indigo-400 transition flex items-center gap-1.5 shadow-lg" title="Switch Google Maps Style">
+                <span>🗺️</span>
+                <span id="map-layer-label">Satellite</span>
               </button>
             </div>
 
@@ -236,8 +240,8 @@
                   <h3 class="text-xs font-semibold text-white uppercase tracking-wider">Fast Departures</h3>
                   <div class="p-3 bg-[#0B101D] rounded-lg border border-slate-800 flex justify-between items-center">
                     <div>
-                      <div class="font-bold text-white text-xs">Route 14 • Bus 14</div>
-                      <div class="text-[11px] text-slate-400">Approaching Market Circle (32 km/h)</div>
+                      <div class="font-bold text-white text-xs">Route 335-E • Volvo Vajra</div>
+                      <div class="text-[11px] text-slate-400">Approaching Domlur (34 km/h)</div>
                     </div>
                     <div class="text-right font-mono">
                       <div class="text-base font-bold text-emerald-400">06:24</div>
@@ -276,55 +280,55 @@
   <!-- CAMPUS ROUTES OVERVIEW -->
   <section id="routes" class="py-16 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800/80">
     <div class="text-center mb-10">
-      <h2 class="text-2xl md:text-3xl font-black text-white">Campus Routes & Stops</h2>
+      <h2 class="text-2xl md:text-3xl font-black text-white">Bangalore Transit Corridors</h2>
       <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-xl mx-auto">
-        Scheduled loop lines connecting student residences, departments, and transit terminals.
+        High-frequency BMTC commuter corridors mapped live with Google Maps.
       </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-      <!-- Route 14 -->
+      <!-- Route 335-E -->
       <div class="bento-card p-5">
         <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
           <div class="flex items-center gap-2">
-            <span class="w-6 h-6 rounded bg-indigo-900 text-indigo-300 font-mono flex items-center justify-center font-bold text-xs">14</span>
-            <span class="font-bold text-sm text-white">Hostel to Main Campus</span>
+            <span class="w-12 h-6 rounded bg-indigo-900 text-indigo-300 font-mono flex items-center justify-center font-bold text-xs">335-E</span>
+            <span class="font-bold text-sm text-white">Majestic to ITPL / Kadugodi</span>
+          </div>
+          <span class="text-[11px] font-mono text-emerald-400 font-medium">Every 10 min</span>
+        </div>
+        <p class="text-xs text-slate-400 mb-3">Volvo Vajra express along Old Airport Road linking Majestic central terminal to Whitefield tech parks.</p>
+        <div class="text-[11px] text-slate-300 space-y-1 font-mono">
+          <div>Stops: Majestic → Richmond Circle → Domlur → HAL Gate → Marathahalli → ITPL</div>
+        </div>
+      </div>
+
+      <!-- Route 500-D -->
+      <div class="bento-card p-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-12 h-6 rounded bg-emerald-900 text-emerald-300 font-mono flex items-center justify-center font-bold text-xs">500-D</span>
+            <span class="font-bold text-sm text-white">Silk Board to Hebbal (ORR)</span>
+          </div>
+          <span class="text-[11px] font-mono text-emerald-400 font-medium">Every 12 min</span>
+        </div>
+        <p class="text-xs text-slate-400 mb-3">Electric AC express across the Outer Ring Road tech corridor connecting Bellandur, Marathahalli & Manyata.</p>
+        <div class="text-[11px] text-slate-300 space-y-1 font-mono">
+          <div>Stops: Silk Board → HSR → Bellandur EcoSpace → Tin Factory → Manyata → Hebbal</div>
+        </div>
+      </div>
+
+      <!-- Route 365 -->
+      <div class="bento-card p-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-12 h-6 rounded bg-amber-900 text-amber-300 font-mono flex items-center justify-center font-bold text-xs">365</span>
+            <span class="font-bold text-sm text-white">Majestic to Electronic City</span>
           </div>
           <span class="text-[11px] font-mono text-emerald-400 font-medium">Every 15 min</span>
         </div>
-        <p class="text-xs text-slate-400 mb-3">Primary student corridor linking hostel clusters to central academic blocks.</p>
+        <p class="text-xs text-slate-400 mb-3">South corridor express along Hosur Road connecting Central Bangalore with Electronic City Phase 1.</p>
         <div class="text-[11px] text-slate-300 space-y-1 font-mono">
-          <div>Stops: Hostel Block → Library Road → Market Circle → Bus Depot → Gate 2 → Main Campus</div>
-        </div>
-      </div>
-
-      <!-- Route 7 -->
-      <div class="bento-card p-5">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
-          <div class="flex items-center gap-2">
-            <span class="w-6 h-6 rounded bg-emerald-900 text-emerald-300 font-mono flex items-center justify-center font-bold text-xs">7</span>
-            <span class="font-bold text-sm text-white">Metro to Tech Complex</span>
-          </div>
-          <span class="text-[11px] font-mono text-emerald-400 font-medium">Every 20 min</span>
-        </div>
-        <p class="text-xs text-slate-400 mb-3">Shuttle service connecting city metro arrivals with engineering departments.</p>
-        <div class="text-[11px] text-slate-300 space-y-1 font-mono">
-          <div>Stops: Metro Terminal → South Ave → Tech Park Gate → Main Campus</div>
-        </div>
-      </div>
-
-      <!-- Route 21 -->
-      <div class="bento-card p-5">
-        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
-          <div class="flex items-center gap-2">
-            <span class="w-6 h-6 rounded bg-amber-900 text-amber-300 font-mono flex items-center justify-center font-bold text-xs">21</span>
-            <span class="font-bold text-sm text-white">Faculty & Health Center</span>
-          </div>
-          <span class="text-[11px] font-mono text-emerald-400 font-medium">Every 30 min</span>
-        </div>
-        <p class="text-xs text-slate-400 mb-3">Connects staff quarters, medical clinic, and graduate research centers.</p>
-        <div class="text-[11px] text-slate-300 space-y-1 font-mono">
-          <div>Stops: Faculty Enclave → Health Center → Main Campus Quad</div>
+          <div>Stops: Majestic → Corporation → Lalbagh → St. John's → Silk Board → Electronic City</div>
         </div>
       </div>
     </div>

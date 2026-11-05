@@ -47,13 +47,13 @@ export function renderAdminView(containerEl) {
                 Stalled on ${state.routes.find(r => r.id === breakdownBus.routeId)?.name || 'Route'} • Driver: ${breakdownBus.driverName}
               </div>
               <div class="text-[11px] text-amber-300 font-medium mt-0.5">
-                Recommendation: Standby Bus 99 is ready at Depot (4 min away).
+                Recommendation: Standby Bus 99-R is ready at Domlur Depot (4 min away).
               </div>
             </div>
           </div>
           <div>
             <button id="dispatch-rescue-bus-btn" class="px-4 py-2 rounded-xl bg-red-600 hover:bg-red-500 text-white text-xs font-bold tracking-wide transition whitespace-nowrap shadow-md">
-              Dispatch Standby Bus 99
+              Dispatch Standby Bus 99-R
             </button>
           </div>
         </div>
@@ -76,13 +76,13 @@ export function renderAdminView(containerEl) {
         <div class="bento-card p-3.5">
           <div class="text-[11px] text-slate-400 uppercase font-semibold">Delays (&gt;5m)</div>
           <div class="text-2xl font-bold font-mono mt-0.5 ${delayedCount > 0 ? 'text-amber-400' : 'text-slate-400'}">${delayedCount}</div>
-          <div class="text-[10px] text-slate-400 mt-0.5">South Ave bottleneck</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">Silk Board bottleneck</div>
         </div>
 
         <div class="bento-card p-3.5">
           <div class="text-[11px] text-slate-400 uppercase font-semibold">Standby Units</div>
           <div class="text-2xl font-bold text-indigo-400 font-mono mt-0.5">1 Ready</div>
-          <div class="text-[10px] text-slate-400 mt-0.5">Bus 99 at Campus Depot</div>
+          <div class="text-[10px] text-slate-400 mt-0.5">Bus 99-R at Domlur Depot</div>
         </div>
       </div>
 
