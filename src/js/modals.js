@@ -1,7 +1,7 @@
-// Rich Interactive Modals & Audio Chimes for Alerts and SOS
+// Interactive Modals & Audio Chimes for Alerts and SOS
 import { state } from './state.js';
 
-// Web Audio API Sound Synthesizer for notifications and emergency alerts
+// Web Audio API Sound Synthesizer for notifications and alerts
 export function playChime(type = 'notification') {
   try {
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -11,27 +11,24 @@ export function playChime(type = 'notification') {
     gain.connect(audioCtx.destination);
 
     if (type === 'notification') {
-      // Pleasant transit two-tone chime (F5 -> A5)
       osc.type = 'sine';
       osc.frequency.setValueAtTime(698.46, audioCtx.currentTime); // F5
       osc.frequency.setValueAtTime(880.00, audioCtx.currentTime + 0.15); // A5
-      gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.6);
+      gain.gain.setValueAtTime(0.2, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.5);
       osc.start();
-      osc.stop(audioCtx.currentTime + 0.6);
+      osc.stop(audioCtx.currentTime + 0.5);
     } else if (type === 'sos') {
-      // Urgent siren sweep
       osc.type = 'sawtooth';
       osc.frequency.setValueAtTime(880, audioCtx.currentTime);
       osc.frequency.linearRampToValueAtTime(440, audioCtx.currentTime + 0.3);
-      osc.frequency.linearRampToValueAtTime(880, audioCtx.currentTime + 0.6);
-      gain.gain.setValueAtTime(0.4, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.9);
+      gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.7);
       osc.start();
-      osc.stop(audioCtx.currentTime + 0.9);
+      osc.stop(audioCtx.currentTime + 0.7);
     }
   } catch (e) {
-    // Audio context may require user interaction first
+    // Audio context may require user gesture
   }
 }
 
@@ -54,58 +51,51 @@ export function initModals() {
 function getModalHTML(type) {
   if (type === 'alert') {
     return `
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-        <div class="bento-card p-6 max-w-md w-full bg-[#111827] border border-slate-700 shadow-2xl relative">
-          <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">&times;</button>
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="bento-card p-5 max-w-sm w-full bg-[#111827] border border-slate-700 shadow-2xl relative">
+          <button onclick="closeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">&times;</button>
           
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-3xl">🔔</span>
+          <div class="flex items-center gap-2.5 mb-3">
+            <span class="text-xl">🔔</span>
             <div>
-              <h3 class="text-lg font-bold text-white">Set Proximity Alert</h3>
-              <p class="text-xs text-slate-400">Get notified once when your bus reaches the trigger.</p>
+              <h3 class="text-sm font-bold text-white">Arrival Alert</h3>
+              <p class="text-xs text-slate-400">Receive a one-time alert before the bus reaches your stop.</p>
             </div>
           </div>
 
-          <div class="space-y-4">
+          <div class="space-y-3 text-xs">
             <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5 uppercase">Target Stop</label>
-              <select class="w-full px-3 py-2 rounded-xl bg-[#0B101D] border border-slate-700 text-xs text-white">
-                <option value="stop_5">Gate 2 (Your Saved Stop)</option>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Boarding Stop</label>
+              <select class="w-full px-3 py-1.5 rounded-lg bg-[#0B101D] border border-slate-700 text-xs text-white">
+                <option value="stop_5">Gate 2 (Default)</option>
                 <option value="stop_6">Main Campus Quad</option>
                 <option value="stop_3">Market Circle</option>
               </select>
             </div>
 
             <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5 uppercase">Trigger Threshold</label>
+              <label class="block text-[11px] font-semibold text-slate-300 mb-1">Alert Trigger</label>
               <div class="grid grid-cols-2 gap-2">
-                <button class="trigger-opt-btn p-3 rounded-xl bg-indigo-600/30 border border-indigo-500 text-xs font-bold text-indigo-300 text-left active">
-                  <div class="text-base font-black">5 Minutes Away</div>
-                  <div class="text-[10px] text-slate-400">Time-based trigger</div>
+                <button class="trigger-opt-btn p-2.5 rounded-lg bg-indigo-600/30 border border-indigo-500 text-left active">
+                  <div class="font-bold text-white text-xs">5 minutes away</div>
+                  <div class="text-[10px] text-slate-400">Time estimate</div>
                 </button>
-                <button class="trigger-opt-btn p-3 rounded-xl bg-slate-800 border border-slate-700 text-xs font-bold text-slate-300 text-left hover:border-slate-600">
-                  <div class="text-base font-black">2.0 km Away</div>
-                  <div class="text-[10px] text-slate-400">Geofence radial trigger</div>
+                <button class="trigger-opt-btn p-2.5 rounded-lg bg-slate-800 border border-slate-700 text-left hover:border-slate-600">
+                  <div class="font-bold text-white text-xs">2.0 km away</div>
+                  <div class="text-[10px] text-slate-400">Radial distance</div>
                 </button>
               </div>
             </div>
 
-            <div>
-              <label class="block text-xs font-semibold text-slate-300 mb-1.5 uppercase">Notification Channel</label>
-              <div class="space-y-2 text-xs text-slate-300">
-                <label class="flex items-center gap-2">
-                  <input type="checkbox" checked class="accent-indigo-500 rounded">
-                  <span>Web Push Notification (In-App & Browser)</span>
-                </label>
-                <label class="flex items-center gap-2">
-                  <input type="checkbox" checked class="accent-indigo-500 rounded">
-                  <span>Telegram Bot (@CampusTransitBot)</span>
-                </label>
-              </div>
+            <div class="pt-1">
+              <label class="flex items-center gap-2 text-slate-300 text-xs">
+                <input type="checkbox" checked class="accent-indigo-500 rounded">
+                <span>Browser and in-app push notification</span>
+              </label>
             </div>
 
-            <button id="save-alert-btn" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs uppercase tracking-wider transition">
-              Set Proximity Alarm
+            <button id="save-alert-btn" class="w-full py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs transition mt-2">
+              Save Alert
             </button>
           </div>
         </div>
@@ -119,58 +109,47 @@ function getModalHTML(type) {
     const currentTimeStr = new Date().toLocaleTimeString();
 
     return `
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-        <div class="bento-card p-6 max-w-sm w-full bg-[#111827] border border-slate-700 shadow-2xl relative text-center">
-          <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">&times;</button>
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="bento-card p-5 max-w-xs w-full bg-[#111827] border border-slate-700 shadow-2xl relative text-center">
+          <button onclick="closeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">&times;</button>
           
-          <div class="text-xs uppercase tracking-widest text-indigo-400 font-bold mb-1">University Transit System</div>
-          <h3 class="text-xl font-black text-white">Digital Boarding Pass</h3>
+          <div class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold mb-0.5">Student Transit Pass</div>
+          <h3 class="text-base font-bold text-white">${state.currentUser.name}</h3>
 
-          <!-- Moving Security Watermark Bar -->
-          <div class="my-3 py-1 px-3 rounded-lg bg-indigo-950/70 border border-indigo-500/40 text-[11px] text-indigo-300 font-mono flex items-center justify-between">
-            <span class="flex items-center gap-1.5"><span class="pulse-dot emerald"></span> VERIFIED</span>
+          <!-- Watermark clock -->
+          <div class="my-2.5 py-1 px-2.5 rounded-lg bg-slate-900 border border-slate-800 text-[11px] font-mono flex items-center justify-between">
+            <span class="flex items-center gap-1.5 text-emerald-400 font-semibold"><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span> VALID</span>
             <span class="text-white font-bold" id="live-pass-clock">${currentTimeStr}</span>
           </div>
 
-          <!-- Dynamic QR Code Representation -->
-          <div class="p-4 bg-white rounded-2xl mx-auto my-3 inline-block shadow-lg">
-            <svg class="w-44 h-44 text-slate-900 mx-auto" viewBox="0 0 100 100">
+          <!-- QR Code representation -->
+          <div class="p-3 bg-white rounded-xl mx-auto my-2 inline-block">
+            <svg class="w-36 h-36 text-slate-900 mx-auto" viewBox="0 0 100 100">
               <path fill="currentColor" d="M10 10h30v30h-30zM15 15v20h20v-20zM22 22h6v6h-6zM60 10h30v30h-30zM65 15v20h20v-20zM72 22h6v6h-6zM10 60h30v30h-30zM15 65v20h20v-20zM22 72h6v6h-6zM50 15h5v5h-5zM45 25h10v5h-10zM55 35h5v5h-5zM60 50h5v10h-5zM50 60h8v5h-8zM70 60h5v5h-5zM80 60h10v5h-10zM50 70h5v8h-5zM65 70h10v5h-10zM80 75h10v10h-10zM60 85h15v5h-15zM45 80h5v10h-5zM50 50h5v5h-5z"/>
             </svg>
           </div>
 
           <!-- Pass Details -->
-          <div class="text-left space-y-1 text-xs text-slate-300 bg-slate-900/80 p-3 rounded-xl border border-slate-800">
-            <div class="flex justify-between">
-              <span class="text-slate-400">Student:</span>
-              <span class="font-bold text-white">${state.currentUser.name}</span>
-            </div>
+          <div class="text-left space-y-1 text-xs text-slate-300 bg-slate-900 p-2.5 rounded-lg border border-slate-800">
             <div class="flex justify-between">
               <span class="text-slate-400">Roll No:</span>
               <span class="font-mono text-white">${state.currentUser.rollNo}</span>
             </div>
             <div class="flex justify-between">
-              <span class="text-slate-400">Valid Routes:</span>
-              <span class="text-indigo-400 font-bold">ALL ROUTES (14, 7, 21)</span>
-            </div>
-            <div class="flex justify-between">
-              <span class="text-slate-400">Semester Expiry:</span>
-              <span class="text-slate-300 font-mono">${p.validTo}</span>
+              <span class="text-slate-400">Valid Through:</span>
+              <span class="font-mono text-slate-300">${p.validTo}</span>
             </div>
             <div class="flex justify-between items-center pt-1 border-t border-slate-800">
-              <span class="text-slate-400">Fee Status:</span>
-              <span class="px-2 py-0.5 rounded text-[11px] font-bold ${
+              <span class="text-slate-400">Status:</span>
+              <span class="px-2 py-0.2 rounded text-[10px] font-semibold ${
                 isFeeActive ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30' : 'bg-red-500/20 text-red-400 border border-red-500/30'
               }">${p.feeStatus}</span>
             </div>
           </div>
 
-          <!-- Test Toggle Button for Demo T12 -->
-          <div class="mt-3">
-            <button id="toggle-pass-status-btn" class="text-[11px] text-slate-400 underline hover:text-slate-200">
-              Toggle Fee Status (Demo T12 Expired Pass)
-            </button>
-          </div>
+          <button id="toggle-pass-status-btn" class="mt-2 text-[10px] text-slate-400 hover:text-slate-200 underline">
+            Toggle Status (Simulate Test T12)
+          </button>
         </div>
       </div>
     `;
@@ -179,28 +158,28 @@ function getModalHTML(type) {
   if (type === 'sos') {
     const bus = state.buses.bus_14;
     return `
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md animate-fade-in">
-        <div class="bento-card p-6 max-w-md w-full bg-[#111827] border-2 border-red-500/80 shadow-2xl relative text-left">
-          <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">&times;</button>
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/85 backdrop-blur-md">
+        <div class="bento-card p-5 max-w-sm w-full bg-[#111827] border border-red-500/70 shadow-2xl relative text-left">
+          <button onclick="closeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">&times;</button>
           
-          <div class="flex items-center gap-3 mb-4">
-            <div class="w-12 h-12 rounded-2xl bg-red-600/30 border border-red-500 flex items-center justify-center text-3xl animate-pulse">
+          <div class="flex items-center gap-2.5 mb-3">
+            <div class="w-9 h-9 rounded-xl bg-red-600/20 border border-red-500 flex items-center justify-center text-lg text-red-400">
               🚨
             </div>
             <div>
-              <h3 class="text-lg font-black text-white">Emergency SOS & Safe-Drop</h3>
-              <p class="text-xs text-red-300">Instant Alert to Campus Security & Warden</p>
+              <h3 class="text-sm font-bold text-white">Emergency Safety Alert</h3>
+              <p class="text-xs text-red-300">Direct notification to Campus Security</p>
             </div>
           </div>
 
-          <div class="space-y-3 text-xs">
-            <div class="p-3 rounded-xl bg-slate-900 border border-slate-800 space-y-1">
+          <div class="space-y-2.5 text-xs">
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800 space-y-1">
               <div class="flex justify-between">
-                <span class="text-slate-400">Current Trip:</span>
+                <span class="text-slate-400">Bus:</span>
                 <span class="font-bold text-white">Bus 14 (Route 14)</span>
               </div>
               <div class="flex justify-between">
-                <span class="text-slate-400">Live GPS Coordinates:</span>
+                <span class="text-slate-400">Coordinates:</span>
                 <span class="font-mono text-emerald-400">${bus.lat.toFixed(4)}, ${bus.lon.toFixed(4)}</span>
               </div>
               <div class="flex justify-between">
@@ -209,20 +188,18 @@ function getModalHTML(type) {
               </div>
             </div>
 
-            <div class="p-3 rounded-xl bg-indigo-950/40 border border-indigo-500/30">
-              <div class="font-bold text-indigo-300 mb-1">🔗 Shareable Trip Safe-Drop Link:</div>
-              <div class="flex items-center gap-2">
-                <input type="text" readonly value="https://campusbus.live/trip/share/TRIP-1402-AARAV" class="flex-1 px-2.5 py-1.5 rounded-lg bg-slate-900 border border-slate-700 text-[11px] font-mono text-slate-300">
-                <button onclick="navigator.clipboard?.writeText('https://campusbus.live/trip/share/TRIP-1402-AARAV'); alert('Trip link copied! Valid for 2 hours.');" class="px-3 py-1.5 rounded-lg bg-indigo-600 text-white font-bold text-xs hover:bg-indigo-500">
+            <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
+              <div class="text-[11px] font-medium text-indigo-300 mb-1">Shareable Live Trip Link:</div>
+              <div class="flex items-center gap-1.5">
+                <input type="text" readonly value="https://campusbus.live/trip/share/TRIP-1402" class="flex-1 px-2 py-1 rounded bg-[#0B101D] border border-slate-700 text-[10px] font-mono text-slate-300">
+                <button onclick="navigator.clipboard?.writeText('https://campusbus.live/trip/share/TRIP-1402'); alert('Trip link copied.');" class="px-2.5 py-1 rounded bg-indigo-600 text-white font-semibold text-xs hover:bg-indigo-500">
                   Copy
                 </button>
               </div>
-              <div class="text-[10px] text-slate-400 mt-1">Parents/warden can follow real-time bus movement without logging in.</div>
             </div>
 
-            <!-- ONE-TAP EMERGENCY TRIGGER -->
-            <button id="trigger-emergency-btn" class="w-full py-4 rounded-xl bg-red-600 hover:bg-red-500 text-white font-black text-sm uppercase tracking-wider shadow-lg shadow-red-600/40 transition">
-              🚨 TRIGGER LIVE SOS DISPATCH
+            <button id="trigger-emergency-btn" class="w-full py-2.5 rounded-xl bg-red-600 hover:bg-red-500 text-white font-bold text-xs tracking-wide transition mt-1 shadow-md">
+              Send Emergency SOS
             </button>
           </div>
         </div>
@@ -232,38 +209,38 @@ function getModalHTML(type) {
 
   if (type === 'lost_found') {
     return `
-      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-        <div class="bento-card p-6 max-w-md w-full bg-[#111827] border border-slate-700 shadow-2xl relative">
-          <button onclick="closeModal()" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">&times;</button>
+      <div class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
+        <div class="bento-card p-5 max-w-sm w-full bg-[#111827] border border-slate-700 shadow-2xl relative">
+          <button onclick="closeModal()" class="absolute top-3.5 right-3.5 text-slate-400 hover:text-white text-lg">&times;</button>
           
-          <div class="flex items-center gap-3 mb-4">
-            <span class="text-3xl">🎒</span>
+          <div class="flex items-center gap-2.5 mb-3">
+            <span class="text-xl">🎒</span>
             <div>
-              <h3 class="text-lg font-bold text-white">Lost & Found Bus Ledger</h3>
-              <p class="text-xs text-slate-400">Items tagged to bus number and trip timestamp</p>
+              <h3 class="text-sm font-bold text-white">Lost & Found</h3>
+              <p class="text-xs text-slate-400">Items tagged by bus number and trip date</p>
             </div>
           </div>
 
-          <div class="space-y-3">
+          <div class="space-y-2 text-xs">
             ${state.lostAndFound.map(item => `
-              <div class="p-3 rounded-xl bg-slate-900/90 border border-slate-800 text-xs">
+              <div class="p-2.5 rounded-lg bg-slate-900 border border-slate-800">
                 <div class="flex justify-between items-start">
-                  <div class="font-bold text-white">${item.item}</div>
-                  <span class="px-2 py-0.5 rounded text-[10px] font-bold ${
-                    item.status === 'returned' ? 'bg-slate-800 text-slate-400' : 'bg-amber-500/20 text-amber-300 border border-amber-500/40'
-                  }">${item.status === 'returned' ? 'Returned to Owner' : 'Held at Transport Office'}</span>
+                  <span class="font-semibold text-white">${item.item}</span>
+                  <span class="px-1.5 py-0.2 rounded text-[10px] font-medium ${
+                    item.status === 'returned' ? 'bg-slate-800 text-slate-400' : 'bg-amber-500/20 text-amber-300'
+                  }">${item.status === 'returned' ? 'Returned' : 'Held at Office'}</span>
                 </div>
-                <div class="text-[11px] text-slate-400 mt-1">
-                  Bus ${item.busNumber} • ${item.tripTime} • Reported by: ${item.reportedBy}
+                <div class="text-[10px] text-slate-400 mt-0.5">
+                  Bus ${item.busNumber} • ${item.tripTime}
                 </div>
               </div>
             `).join('')}
 
-            <div class="pt-3 border-t border-slate-800">
-              <div class="text-xs font-semibold text-slate-300 mb-2">Report a Lost Item on Bus</div>
+            <div class="pt-2 border-t border-slate-800">
+              <div class="text-[11px] font-medium text-slate-300 mb-1">Report a Found or Lost Item</div>
               <div class="flex gap-2">
-                <input type="text" id="lf-item-input" placeholder="e.g. Blue umbrella left on Bus 14..." class="flex-1 px-3 py-2 rounded-xl bg-[#0B101D] border border-slate-700 text-xs text-white">
-                <button id="lf-submit-btn" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs">Report</button>
+                <input type="text" id="lf-item-input" placeholder="Item description and bus..." class="flex-1 px-2.5 py-1.5 rounded-lg bg-[#0B101D] border border-slate-700 text-xs text-white">
+                <button id="lf-submit-btn" class="px-3 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs">Log</button>
               </div>
             </div>
           </div>
@@ -274,38 +251,37 @@ function getModalHTML(type) {
 
   if (type === 'search') {
     return `
-      <div class="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/80 backdrop-blur-sm animate-fade-in">
-        <div class="bento-card p-4 max-w-lg w-full bg-[#111827] border border-slate-700 shadow-2xl relative">
-          <div class="flex items-center gap-3 border-b border-slate-800 pb-3">
-            <span class="text-lg text-slate-400">🔍</span>
-            <input type="text" id="cmd-input" placeholder="Search route, stop or bus number..." class="flex-1 bg-transparent text-sm text-white focus:outline-none" autofocus>
-            <kbd class="text-[10px] font-mono bg-slate-800 text-slate-400 px-2 py-0.5 rounded">ESC to close</kbd>
+      <div class="fixed inset-0 z-50 flex items-start justify-center pt-20 p-4 bg-black/80 backdrop-blur-sm">
+        <div class="bento-card p-3 max-w-md w-full bg-[#111827] border border-slate-700 shadow-2xl relative">
+          <div class="flex items-center gap-2 border-b border-slate-800 pb-2">
+            <span class="text-slate-400 text-sm">🔍</span>
+            <input type="text" id="cmd-input" placeholder="Search route, stop, or bus number..." class="flex-1 bg-transparent text-xs text-white focus:outline-none" autofocus>
+            <kbd class="text-[10px] font-mono bg-slate-800 text-slate-400 px-1.5 py-0.5 rounded">ESC</kbd>
           </div>
 
-          <div class="mt-3 space-y-1 text-xs">
-            <div class="text-[11px] uppercase tracking-wider text-slate-400 font-bold px-2 py-1">Quick Suggestions</div>
-            <button class="cmd-jump-btn w-full p-2.5 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white" data-target="route_14">
+          <div class="mt-2 space-y-1 text-xs">
+            <button class="cmd-jump-btn w-full p-2 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white" data-target="route_14">
               <div class="flex items-center gap-2">
-                <span class="w-6 h-6 rounded bg-indigo-900 text-indigo-300 font-mono flex items-center justify-center font-bold text-xs">14</span>
+                <span class="w-5 h-5 rounded bg-indigo-900 text-indigo-300 font-mono flex items-center justify-center font-bold text-xs">14</span>
                 <span>Route 14 (Hostel to Main Campus)</span>
               </div>
-              <span class="text-emerald-400 font-mono text-[11px]">Live (3 min away)</span>
+              <span class="text-emerald-400 font-mono text-[10px]">On time</span>
             </button>
 
-            <button class="cmd-jump-btn w-full p-2.5 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white" data-target="route_7">
+            <button class="cmd-jump-btn w-full p-2 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white" data-target="route_7">
               <div class="flex items-center gap-2">
-                <span class="w-6 h-6 rounded bg-emerald-900 text-emerald-300 font-mono flex items-center justify-center font-bold text-xs">7</span>
+                <span class="w-5 h-5 rounded bg-emerald-900 text-emerald-300 font-mono flex items-center justify-center font-bold text-xs">7</span>
                 <span>Route 7 (Metro to Tech Complex)</span>
               </div>
-              <span class="text-amber-400 font-mono text-[11px]">Delayed (+8m)</span>
+              <span class="text-amber-400 font-mono text-[10px]">+8m delay</span>
             </button>
 
-            <button class="cmd-jump-btn w-full p-2.5 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white" data-target="stop_5">
+            <button class="cmd-jump-btn w-full p-2 rounded-lg hover:bg-slate-800 flex items-center justify-between text-left text-white" data-target="stop_5">
               <div class="flex items-center gap-2">
-                <span class="text-base">🚏</span>
-                <span>Gate 2 Boarding Point</span>
+                <span>🚏</span>
+                <span>Gate 2 (Boarding Point)</span>
               </div>
-              <span class="text-slate-400 text-[11px]">Buses: 14, 14B</span>
+              <span class="text-slate-400 text-[10px]">Bus 14, 14B</span>
             </button>
           </div>
         </div>
@@ -324,7 +300,7 @@ function bindModalEvents(type) {
     if (saveBtn) {
       saveBtn.onclick = () => {
         playChime('notification');
-        alert('🔔 Proximity Alert Registered! You will receive a notification when Bus 14 is 5 minutes from Gate 2.');
+        alert('Alert configured: You will be notified 5 minutes before Bus 14 reaches Gate 2.');
         window.closeModal();
       };
     }
@@ -337,7 +313,7 @@ function bindModalEvents(type) {
         const next = state.currentUser.pass.feeStatus === 'Active' ? 'Expired' : 'Active';
         state.currentUser.pass.feeStatus = next;
         state.events.emit('pass:updated', state.currentUser.pass);
-        window.openModal('pass'); // re-render
+        window.openModal('pass');
       };
     }
   }
@@ -347,7 +323,7 @@ function bindModalEvents(type) {
     if (triggerBtn) {
       triggerBtn.onclick = () => {
         playChime('sos');
-        alert('🚨 EMERGENCY SOS SENT!\n\nControl Room Notified.\nGPS Coordinates: 12.9775, 77.5975\nCampus Security Patrol Dispatched.\nDriver Audio Link Activated.');
+        alert('Emergency alert dispatched to campus security with coordinates 12.9775, 77.5975.');
         window.closeModal();
       };
     }
@@ -369,7 +345,6 @@ function bindModalEvents(type) {
             status: 'held_at_office',
             reportedBy: state.currentUser.name
           });
-          alert('Report logged in bus ledger! Transport office notified.');
           window.openModal('lost_found');
         }
       };
@@ -380,13 +355,11 @@ function bindModalEvents(type) {
     modalRoot.querySelectorAll('.cmd-jump-btn').forEach(btn => {
       btn.onclick = () => {
         const target = btn.getAttribute('data-target');
-        alert(`Jumped to: ${target}`);
         window.closeModal();
       };
     });
   }
 
-  // Close on Escape
   const escHandler = (e) => {
     if (e.key === 'Escape') {
       window.closeModal();
@@ -395,4 +368,3 @@ function bindModalEvents(type) {
   };
   window.addEventListener('keydown', escHandler);
 }
-

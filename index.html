@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>CampusBus Live | Real-Time Campus Bus Tracking & Arrival Prediction</title>
+  <title>Campus Transit | Real-Time Bus Tracking & Arrival Prediction</title>
   
   <!-- Fonts: Inter & JetBrains Mono -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -40,185 +40,165 @@
   <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-  <!-- TurboStarter-style Enhanced Stylesheet -->
+  <!-- Custom Dark Theme Stylesheet -->
   <link rel="stylesheet" href="src/css/style.css">
 </head>
 <body class="bg-[#090D16] text-[#F8FAFC] font-sans antialiased selection:bg-indigo-600 selection:text-white bg-grid-dots min-h-screen">
 
-  <!-- TOP FLOATING GLASS HEADER (TurboStarter Navbar) -->
+  <!-- TOP NAVIGATION BAR -->
   <header class="sticky top-0 z-50 glass-header px-4 md:px-8 py-3.5 transition duration-200">
     <div class="max-w-7xl mx-auto flex items-center justify-between">
       
       <!-- Brand Logo -->
-      <a href="#hero" class="flex items-center gap-2.5 group">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-purple-500 flex items-center justify-center text-lg shadow-lg shadow-indigo-600/30 group-hover:scale-105 transition">
+      <a href="#hero" class="flex items-center gap-2.5">
+        <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-sm font-bold shadow-md shadow-indigo-600/30 text-white">
           🚌
         </div>
         <div>
-          <div class="flex items-center gap-2">
-            <span class="font-black text-base tracking-tight text-white">CampusBus<span class="text-indigo-400">.Live</span></span>
-            <span class="text-[10px] font-mono px-1.5 py-0.5 rounded-full bg-indigo-950/80 text-indigo-300 border border-indigo-500/40">PROD v2.0</span>
-          </div>
-          <div class="text-[10px] text-slate-400 hidden sm:block">Real-Time Fleet Intelligence</div>
+          <span class="font-bold text-base tracking-tight text-white">Campus Transit</span>
         </div>
       </a>
 
-      <!-- Desktop Nav Links -->
-      <nav class="hidden lg:flex items-center gap-7 text-xs font-semibold text-slate-300">
+      <!-- Navigation Links -->
+      <nav class="hidden md:flex items-center gap-6 text-xs font-medium text-slate-300">
         <a href="#live-app" class="hover:text-white transition flex items-center gap-1.5 text-indigo-300">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span>Live Tracker</span>
         </a>
-        <a href="#features" class="hover:text-white transition">Features</a>
-        <a href="#before-after" class="hover:text-white transition">Comparison</a>
+        <a href="#routes" class="hover:text-white transition">Routes</a>
+        <a href="#how-it-works" class="hover:text-white transition">How It Works</a>
         <a href="#architecture" class="hover:text-white transition">Architecture</a>
-        <a href="#test-suite" class="hover:text-white transition">Test Cases (T1-T12)</a>
-        <a href="#pricing" class="hover:text-white transition">Pricing</a>
         <a href="#faq" class="hover:text-white transition">FAQ</a>
       </nav>
 
-      <!-- Right Action Controls -->
+      <!-- Action Controls -->
       <div class="flex items-center gap-2.5">
-        <!-- Theme Accent Switcher (TurboStarter Style) -->
-        <div class="hidden sm:flex items-center bg-[#111827] p-1 rounded-full border border-slate-800 text-[10px]" title="Accent Theme">
-          <button class="w-4 h-4 rounded-full bg-indigo-500 mr-1 theme-dot" data-theme="indigo"></button>
-          <button class="w-4 h-4 rounded-full bg-emerald-500 mr-1 theme-dot" data-theme="emerald"></button>
-          <button class="w-4 h-4 rounded-full bg-amber-500 mr-1 theme-dot" data-theme="amber"></button>
-          <button class="w-4 h-4 rounded-full bg-purple-500 theme-dot" data-theme="violet"></button>
-        </div>
-
         <!-- Language Switcher: EN / HI -->
-        <button id="toggle-lang-btn" class="px-2.5 py-1 rounded-xl bg-[#111827] border border-slate-800 text-slate-300 hover:text-white text-xs font-semibold transition" title="Language">
+        <button id="toggle-lang-btn" class="px-2.5 py-1.5 rounded-lg bg-[#111827] border border-slate-800 text-slate-300 hover:text-white text-xs font-medium transition" title="Language">
           🌐 <span id="current-lang-label">EN</span>
         </button>
 
-        <!-- Demo Suite Toggle -->
-        <button id="toggle-demo-drawer-btn" class="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-indigo-950 border border-indigo-500/40 text-indigo-300 text-xs font-bold hover:bg-indigo-900 transition">
+        <!-- Low Data Mode Toggle -->
+        <button id="toggle-low-data-btn" class="hidden sm:inline-flex px-2.5 py-1.5 rounded-lg bg-[#111827] border border-slate-800 text-slate-300 hover:text-white text-xs transition" title="Toggle Low-Data Mode">
+          📶 Low-Data
+        </button>
+
+        <!-- Test Suite Drawer Trigger -->
+        <button id="toggle-demo-drawer-btn" class="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-indigo-950/70 border border-indigo-500/40 text-indigo-300 text-xs font-semibold hover:bg-indigo-900/80 transition">
           <span>🧪</span>
-          <span>Test Suite</span>
+          <span>Run Tests</span>
         </button>
 
         <!-- Primary CTA Button -->
-        <a href="#live-app" class="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs shadow-lg shadow-indigo-600/30 transition flex items-center gap-1.5">
-          <span>Launch Tracker</span>
-          <span class="text-xs">→</span>
+        <a href="#live-app" class="px-3.5 py-1.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-md shadow-indigo-600/30 transition">
+          Open Tracker
         </a>
       </div>
     </div>
   </header>
 
-  <!-- HERO SECTION (TurboStarter High-Impact Layout) -->
-  <section id="hero" class="relative pt-16 md:pt-24 pb-16 px-4 md:px-8 overflow-hidden bg-radial-gradient">
-    <div class="max-w-5xl mx-auto text-center relative z-10">
+  <!-- HERO SECTION -->
+  <section id="hero" class="relative pt-12 md:pt-20 pb-12 px-4 md:px-8 overflow-hidden bg-radial-gradient">
+    <div class="max-w-4xl mx-auto text-center relative z-10">
       
-      <!-- Announcement Shimmer Pill -->
-      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full shimmer-badge text-xs text-indigo-300 font-semibold mb-6">
-        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-ping"></span>
-        <span>✨ Next-Gen Campus Transit Tracking & Arrival Prediction</span>
-        <span class="text-slate-400">|</span>
-        <a href="#features" class="hover:underline flex items-center gap-1">Read Blueprint <span>→</span></a>
+      <!-- Understated Status Badge -->
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-950/60 border border-indigo-500/30 text-xs text-indigo-300 font-medium mb-5">
+        <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+        <span>Real-time campus transit & arrival predictions</span>
       </div>
 
-      <!-- Hero Main Headline -->
-      <h1 class="text-4xl sm:text-5xl md:text-7xl font-black tracking-tight text-white max-w-4xl mx-auto leading-[1.1]">
-        Predict Campus Bus Arrivals.
-        <span class="block bg-gradient-to-r from-indigo-400 via-purple-300 to-pink-400 text-transparent bg-clip-text mt-1">
-          Eliminate Uncertain Commutes.
-        </span>
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-4xl md:text-6xl font-black tracking-tight text-white leading-tight">
+        Campus bus tracking,
+        <span class="text-indigo-400">down to the minute.</span>
       </h1>
 
-      <!-- Hero Subtitle -->
-      <p class="mt-6 text-base sm:text-lg md:text-xl text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
-        Say goodbye to outdated PDF timetables, blind waits in rain or dark, and missed lectures. One synchronized platform connecting <strong class="text-white">students</strong>, <strong class="text-white">drivers</strong>, and <strong class="text-white">fleet commanders</strong>.
+      <!-- Subtitle -->
+      <p class="mt-4 text-sm sm:text-base md:text-lg text-slate-300 max-w-2xl mx-auto font-normal leading-relaxed">
+        Track active buses along your route, check stop arrival times adjusted for traffic, and know whether to walk or wait.
       </p>
 
-      <!-- Dual Call to Action Buttons -->
-      <div class="mt-8 flex flex-wrap items-center justify-center gap-3.5">
-        <a href="#live-app" class="px-7 py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-sm shadow-xl shadow-indigo-600/40 hover:-translate-y-0.5 transition flex items-center gap-2">
-          <span>🚀 Explore Live Tracker</span>
-          <span class="text-xs">→</span>
+      <!-- Action Buttons -->
+      <div class="mt-7 flex flex-wrap items-center justify-center gap-3">
+        <a href="#live-app" class="px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs shadow-lg shadow-indigo-600/30 transition flex items-center gap-1.5">
+          <span>Open Live Tracker</span>
+          <span>↓</span>
         </a>
 
-        <button id="hero-start-demo-btn" class="px-6 py-3.5 rounded-2xl bg-[#111827] hover:bg-slate-800 text-slate-200 border border-slate-700 font-semibold text-sm hover:-translate-y-0.5 transition flex items-center gap-2">
-          <span>🎬 Watch 4-Min Demo Walkthrough</span>
+        <button id="hero-start-demo-btn" class="px-5 py-2.5 rounded-xl bg-[#111827] hover:bg-slate-800 text-slate-200 border border-slate-700 font-medium text-xs transition flex items-center gap-1.5">
+          <span>🎬 Run Demo Walkthrough</span>
         </button>
       </div>
 
-      <!-- Social Proof / Trust Row -->
-      <div class="mt-10 flex flex-wrap items-center justify-center gap-3 text-xs text-slate-400">
-        <div class="flex -space-x-2">
-          <img class="w-7 h-7 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=80&h=80&crop=face" alt="Student">
-          <img class="w-7 h-7 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=80&h=80&crop=face" alt="Student">
-          <img class="w-7 h-7 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=80&h=80&crop=face" alt="Student">
-          <img class="w-7 h-7 rounded-full border-2 border-slate-900 object-cover" src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=80&h=80&crop=face" alt="Driver">
+      <!-- Live Fleet Status Strip -->
+      <div class="mt-9 inline-flex flex-wrap items-center justify-center gap-6 px-5 py-2.5 rounded-2xl bg-[#111827]/80 border border-slate-800 text-xs text-slate-400 font-mono">
+        <div class="flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+          <span class="text-white font-semibold">3 Active Routes</span>
         </div>
-        <div class="flex items-center gap-1.5 font-medium">
-          <span class="text-amber-400">★★★★★</span>
-          <span class="text-white font-bold">4.9/5</span>
-          <span>from 14,000+ daily riders across 12 university campuses</span>
+        <span class="text-slate-700 hidden sm:inline">•</span>
+        <div class="flex items-center gap-1.5">
+          <span class="text-white font-semibold">4 Fleet Buses</span>
+        </div>
+        <span class="text-slate-700 hidden sm:inline">•</span>
+        <div class="flex items-center gap-1.5">
+          <span class="text-emerald-400 font-semibold">94% On-Time</span>
+        </div>
+        <span class="text-slate-700 hidden sm:inline">•</span>
+        <div class="flex items-center gap-1.5 text-slate-300">
+          <span>3s GPS Interval</span>
         </div>
       </div>
 
     </div>
-
-    <!-- Background glowing ambient flares -->
-    <div class="absolute -top-40 left-1/2 -translate-x-1/2 w-[700px] h-[500px] bg-indigo-600/15 blur-[120px] rounded-full pointer-events-none"></div>
   </section>
 
-  <!-- LIVE APPLICATION SHOWCASE (The Core 3-Pillar Ecosystem Inside a Browser Window Mockup) -->
-  <section id="live-app" class="py-10 px-4 md:px-8 max-w-7xl mx-auto">
+  <!-- LIVE APPLICATION WORKSPACE (Core Tracking System) -->
+  <section id="live-app" class="py-6 px-4 md:px-8 max-w-7xl mx-auto">
     
-    <div class="text-center mb-6">
-      <div class="text-xs uppercase tracking-widest text-indigo-400 font-bold">Interactive Live Platform</div>
-      <h2 class="text-2xl md:text-3xl font-black text-white mt-1">Experience The 3-Pillar Ecosystem Live</h2>
-      <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-xl mx-auto">
-        Switch between the student commuter view, driver telemetry PWA, transport command center, and the lobby TV departures board.
-      </p>
-    </div>
-
-    <!-- Browser Window Mockup Frame -->
-    <div class="browser-window-mockup overflow-hidden">
+    <!-- Clean Application Frame -->
+    <div class="bento-card overflow-hidden shadow-2xl border-slate-800">
       
-      <!-- Browser Top Window Bar -->
+      <!-- Top Window Header Bar -->
       <div class="px-4 py-3 bg-[#0E1526] border-b border-slate-800 flex flex-wrap items-center justify-between gap-3">
-        <!-- 3 macOS traffic dots -->
-        <div class="flex items-center gap-2">
-          <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-          <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-          <span class="w-3 h-3 rounded-full bg-green-500/80"></span>
-          <span class="text-xs font-mono text-slate-400 ml-2 hidden sm:inline">campusbus.live/app</span>
+        <!-- Brand & Context -->
+        <div class="flex items-center gap-2 text-xs font-semibold text-white">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400"></span>
+          <span>Live Fleet Operations</span>
+          <span class="text-slate-600">|</span>
+          <span class="text-slate-400 font-normal">Route 14 Active</span>
         </div>
 
-        <!-- 4-Pillar Portal Tabs Switcher inside the Window -->
-        <div class="flex items-center bg-[#090D16] p-1 rounded-xl border border-slate-800 text-xs font-semibold">
+        <!-- 4-Pillar Portal Tabs Switcher -->
+        <div class="flex items-center bg-[#090D16] p-1 rounded-xl border border-slate-800 text-xs font-medium">
           <button class="nav-tab-btn px-3 py-1 rounded-lg transition active-tab text-white bg-indigo-600 shadow" data-view="commuter">
-            🚶 Commuter App
+            Commuter
           </button>
           <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white" data-view="driver">
-            📱 Driver PWA
+            Driver Console
           </button>
           <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white" data-view="admin">
-            🖥️ Fleet Command
+            Fleet Dispatch
           </button>
           <button class="nav-tab-btn px-3 py-1 rounded-lg transition text-slate-400 hover:text-white" data-view="gate">
-            📺 Gate TV Display
+            Gate Departures
           </button>
         </div>
 
-        <!-- Latency / Live Status Indicator -->
-        <div class="hidden md:flex items-center gap-2 text-[11px] text-slate-400">
-          <span class="pulse-dot emerald"></span>
-          <span class="font-mono text-emerald-400">Telemetry: 42ms</span>
+        <!-- Latency Indicator -->
+        <div class="hidden sm:flex items-center gap-1.5 text-[11px] font-mono text-slate-400">
+          <span>Latency:</span>
+          <span class="text-emerald-400">42ms</span>
         </div>
       </div>
 
       <!-- MAIN APP VIEWPORTS -->
-      <div class="min-h-[580px] h-[640px] relative bg-[#090D16] flex">
+      <div class="min-h-[560px] h-[620px] relative bg-[#090D16] flex">
         
         <!-- 1. COMMUTER SPLIT VIEW -->
         <div id="commuter-layout" class="w-full h-full flex flex-col md:flex-row relative">
           <!-- Left Dock (30% width) -->
-          <div id="commuter-dock" class="w-full md:w-[420px] lg:w-[450px] bg-[#090D16] border-r border-[#1F2937] z-20 flex-shrink-0 commuter-sheet overflow-y-auto">
+          <div id="commuter-dock" class="w-full md:w-[420px] lg:w-[440px] bg-[#090D16] border-r border-[#1F2937] z-20 flex-shrink-0 commuter-sheet overflow-y-auto">
             <!-- Rendered by commuter-view.js -->
           </div>
 
@@ -226,21 +206,21 @@
           <div class="flex-1 relative h-[380px] md:h-full">
             <div id="leaflet-map-container" class="w-full h-full bg-[#090D16]"></div>
 
-            <!-- Glass HUD Pill on Map -->
-            <div class="absolute top-4 left-4 z-[400] glass-card px-4 py-2 rounded-full flex items-center gap-3 text-xs pointer-events-auto">
-              <div class="flex items-center gap-1.5 font-bold text-white">
+            <!-- HUD Pill on Map -->
+            <div class="absolute top-4 left-4 z-[400] glass-card px-3.5 py-1.5 rounded-full flex items-center gap-2.5 text-xs pointer-events-auto">
+              <div class="flex items-center gap-1.5 font-semibold text-white">
                 <span class="pulse-dot emerald"></span>
                 <span id="hud-buses-stat">3/4 buses live</span>
               </div>
               <span class="text-slate-600">•</span>
-              <span class="text-amber-400 font-semibold" id="hud-delay-stat">1 delayed (+8m)</span>
+              <span class="text-amber-400" id="hud-delay-stat">1 delayed (+8m)</span>
               <span class="text-slate-600 hidden sm:inline">•</span>
-              <span class="text-slate-300 hidden sm:inline" id="hud-shift-stat">next shift 01:15 PM</span>
+              <span class="text-slate-300 hidden sm:inline font-mono" id="hud-shift-stat">next shift 01:15 PM</span>
             </div>
 
             <!-- Recenter Button -->
             <div class="absolute bottom-6 left-4 z-[400]">
-              <button id="recenter-bus-btn" class="glass-card px-3.5 py-2 rounded-xl text-xs font-semibold text-white hover:text-indigo-400 transition flex items-center gap-2">
+              <button id="recenter-bus-btn" class="glass-card px-3 py-1.5 rounded-xl text-xs font-medium text-white hover:text-indigo-400 transition flex items-center gap-1.5">
                 <span>🎯</span>
                 <span>Focus Bus 14</span>
               </button>
@@ -250,27 +230,27 @@
             <div id="low-data-view" class="hidden absolute inset-0 bg-[#090D16] p-6 overflow-y-auto z-[500]">
               <div class="max-w-xl mx-auto space-y-4">
                 <div class="p-4 rounded-xl bg-indigo-950/40 border border-indigo-500/40 text-xs text-indigo-300">
-                  ⚡ <strong>Low-Data Mode Enabled</strong>: Heavy map tiles paused to conserve data. Real-time ETA updates active over lightweight text sockets.
+                  <strong>Low-Data Mode Active</strong>: Map tiles paused to conserve bandwidth. Arrival countdowns continue over text.
                 </div>
                 <div class="bento-card p-4 space-y-3">
-                  <h3 class="text-sm font-bold text-white uppercase tracking-wider">Fast Text Departures</h3>
+                  <h3 class="text-xs font-semibold text-white uppercase tracking-wider">Fast Departures</h3>
                   <div class="p-3 bg-[#0B101D] rounded-lg border border-slate-800 flex justify-between items-center">
                     <div>
-                      <div class="font-bold text-white">Route 14 • Bus 14</div>
-                      <div class="text-xs text-slate-400">Approaching Market Circle (32 km/h)</div>
+                      <div class="font-bold text-white text-xs">Route 14 • Bus 14</div>
+                      <div class="text-[11px] text-slate-400">Approaching Market Circle (32 km/h)</div>
                     </div>
                     <div class="text-right font-mono">
-                      <div class="text-lg font-bold text-emerald-400">06:24</div>
+                      <div class="text-base font-bold text-emerald-400">06:24</div>
                       <div class="text-[10px] text-slate-500">ETA Gate 2</div>
                     </div>
                   </div>
                   <div class="p-3 bg-[#0B101D] rounded-lg border border-slate-800 flex justify-between items-center">
                     <div>
-                      <div class="font-bold text-white">Route 7 • Bus 7</div>
-                      <div class="text-xs text-amber-400">+8m Traffic on South Ave</div>
+                      <div class="font-bold text-white text-xs">Route 7 • Bus 7</div>
+                      <div class="text-[11px] text-amber-400">+8m Traffic on South Ave</div>
                     </div>
                     <div class="text-right font-mono">
-                      <div class="text-lg font-bold text-amber-400">11:10</div>
+                      <div class="text-base font-bold text-amber-400">11:10</div>
                       <div class="text-[10px] text-slate-500">ETA Tech Park</div>
                     </div>
                   </div>
@@ -293,655 +273,302 @@
     </div>
   </section>
 
-  <!-- LOGO MARQUEE (Universities / Campuses) -->
-  <section class="py-10 border-y border-slate-800/80 bg-[#0B101D]/60 overflow-hidden">
-    <div class="max-w-7xl mx-auto px-4 text-center">
-      <div class="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-6">
-        Powering Campus Mobility Across Leading Institutions
-      </div>
-      <div class="flex flex-wrap items-center justify-center gap-8 md:gap-16 opacity-60 grayscale hover:grayscale-0 transition duration-300">
-        <span class="font-bold text-base tracking-wider text-slate-300">🏛️ TECH INSTITUTE OF TECHNOLOGY</span>
-        <span class="font-bold text-base tracking-wider text-slate-300">🎓 METRO UNIVERSITY</span>
-        <span class="font-bold text-base tracking-wider text-slate-300">🔬 NATIONAL SCIENCE ACADEMY</span>
-        <span class="font-bold text-base tracking-wider text-slate-300">🏥 CAMPUS MEDICAL HEALTH</span>
-        <span class="font-bold text-base tracking-wider text-slate-300">🚍 CITY TRANSIT AUTHORITY</span>
-      </div>
-    </div>
-  </section>
-
-  <!-- BEFORE VS AFTER (Problem vs Solution from Blueprint Page 1) -->
-  <section id="before-after" class="py-20 px-4 md:px-8 max-w-7xl mx-auto">
-    <div class="text-center mb-14">
-      <div class="text-xs uppercase tracking-widest text-indigo-400 font-bold">The Transformation</div>
-      <h2 class="text-3xl md:text-5xl font-black text-white mt-2">Static PDF Timetable vs Live Fleet AI</h2>
-      <p class="text-sm md:text-base text-slate-400 mt-2 max-w-2xl mx-auto">
-        Blueprint Section 1 defines why college transportation fails with static schedules and how our 3-pillar ecosystem eliminates guesswork.
+  <!-- CAMPUS ROUTES OVERVIEW -->
+  <section id="routes" class="py-16 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800/80">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl md:text-3xl font-black text-white">Campus Routes & Stops</h2>
+      <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-xl mx-auto">
+        Scheduled loop lines connecting student residences, departments, and transit terminals.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-      
-      <!-- The Old Way (Static PDF) -->
-      <div class="bento-card p-6 md:p-8 border-red-500/20 bg-gradient-to-b from-red-950/10 to-[#111827]">
-        <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
-          <div class="flex items-center gap-3">
-            <span class="text-2xl">📄</span>
-            <div>
-              <h3 class="text-lg font-bold text-red-400">The Old Way: Static PDF Timetable</h3>
-              <p class="text-xs text-slate-500">Uncertainty, blind waits & missed classes</p>
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+      <!-- Route 14 -->
+      <div class="bento-card p-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded bg-indigo-900 text-indigo-300 font-mono flex items-center justify-center font-bold text-xs">14</span>
+            <span class="font-bold text-sm text-white">Hostel to Main Campus</span>
           </div>
-          <span class="px-2.5 py-1 rounded text-xs font-mono font-bold bg-red-500/10 text-red-400 border border-red-500/30">BROKEN</span>
+          <span class="text-[11px] font-mono text-emerald-400 font-medium">Every 15 min</span>
         </div>
-
-        <ul class="space-y-4 text-xs md:text-sm text-slate-300">
-          <li class="flex items-start gap-3">
-            <span class="text-red-400 font-bold mt-0.5">✕</span>
-            <div><strong>Students Blindly Waiting:</strong> No idea if the bus is 2 minutes away or delayed in traffic 5 km away. Waiting in dark or rain.</div>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-red-400 font-bold mt-0.5">✕</span>
-            <div><strong>Faculty Schedule Guesswork:</strong> Leaving home on time is pure speculation, leading to delayed morning lectures.</div>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-red-400 font-bold mt-0.5">✕</span>
-            <div><strong>Unreported Breakdowns:</strong> When a bus stalls, drivers make frantic phone calls while hundreds of stranded riders wait in confusion.</div>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-red-400 font-bold mt-0.5">✕</span>
-            <div><strong>Zero Fleet Telemetry:</strong> Transport office has no map of where buses are, relying on manual phone checks.</div>
-          </li>
-        </ul>
+        <p class="text-xs text-slate-400 mb-3">Primary student corridor linking hostel clusters to central academic blocks.</p>
+        <div class="text-[11px] text-slate-300 space-y-1 font-mono">
+          <div>Stops: Hostel Block → Library Road → Market Circle → Bus Depot → Gate 2 → Main Campus</div>
+        </div>
       </div>
 
-      <!-- The New Way (CampusBus Live) -->
-      <div class="bento-card p-6 md:p-8 border-emerald-500/30 bg-gradient-to-b from-emerald-950/15 to-[#111827]">
-        <div class="flex items-center justify-between pb-4 border-b border-slate-800 mb-6">
-          <div class="flex items-center gap-3">
-            <span class="text-2xl">⚡</span>
-            <div>
-              <h3 class="text-lg font-bold text-emerald-400">The New Way: CampusBus Live Intelligence</h3>
-              <p class="text-xs text-slate-400">Sub-second tracking, live ETAs & rescue rerouting</p>
-            </div>
+      <!-- Route 7 -->
+      <div class="bento-card p-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded bg-emerald-900 text-emerald-300 font-mono flex items-center justify-center font-bold text-xs">7</span>
+            <span class="font-bold text-sm text-white">Metro to Tech Complex</span>
           </div>
-          <span class="px-2.5 py-1 rounded text-xs font-mono font-bold bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">PROVEN</span>
+          <span class="text-[11px] font-mono text-emerald-400 font-medium">Every 20 min</span>
         </div>
-
-        <ul class="space-y-4 text-xs md:text-sm text-slate-300">
-          <li class="flex items-start gap-3">
-            <span class="text-emerald-400 font-bold mt-0.5">✓</span>
-            <div><strong>Smooth 60fps Gliding Bus Map:</strong> Real-time GPS interpolated along road lines so buses glide without jumping.</div>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-emerald-400 font-bold mt-0.5">✓</span>
-            <div><strong>Catch-Probability Walk Matrix:</strong> Tells the student whether to "Walk normally", "Hurry up", or "Missed" based on walk distance.</div>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-emerald-400 font-bold mt-0.5">✓</span>
-            <div><strong>1-Tap Breakdown & Rescue Dispatch:</strong> Driver reports breakdown; passengers get alerts and admin dispatches nearest backup bus in 1 click.</div>
-          </li>
-          <li class="flex items-start gap-3">
-            <span class="text-emerald-400 font-bold mt-0.5">✓</span>
-            <div><strong>Live Gate TV Displays & Digital Pass:</strong> Dynamic anti-counterfeit QR passes and airport-style departures boards in hostel lobbies.</div>
-          </li>
-        </ul>
+        <p class="text-xs text-slate-400 mb-3">Shuttle service connecting city metro arrivals with engineering departments.</p>
+        <div class="text-[11px] text-slate-300 space-y-1 font-mono">
+          <div>Stops: Metro Terminal → South Ave → Tech Park Gate → Main Campus</div>
+        </div>
       </div>
 
+      <!-- Route 21 -->
+      <div class="bento-card p-5">
+        <div class="flex items-center justify-between pb-3 border-b border-slate-800 mb-3">
+          <div class="flex items-center gap-2">
+            <span class="w-6 h-6 rounded bg-amber-900 text-amber-300 font-mono flex items-center justify-center font-bold text-xs">21</span>
+            <span class="font-bold text-sm text-white">Faculty & Health Center</span>
+          </div>
+          <span class="text-[11px] font-mono text-emerald-400 font-medium">Every 30 min</span>
+        </div>
+        <p class="text-xs text-slate-400 mb-3">Connects staff quarters, medical clinic, and graduate research centers.</p>
+        <div class="text-[11px] text-slate-300 space-y-1 font-mono">
+          <div>Stops: Faculty Enclave → Health Center → Main Campus Quad</div>
+        </div>
+      </div>
     </div>
   </section>
 
-  <!-- BENTO FEATURES GRID (TurboStarter Signature Feature Grid) -->
-  <section id="features" class="py-20 px-4 md:px-8 max-w-7xl mx-auto">
-    <div class="text-center mb-14">
-      <div class="text-xs uppercase tracking-widest text-indigo-400 font-bold">Feature Highlights</div>
-      <h2 class="text-3xl md:text-5xl font-black text-white mt-2">Engineered For Zero Transit Uncertainty</h2>
-      <p class="text-sm md:text-base text-slate-400 mt-2 max-w-2xl mx-auto">
-        Built according to Sections 4, 5, 6, and 7 of the blueprint with high-performance mathematical models.
+  <!-- HOW IT WORKS -->
+  <section id="how-it-works" class="py-16 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800/80">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl md:text-3xl font-black text-white">How It Works</h2>
+      <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-xl mx-auto">
+        Practical features built specifically for the day-to-day realities of campus transit.
       </p>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      
-      <!-- Bento 1: Smart ETA Engine -->
-      <div class="bento-card p-6 md:p-8 flex flex-col justify-between">
-        <div>
-          <div class="w-10 h-10 rounded-xl bg-indigo-500/10 border border-indigo-500/30 flex items-center justify-center text-xl mb-4">
-            ⏱️
-          </div>
-          <h3 class="text-xl font-bold text-white">Segment-Speed ETA Engine</h3>
-          <p class="text-xs md:text-sm text-slate-400 mt-2">
-            Uses remaining distance, rolling 5-minute speed, live traffic factor, and stop dwell times. Provides honest confidence ranges like <code class="text-indigo-300 font-mono">11 min (9 to 13)</code>.
-          </p>
-        </div>
-        <div class="mt-6 p-3 rounded-xl bg-[#0B101D] border border-slate-800 font-mono text-xs text-indigo-300">
-          ETA = (dist / speed) × traffic + dwell
-        </div>
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      <!-- 1 -->
+      <div class="bento-card p-5">
+        <div class="text-xl mb-2">📍</div>
+        <h3 class="text-sm font-bold text-white mb-1.5">Smooth Gliding GPS</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Buses update position every 3 seconds and interpolate smoothly along the road line rather than jumping across the map.
+        </p>
       </div>
 
-      <!-- Bento 2: Walk vs Bus Catch Probability -->
-      <div class="bento-card p-6 md:p-8 flex flex-col justify-between">
-        <div>
-          <div class="w-10 h-10 rounded-xl bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-xl mb-4">
-            🚶
-          </div>
-          <h3 class="text-xl font-bold text-white">Walk vs Bus Catch Probability</h3>
-          <p class="text-xs md:text-sm text-slate-400 mt-2">
-            Compares walking time (at ~80m/min) with live bus arrival countdown plus a 1-minute safety buffer. Ends the morning panic and guesswork.
-          </p>
-        </div>
-        <div class="mt-6 flex items-center justify-between p-2.5 rounded-xl bg-emerald-950/30 border border-emerald-500/30 text-xs">
-          <span class="text-emerald-400 font-bold">🟢 Walk normally (4m buffer)</span>
-          <span class="text-slate-400 font-mono text-[10px]">ETA 10m vs 5m walk</span>
-        </div>
+      <!-- 2 -->
+      <div class="bento-card p-5">
+        <div class="text-xl mb-2">⏱️</div>
+        <h3 class="text-sm font-bold text-white mb-1.5">Traffic-Adjusted ETAs</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Arrival times calculate distance, recent segment speed, traffic bottlenecks, and stop dwell times with confidence ranges.
+        </p>
       </div>
 
-      <!-- Bento 3: Live Crowd Occupancy -->
-      <div class="bento-card p-6 md:p-8 flex flex-col justify-between">
-        <div>
-          <div class="w-10 h-10 rounded-xl bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-xl mb-4">
-            💺
-          </div>
-          <h3 class="text-xl font-bold text-white">Crowd Occupancy Radar</h3>
-          <p class="text-xs md:text-sm text-slate-400 mt-2">
-            Stops passengers from waiting for a bus that cannot take them. Powered by majority crowd voting (last 3 reports within 10 min) with instant conductor override.
-          </p>
-        </div>
-        <div class="mt-6 flex gap-2">
-          <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/40">Seats OK</span>
-          <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-amber-500/20 text-amber-400 border border-amber-500/40">Standing</span>
-          <span class="px-2.5 py-1 rounded-lg text-xs font-semibold bg-red-500/20 text-red-400 border border-red-500/40">Full</span>
-        </div>
+      <!-- 3 -->
+      <div class="bento-card p-5">
+        <div class="text-xl mb-2">🚶</div>
+        <h3 class="text-sm font-bold text-white mb-1.5">Walk vs. Bus Timing</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          Compares your walking distance to the stop against the bus's live arrival time, showing whether you can walk normally or need to hurry.
+        </p>
       </div>
 
-      <!-- Bento 4: 1-Tap Breakdown Rescue Flow -->
-      <div class="bento-card p-6 md:p-8 flex flex-col justify-between">
-        <div>
-          <div class="w-10 h-10 rounded-xl bg-red-500/10 border border-red-500/30 flex items-center justify-center text-xl mb-4">
-            🚨
-          </div>
-          <h3 class="text-xl font-bold text-white">Breakdown & Rescue Dispatch</h3>
-          <p class="text-xs md:text-sm text-slate-400 mt-2">
-            Handles the highest-stress scenario. When a driver reports a breakdown, route commuters are notified instantly, and admin dispatches standby Rescue Bus 99.
-          </p>
-        </div>
-        <div class="mt-6 p-3 rounded-xl bg-red-950/40 border border-red-500/40 text-xs text-red-300">
-          ⚡ 1-Click Rescue Bus 99 dispatched in &lt; 60 seconds
-        </div>
+      <!-- 4 -->
+      <div class="bento-card p-5">
+        <div class="text-xl mb-2">🚨</div>
+        <h3 class="text-sm font-bold text-white mb-1.5">Standby Bus Dispatch</h3>
+        <p class="text-xs text-slate-400 leading-relaxed">
+          When an unexpected delay or mechanical breakdown occurs, dispatchers can reroute the nearest standby bus in one click.
+        </p>
       </div>
-
-      <!-- Bento 5: Dynamic Anti-Counterfeit QR Pass -->
-      <div class="bento-card p-6 md:p-8 flex flex-col justify-between">
-        <div>
-          <div class="w-10 h-10 rounded-xl bg-purple-500/10 border border-purple-500/30 flex items-center justify-center text-xl mb-4">
-            🎟️
-          </div>
-          <h3 class="text-xl font-bold text-white">Dynamic QR Boarding Pass</h3>
-          <p class="text-xs md:text-sm text-slate-400 mt-2">
-            Replaces forged paper passes with real-time timestamped QR security passes. Displays semester expiry reminders and fee clearance status.
-          </p>
-        </div>
-        <div class="mt-6 flex items-center justify-between p-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs font-mono">
-          <span class="text-slate-300">PASS-2026-FALL</span>
-          <span class="text-emerald-400 font-bold">● ACTIVE</span>
-        </div>
-      </div>
-
-      <!-- Bento 6: Schedule Mode Switcher -->
-      <div class="bento-card p-6 md:p-8 flex flex-col justify-between">
-        <div>
-          <div class="w-10 h-10 rounded-xl bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-xl mb-4">
-            🗓️
-          </div>
-          <h3 class="text-xl font-bold text-white">Exam & Event Overrides</h3>
-          <p class="text-xs md:text-sm text-slate-400 mt-2">
-            One-click switch between Regular, Exam Shifts, and Half-Day schedules. Every student countdown and gate TV departures board updates in lockstep.
-          </p>
-        </div>
-        <div class="mt-6 flex gap-2 text-xs font-semibold">
-          <span class="px-2.5 py-1 rounded bg-indigo-600 text-white">Regular</span>
-          <span class="px-2.5 py-1 rounded bg-amber-600 text-white">Exam Shifts</span>
-          <span class="px-2.5 py-1 rounded bg-purple-600 text-white">Half-Day</span>
-        </div>
-      </div>
-
     </div>
   </section>
 
-  <!-- ARCHITECTURE & DATA FLOW (Section 3 & 10) -->
-  <section id="architecture" class="py-20 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800">
-    <div class="text-center mb-14">
-      <div class="text-xs uppercase tracking-widest text-indigo-400 font-bold">System Architecture</div>
-      <h2 class="text-3xl md:text-5xl font-black text-white mt-2">The Real-Time Telemetry Pipeline</h2>
-      <p class="text-sm md:text-base text-slate-400 mt-2 max-w-xl mx-auto">
-        Sub-second WebSockets, PostGIS spatial queries, and push notification infrastructure (Blueprint Section 3 & 10).
+  <!-- ARCHITECTURE PIPELINE -->
+  <section id="architecture" class="py-16 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800/80">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl md:text-3xl font-black text-white">System Architecture</h2>
+      <p class="text-xs md:text-sm text-slate-400 mt-1 max-w-lg mx-auto">
+        Low-latency synchronization across driver phones, dispatchers, and campus displays.
       </p>
     </div>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 text-center">
-      <div class="bento-card p-6">
-        <div class="text-3xl mb-2">📱</div>
-        <div class="font-bold text-white text-base">Driver PWA</div>
-        <div class="text-xs text-slate-400 mt-1">Geolocation API + Screen Wake Lock streams GPS every 1-3 seconds.</div>
+      <div class="bento-card p-5">
+        <div class="text-indigo-400 font-mono text-xs font-bold mb-1">01 • TELEMETRY</div>
+        <div class="font-bold text-white text-sm">Driver PWA</div>
+        <div class="text-xs text-slate-400 mt-1">Browser Geolocation and Wake Lock stream GPS coordinates every 1–3s.</div>
       </div>
 
-      <div class="bento-card p-6">
-        <div class="text-3xl mb-2">⚡</div>
-        <div class="font-bold text-white text-base">Realtime Broker</div>
-        <div class="text-xs text-slate-400 mt-1">Socket.io + Redis Pub/Sub broadcast live telemetry to all connected clients.</div>
+      <div class="bento-card p-5">
+        <div class="text-indigo-400 font-mono text-xs font-bold mb-1">02 • REALTIME HUB</div>
+        <div class="font-bold text-white text-sm">WebSocket Broker</div>
+        <div class="text-xs text-slate-400 mt-1">Sub-second broadcast of coordinates, speed, and delay tags to connected screens.</div>
       </div>
 
-      <div class="bento-card p-6">
-        <div class="text-3xl mb-2">🧠</div>
-        <div class="font-bold text-white text-base">Smart ETA Engine</div>
-        <div class="text-xs text-slate-400 mt-1">Segment rolling speeds, traffic multipliers, and 150m geofence detections.</div>
+      <div class="bento-card p-5">
+        <div class="text-indigo-400 font-mono text-xs font-bold mb-1">03 • PREDICTION</div>
+        <div class="font-bold text-white text-sm">ETA Engine</div>
+        <div class="text-xs text-slate-400 mt-1">Road snapping, 150m stop geofence checking, and rolling speed estimates.</div>
       </div>
 
-      <div class="bento-card p-6">
-        <div class="text-3xl mb-2">📺</div>
-        <div class="font-bold text-white text-base">Distributed Screens</div>
-        <div class="text-xs text-slate-400 mt-1">Commuter Web Apps, Command Bento Dashboard, and Gate TV Kiosks.</div>
-      </div>
-    </div>
-  </section>
-
-  <!-- TEST SUITE PLAYGROUND (Sections 11 & 12 of Blueprint) -->
-  <section id="test-suite" class="py-20 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800">
-    <div class="text-center mb-12">
-      <div class="text-xs uppercase tracking-widest text-indigo-400 font-bold">Verification & Testing</div>
-      <h2 class="text-3xl md:text-5xl font-black text-white mt-2">Interactive Test Cases Playground (T1 - T12)</h2>
-      <p class="text-sm md:text-base text-slate-400 mt-2 max-w-2xl mx-auto">
-        Test every edge case described in Section 12.1 of the project blueprint directly on the live system with one click.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3.5">
-      <button class="test-case-btn bento-card p-4 text-left hover:border-indigo-500 transition group" data-test="T1">
-        <div class="text-xs font-mono text-indigo-400 font-bold mb-1">TEST T1</div>
-        <div class="text-sm font-bold text-white group-hover:text-indigo-300">Normal Gliding</div>
-        <div class="text-xs text-slate-400 mt-1">ETA drops steadily, marker glides smoothly</div>
-      </button>
-
-      <button class="test-case-btn bento-card p-4 text-left hover:border-amber-500 transition group" data-test="T2">
-        <div class="text-xs font-mono text-amber-400 font-bold mb-1">TEST T2</div>
-        <div class="text-sm font-bold text-white group-hover:text-amber-300">Speed Halved</div>
-        <div class="text-xs text-slate-400 mt-1">ETA rises, turns Amber (+7 min delay)</div>
-      </button>
-
-      <button class="test-case-btn bento-card p-4 text-left hover:border-amber-500 transition group" data-test="T3">
-        <div class="text-xs font-mono text-amber-400 font-bold mb-1">TEST T3</div>
-        <div class="text-sm font-bold text-white group-hover:text-amber-300">No GPS 20s</div>
-        <div class="text-xs text-slate-400 mt-1">Marker labeled "Estimated position"</div>
-      </button>
-
-      <button class="test-case-btn bento-card p-4 text-left hover:border-red-500 transition group" data-test="T4">
-        <div class="text-xs font-mono text-red-400 font-bold mb-1">TEST T4</div>
-        <div class="text-sm font-bold text-white group-hover:text-red-300">Signal Lost 3m</div>
-        <div class="text-xs text-slate-400 mt-1">Signal lost badge & timetable fallback</div>
-      </button>
-
-      <button class="test-case-btn bento-card p-4 text-left hover:border-indigo-500 transition group" data-test="T5">
-        <div class="text-xs font-mono text-indigo-400 font-bold mb-1">TEST T5</div>
-        <div class="text-sm font-bold text-white group-hover:text-indigo-300">Stop Circle Arrival</div>
-        <div class="text-xs text-slate-400 mt-1">Inside 150m at &lt;10 km/h logs arrival</div>
-      </button>
-
-      <button class="test-case-btn bento-card p-4 text-left hover:border-indigo-500 transition group" data-test="T6">
-        <div class="text-xs font-mono text-indigo-400 font-bold mb-1">TEST T6</div>
-        <div class="text-sm font-bold text-white group-hover:text-indigo-300">5-Min Away Alert</div>
-        <div class="text-xs text-slate-400 mt-1">Single notification fires once</div>
-      </button>
-
-      <button class="test-case-btn bento-card p-4 text-left hover:border-red-500 transition group" data-test="T7">
-        <div class="text-xs font-mono text-red-400 font-bold mb-1">TEST T7</div>
-        <div class="text-sm font-bold text-white group-hover:text-red-300">Driver Breakdown</div>
-        <div class="text-xs text-slate-400 mt-1">Passengers notified & rescue bus suggested</div>
-      </button>
-
-      <button class="test-case-btn bento-card p-4 text-left hover:border-emerald-500 transition group" data-test="T8">
-        <div class="text-xs font-mono text-emerald-400 font-bold mb-1">TEST T8</div>
-        <div class="text-sm font-bold text-white group-hover:text-emerald-300">Mixed Occupancy</div>
-        <div class="text-xs text-slate-400 mt-1">Majority rule + conductor override</div>
-      </button>
-
-      <button class="test-case-btn bento-card p-4 text-left hover:border-indigo-500 transition group" data-test="T9">
-        <div class="text-xs font-mono text-indigo-400 font-bold mb-1">TEST T9</div>
-        <div class="text-sm font-bold text-white group-hover:text-indigo-300">Walk vs Bus Matrix</div>
-        <div class="text-xs text-slate-400 mt-1">Walk normally / Hurry up / Missed</div>
-      </button>
-
-      <button class="test-case-btn bento-card p-4 text-left hover:border-indigo-500 transition group" data-test="T10">
-        <div class="text-xs font-mono text-indigo-400 font-bold mb-1">TEST T10</div>
-        <div class="text-sm font-bold text-white group-hover:text-indigo-300">Exam Schedule</div>
-        <div class="text-xs text-slate-400 mt-1">Timetables and countdowns update</div>
-      </button>
-
-      <button class="test-case-btn bento-card p-4 text-left hover:border-emerald-500 transition group" data-test="T11">
-        <div class="text-xs font-mono text-emerald-400 font-bold mb-1">TEST T11</div>
-        <div class="text-sm font-bold text-white group-hover:text-emerald-300">100+ Viewers Load</div>
-        <div class="text-xs text-slate-400 mt-1">Positions broadcast within &lt;2s</div>
-      </button>
-
-      <button class="test-case-btn bento-card p-4 text-left hover:border-red-500 transition group" data-test="T12">
-        <div class="text-xs font-mono text-red-400 font-bold mb-1">TEST T12</div>
-        <div class="text-sm font-bold text-white group-hover:text-red-300">Expired Pass</div>
-        <div class="text-xs text-slate-400 mt-1">Scanned pass displays "Expired"</div>
-      </button>
-    </div>
-  </section>
-
-  <!-- PRICING / CAMPUS PLANS (TurboStarter Style) -->
-  <section id="pricing" class="py-20 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800">
-    <div class="text-center mb-14">
-      <div class="text-xs uppercase tracking-widest text-indigo-400 font-bold">Simple Fleet Pricing</div>
-      <h2 class="text-3xl md:text-5xl font-black text-white mt-2">Transparent Plans For Any Campus Size</h2>
-      <p class="text-sm md:text-base text-slate-400 mt-2 max-w-xl mx-auto">
-        Start with a pilot for single college routes or deploy institution-wide across hundreds of buses.
-      </p>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-      
-      <!-- Tier 1 -->
-      <div class="bento-card p-8 flex flex-col justify-between">
-        <div>
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Department Pilot</div>
-          <div class="text-3xl font-black text-white font-mono mt-3">$0 <span class="text-xs font-normal text-slate-400">/ forever free</span></div>
-          <p class="text-xs text-slate-400 mt-2">Ideal for testing on 2 campus routes with student drivers.</p>
-          <ul class="mt-6 space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-6">
-            <li class="flex items-center gap-2">✓ Up to 4 active buses</li>
-            <li class="flex items-center gap-2">✓ Commuter Web App with Dark Map</li>
-            <li class="flex items-center gap-2">✓ Driver PWA Cockpit</li>
-            <li class="flex items-center gap-2">✓ Basic ETA countdowns</li>
-          </ul>
-        </div>
-        <a href="#live-app" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs text-center transition block">
-          Start Free Pilot
-        </a>
-      </div>
-
-      <!-- Tier 2 (Featured) -->
-      <div class="bento-card p-8 border-2 border-indigo-500/70 bg-gradient-to-b from-indigo-950/20 to-[#111827] flex flex-col justify-between relative shadow-xl shadow-indigo-500/10">
-        <div class="absolute -top-3.5 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[10px] font-bold uppercase tracking-wider px-3 py-0.5 rounded-full shadow">
-          MOST POPULAR
-        </div>
-        <div>
-          <div class="text-xs font-bold text-indigo-400 uppercase tracking-wider">Campus Pro</div>
-          <div class="text-3xl font-black text-white font-mono mt-3">$49 <span class="text-xs font-normal text-slate-400">/ month</span></div>
-          <p class="text-xs text-slate-300 mt-2">Full fleet intelligence for colleges and universities up to 30 buses.</p>
-          <ul class="mt-6 space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-6">
-            <li class="flex items-center gap-2">✓ Up to 30 active buses</li>
-            <li class="flex items-center gap-2">✓ 1-Click Rescue Bus 99 Dispatch Flow</li>
-            <li class="flex items-center gap-2">✓ Gate TV Departures Board mode</li>
-            <li class="flex items-center gap-2">✓ Catch-probability walk vs bus matrix</li>
-            <li class="flex items-center gap-2">✓ Digital QR anti-counterfeit pass</li>
-          </ul>
-        </div>
-        <a href="#live-app" class="mt-8 w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold text-xs text-center transition block shadow-lg shadow-indigo-600/30">
-          Deploy Campus Pro →
-        </a>
-      </div>
-
-      <!-- Tier 3 -->
-      <div class="bento-card p-8 flex flex-col justify-between">
-        <div>
-          <div class="text-xs font-bold text-slate-400 uppercase tracking-wider">Multi-Campus Enterprise</div>
-          <div class="text-3xl font-black text-white font-mono mt-3">$199 <span class="text-xs font-normal text-slate-400">/ month</span></div>
-          <p class="text-xs text-slate-400 mt-2">For sprawling state universities and multi-city campus fleets.</p>
-          <ul class="mt-6 space-y-3 text-xs text-slate-300 border-t border-slate-800 pt-6">
-            <li class="flex items-center gap-2">✓ Unlimited fleet buses & drivers</li>
-            <li class="flex items-center gap-2">✓ Hardware GPS Tracker integration</li>
-            <li class="flex items-center gap-2">✓ College ERP / Attendance integration</li>
-            <li class="flex items-center gap-2">✓ Dedicated SLA & 24/7 Dispatch Support</li>
-          </ul>
-        </div>
-        <a href="#live-app" class="mt-8 w-full py-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs text-center transition block">
-          Contact Enterprise
-        </a>
-      </div>
-
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS (Wall of Love) -->
-  <section class="py-20 px-4 md:px-8 max-w-7xl mx-auto border-t border-slate-800">
-    <div class="text-center mb-14">
-      <div class="text-xs uppercase tracking-widest text-indigo-400 font-bold">Rider Feedback</div>
-      <h2 class="text-3xl md:text-5xl font-black text-white mt-2">Loved By Students & Drivers Alike</h2>
-    </div>
-
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-      <div class="bento-card p-6">
-        <div class="text-amber-400 text-sm mb-3">★★★★★</div>
-        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
-          "The 'Catch-Probability' buffer saved me during my 8:30 AM Midterm! Seeing 'Hurry up! (0 min buffer)' made me run to Gate 2 just in time."
-        </p>
-        <div class="mt-4 pt-4 border-t border-slate-800 flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full bg-indigo-600 flex items-center justify-center font-bold text-xs text-white">AP</div>
-          <div>
-            <div class="text-xs font-bold text-white">Aarav Patel</div>
-            <div class="text-[10px] text-slate-400">Computer Science Sophomore</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="bento-card p-6">
-        <div class="text-amber-400 text-sm mb-3">★★★★★</div>
-        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
-          "The Driver PWA with huge touch buttons and the Screen Wake Lock keeps my phone on the dash. Tapping Traffic Delay alerts 200 students instantly without phone calls."
-        </p>
-        <div class="mt-4 pt-4 border-t border-slate-800 flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full bg-emerald-600 flex items-center justify-center font-bold text-xs text-white">RK</div>
-          <div>
-            <div class="text-xs font-bold text-white">Rajesh Kumar</div>
-            <div class="text-[10px] text-slate-400">Senior Bus Driver (Route 14)</div>
-          </div>
-        </div>
-      </div>
-
-      <div class="bento-card p-6">
-        <div class="text-amber-400 text-sm mb-3">★★★★★</div>
-        <p class="text-xs md:text-sm text-slate-300 leading-relaxed">
-          "The Fleet Command Center with 1-Click Rescue Bus 99 Dispatch solved our biggest nightmare: sudden morning vehicle breakdowns. Punctuality is up to 94%."
-        </p>
-        <div class="mt-4 pt-4 border-t border-slate-800 flex items-center gap-3">
-          <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center font-bold text-xs text-white">DS</div>
-          <div>
-            <div class="text-xs font-bold text-white">Dr. S. Nair</div>
-            <div class="text-[10px] text-slate-400">Dean of Student Transportation</div>
-          </div>
-        </div>
+      <div class="bento-card p-5">
+        <div class="text-indigo-400 font-mono text-xs font-bold mb-1">04 • CLIENTS</div>
+        <div class="font-bold text-white text-sm">Student & Gate Displays</div>
+        <div class="text-xs text-slate-400 mt-1">Responsive mobile web app, dispatch dashboard, and full-screen TV displays.</div>
       </div>
     </div>
   </section>
 
-  <!-- FAQ ACCORDION -->
-  <section id="faq" class="py-20 px-4 md:px-8 max-w-4xl mx-auto border-t border-slate-800">
-    <div class="text-center mb-14">
-      <div class="text-xs uppercase tracking-widest text-indigo-400 font-bold">Got Questions?</div>
-      <h2 class="text-3xl md:text-4xl font-black text-white mt-2">Frequently Asked Questions</h2>
+  <!-- FAQ SECTION -->
+  <section id="faq" class="py-16 px-4 md:px-8 max-w-3xl mx-auto border-t border-slate-800/80">
+    <div class="text-center mb-10">
+      <h2 class="text-2xl md:text-3xl font-black text-white">Frequently Asked Questions</h2>
     </div>
 
     <div class="space-y-3" id="faq-container">
-      <div class="faq-item bento-card p-5 cursor-pointer">
-        <div class="flex items-center justify-between font-bold text-sm text-white">
-          <span>How does the Smart Arrival Prediction (ETA) calculate times?</span>
-          <span class="faq-icon transition text-indigo-400 font-mono text-base">↓</span>
+      <div class="faq-item bento-card p-4 cursor-pointer">
+        <div class="flex items-center justify-between font-semibold text-xs md:text-sm text-white">
+          <span>How are stop arrival times calculated?</span>
+          <span class="faq-icon transition text-indigo-400 font-mono text-sm">↓</span>
         </div>
         <div class="faq-content text-xs text-slate-400 mt-2 leading-relaxed">
-          The engine computes remaining route distance divided by the bus's rolling 5-minute speed, multiplied by a real-time traffic factor, plus the scheduled dwell times of all intermediate stops. It also provides confidence ranges (e.g. 11 min [9 to 13]) that widen under abnormal traffic conditions.
+          Arrival times use remaining route distance divided by recent rolling speed on that road segment, scaled by a real-time traffic multiplier, plus scheduled passenger dwell time at intermediate stops.
         </div>
       </div>
 
-      <div class="faq-item bento-card p-5 cursor-pointer">
-        <div class="flex items-center justify-between font-bold text-sm text-white">
-          <span>What happens in dead zones or when cellular signal drops?</span>
-          <span class="faq-icon transition text-indigo-400 font-mono text-base">↓</span>
+      <div class="faq-item bento-card p-4 cursor-pointer">
+        <div class="flex items-center justify-between font-semibold text-xs md:text-sm text-white">
+          <span>What happens if cellular reception drops?</span>
+          <span class="faq-icon transition text-indigo-400 font-mono text-sm">↓</span>
         </div>
         <div class="faq-content text-xs text-slate-400 mt-2 leading-relaxed">
-          If no GPS ping is received for 15 seconds, the bus marker is labeled "Estimated position" and continues moving at its last recorded speed along the road line. If no signal returns after 2 minutes, a "Signal lost" badge is displayed and the app falls back to timetable estimates.
+          If no GPS ping is received for 15 seconds, the bus marker is labeled "Estimated position" and continues along the planned route at its last known speed. After 2 minutes without reception, it displays a "Signal lost" badge and defaults to the timetable.
         </div>
       </div>
 
-      <div class="faq-item bento-card p-5 cursor-pointer">
-        <div class="flex items-center justify-between font-bold text-sm text-white">
-          <span>Is student location stored or tracked?</span>
-          <span class="faq-icon transition text-indigo-400 font-mono text-base">↓</span>
+      <div class="faq-item bento-card p-4 cursor-pointer">
+        <div class="flex items-center justify-between font-semibold text-xs md:text-sm text-white">
+          <span>Is student location tracked or stored?</span>
+          <span class="faq-icon transition text-indigo-400 font-mono text-sm">↓</span>
         </div>
         <div class="faq-content text-xs text-slate-400 mt-2 leading-relaxed">
-          No. In accordance with Section 7.3 and 12.2 of the project blueprint, student walking distances and geofences are computed entirely locally on the student's phone. No student location data is sent to or stored on backend servers.
+          No. All walking distance calculations and proximity alarms run locally in the student's browser. No rider location data is ever transmitted to or stored on servers.
         </div>
       </div>
 
-      <div class="faq-item bento-card p-5 cursor-pointer">
-        <div class="flex items-center justify-between font-bold text-sm text-white">
-          <span>How does the Conductor override work on crowd occupancy?</span>
-          <span class="faq-icon transition text-indigo-400 font-mono text-base">↓</span>
+      <div class="faq-item bento-card p-4 cursor-pointer">
+        <div class="flex items-center justify-between font-semibold text-xs md:text-sm text-white">
+          <span>How does occupancy reporting work?</span>
+          <span class="faq-icon transition text-indigo-400 font-mono text-sm">↓</span>
         </div>
         <div class="faq-content text-xs text-slate-400 mt-2 leading-relaxed">
-          Students can submit crowd reports (Seats, Standing, Full), which use a majority rule from the last 3 reports within 10 minutes. However, a verified report from the driver or conductor immediately overrides student reports to prevent false alerts.
+          Riders can submit seat availability status, which takes the majority vote of the last 3 reports within 10 minutes. A driver or conductor update immediately overrides student reports to prevent inaccurate crowd estimates.
         </div>
       </div>
     </div>
   </section>
 
-  <!-- FINAL CALL TO ACTION BANNER -->
-  <section class="py-20 px-4 md:px-8 max-w-7xl mx-auto">
-    <div class="bento-card p-8 md:p-14 text-center relative overflow-hidden bg-gradient-to-r from-indigo-900/60 via-purple-900/40 to-slate-900 border-2 border-indigo-500/50">
-      <div class="relative z-10 max-w-2xl mx-auto">
-        <h2 class="text-3xl md:text-5xl font-black text-white tracking-tight">
-          Ready to Modernize Your Campus Transit?
-        </h2>
-        <p class="text-sm md:text-base text-slate-300 mt-3">
-          Deploy real-time bus tracking, eliminate missed classes, and give students peace of mind today.
-        </p>
-        <div class="mt-8 flex flex-wrap items-center justify-center gap-4">
-          <a href="#live-app" class="px-8 py-4 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white font-black text-sm shadow-xl shadow-indigo-600/40 transition">
-            🚀 Launch Live Tracker (Free)
-          </a>
-          <a href="https://github.com/dsawithaditya/Bus_tracker" target="_blank" class="px-6 py-4 rounded-2xl bg-[#111827] hover:bg-slate-800 text-white font-bold text-sm border border-slate-700 transition flex items-center gap-2">
-            <span>⭐ Star on GitHub</span>
-          </a>
-        </div>
-      </div>
-      <!-- Ambient light effect -->
-      <div class="absolute -right-20 -bottom-20 w-80 h-80 bg-indigo-500/20 rounded-full blur-[80px] pointer-events-none"></div>
-    </div>
-  </section>
-
-  <!-- MODERN FOOTER -->
-  <footer class="border-t border-slate-800 bg-[#070A11] py-12 px-4 md:px-8 text-xs text-slate-400">
-    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
-      <div class="flex items-center gap-3">
-        <div class="w-8 h-8 rounded-lg bg-indigo-600 flex items-center justify-center text-sm font-black text-white">
-          🚌
-        </div>
-        <div>
-          <div class="font-bold text-white text-sm">CampusBus Live</div>
-          <div class="text-[11px] text-slate-500">Real-Time Bus Tracking & Arrival Prediction App</div>
-        </div>
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-800 bg-[#070A11] py-8 px-4 md:px-8 text-xs text-slate-400">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2.5">
+        <span class="font-bold text-white text-sm">Campus Transit</span>
+        <span class="text-slate-600">•</span>
+        <span class="text-[11px] text-slate-400">Real-Time Bus Tracking & Arrival Prediction</span>
       </div>
 
-      <div class="flex items-center gap-6 font-medium">
+      <div class="flex items-center gap-6 font-medium text-[11px]">
         <a href="#hero" class="hover:text-white transition">Top</a>
-        <a href="#features" class="hover:text-white transition">Features</a>
-        <a href="#architecture" class="hover:text-white transition">Architecture</a>
-        <a href="#test-suite" class="hover:text-white transition">Test Cases</a>
-        <a href="https://github.com/dsawithaditya/Bus_tracker" target="_blank" class="hover:text-white transition">GitHub Repo</a>
+        <a href="#live-app" class="hover:text-white transition">Live Tracker</a>
+        <a href="#routes" class="hover:text-white transition">Routes</a>
+        <a href="#how-it-works" class="hover:text-white transition">Features</a>
+        <a href="https://github.com/dsawithaditya/Bus_tracker" target="_blank" class="hover:text-white transition">GitHub</a>
       </div>
 
-      <div class="flex items-center gap-2 font-mono text-[11px] text-emerald-400">
-        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-        <span>Fleet Services Operational • 42ms</span>
+      <div class="flex items-center gap-1.5 font-mono text-[11px] text-emerald-400">
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span>Systems Online</span>
       </div>
-    </div>
-
-    <div class="max-w-7xl mx-auto mt-8 pt-6 border-t border-slate-800/60 text-center text-slate-600 text-[11px]">
-      © 2026 Campus Transit Authority. Built strictly according to the Project Blueprint Specification.
     </div>
   </footer>
 
   <!-- DEMO RUNNER DRAWER (Sidebar) -->
-  <aside id="demo-drawer" class="fixed top-16 right-0 bottom-0 w-80 md:w-96 bg-[#111827] border-l border-[#1F2937] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
+  <aside id="demo-drawer" class="fixed top-14 right-0 bottom-0 w-80 md:w-96 bg-[#111827] border-l border-[#1F2937] shadow-2xl z-50 transform translate-x-full transition-transform duration-300 flex flex-col">
     <div class="p-4 border-b border-[#1F2937] flex items-center justify-between">
       <div class="flex items-center gap-2">
-        <span class="text-xl">🧪</span>
+        <span class="text-base">🧪</span>
         <div>
-          <h2 class="text-sm font-bold text-white">Demo & Test Runner</h2>
-          <p class="text-[11px] text-slate-400">Blueprint Sections 11 & 12</p>
+          <h2 class="text-xs font-bold text-white uppercase tracking-wider">Test Scenarios & Demo</h2>
+          <p class="text-[11px] text-slate-400">Verify real-time system behaviors</p>
         </div>
       </div>
-      <button id="close-demo-drawer-btn" class="text-slate-400 hover:text-white text-xl">&times;</button>
+      <button id="close-demo-drawer-btn" class="text-slate-400 hover:text-white text-lg">&times;</button>
     </div>
 
     <div class="p-4 flex-1 overflow-y-auto space-y-4 text-xs">
       <!-- 4-Minute Guided Script Button -->
-      <div class="p-3.5 rounded-xl bg-gradient-to-r from-indigo-900/60 to-purple-900/40 border border-indigo-500/40">
-        <div class="font-bold text-indigo-300 text-xs mb-1 flex items-center justify-between">
-          <span>🎬 4-Minute Guided Script</span>
-          <span class="text-[10px] bg-indigo-500 text-white px-1.5 py-0.5 rounded font-mono">Sect. 11</span>
+      <div class="p-3.5 rounded-xl bg-indigo-950/50 border border-indigo-500/40">
+        <div class="font-bold text-indigo-300 text-xs mb-1">
+          Automated Demo Walkthrough
         </div>
-        <p class="text-[11px] text-slate-300 mb-2">Automates the 7 presentation steps: normal glide, slow speed delay, 5m proximity alert, walk vs bus matrix, breakdown & rescue bus, exam schedule, gate TV.</p>
-        <button id="run-demo-script-btn" class="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-bold transition flex items-center justify-center gap-2">
+        <p class="text-[11px] text-slate-300 mb-2.5 leading-relaxed">
+          Sequences through regular gliding, simulated delay, proximity alerts, walk-versus-bus timing, and standby bus dispatch.
+        </p>
+        <button id="run-demo-script-btn" class="w-full py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white font-semibold transition flex items-center justify-center gap-1.5">
           <span>▶️</span>
-          <span>Start 4-Min Demo Script</span>
+          <span>Start Demo Walkthrough</span>
         </button>
       </div>
 
       <!-- T1 to T12 Individual Test Triggers -->
       <div>
-        <div class="font-bold text-slate-300 text-xs mb-2 uppercase tracking-wider flex items-center justify-between">
-          <span>Individual Test Cases (T1 - T12)</span>
-          <span class="text-[10px] text-slate-500">Page 9</span>
+        <div class="font-semibold text-slate-400 text-xs mb-2 uppercase tracking-wider">
+          Individual Test Scenarios (T1 – T12)
         </div>
 
         <div class="space-y-1.5">
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T1">
-            <span><strong>T1</strong>: Bus moves normally</span>
+            <span><strong>T1</strong>: Normal bus movement</span>
             <span class="text-[10px] text-emerald-400 font-mono">Glide / ETA</span>
           </button>
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T2">
-            <span><strong>T2</strong>: Bus speed halves</span>
+            <span><strong>T2</strong>: Halved speed</span>
             <span class="text-[10px] text-amber-400 font-mono">Amber Delay</span>
           </button>
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T3">
-            <span><strong>T3</strong>: No GPS for 20 s</span>
+            <span><strong>T3</strong>: No GPS for 20 seconds</span>
             <span class="text-[10px] text-amber-400 font-mono">Estimated Pos</span>
           </button>
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T4">
-            <span><strong>T4</strong>: No GPS for 3 min</span>
+            <span><strong>T4</strong>: No GPS for 3 minutes</span>
             <span class="text-[10px] text-red-400 font-mono">Signal Lost</span>
           </button>
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T5">
-            <span><strong>T5</strong>: Stop 150m circle arrival</span>
+            <span><strong>T5</strong>: Stop geofence arrival (&lt;10 km/h)</span>
             <span class="text-[10px] text-indigo-400 font-mono">Arrival Log</span>
           </button>
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T6">
-            <span><strong>T6</strong>: Alert set to 5m away</span>
-            <span class="text-[10px] text-indigo-400 font-mono">Trigger Alert</span>
+            <span><strong>T6</strong>: Proximity alert trigger</span>
+            <span class="text-[10px] text-indigo-400 font-mono">Alert</span>
           </button>
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T7">
-            <span><strong>T7</strong>: Driver taps Breakdown</span>
+            <span><strong>T7</strong>: Mechanical breakdown report</span>
             <span class="text-[10px] text-red-400 font-mono">Rescue Bus</span>
           </button>
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T8">
-            <span><strong>T8</strong>: Mixed occupancy reports</span>
-            <span class="text-[10px] text-emerald-400 font-mono">Conductor Wins</span>
+            <span><strong>T8</strong>: Occupancy conductor override</span>
+            <span class="text-[10px] text-emerald-400 font-mono">Override</span>
           </button>
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T9">
-            <span><strong>T9</strong>: Walk 4m (ETA 10/5/3m)</span>
-            <span class="text-[10px] text-indigo-400 font-mono">Catch Matrix</span>
+            <span><strong>T9</strong>: Walk vs. bus buffer timing</span>
+            <span class="text-[10px] text-indigo-400 font-mono">Matrix</span>
           </button>
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T10">
-            <span><strong>T10</strong>: Exam schedule switched</span>
+            <span><strong>T10</strong>: Exam schedule mode switch</span>
             <span class="text-[10px] text-indigo-400 font-mono">Timetable</span>
           </button>
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T11">
-            <span><strong>T11</strong>: 100+ simulated viewers</span>
-            <span class="text-[10px] text-emerald-400 font-mono">Load &lt;2s</span>
+            <span><strong>T11</strong>: High client subscription load</span>
+            <span class="text-[10px] text-emerald-400 font-mono">&lt;2s SLA</span>
           </button>
           <button class="test-case-btn w-full p-2.5 rounded-lg bg-[#0B101D] hover:bg-slate-800 border border-slate-800 text-left flex items-center justify-between text-slate-200" data-test="T12">
             <span><strong>T12</strong>: Expired pass scan</span>
-            <span class="text-[10px] text-red-400 font-mono">Access Denied</span>
+            <span class="text-[10px] text-red-400 font-mono">Denied</span>
           </button>
         </div>
       </div>

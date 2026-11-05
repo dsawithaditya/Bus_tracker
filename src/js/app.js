@@ -313,7 +313,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // Welcome Toast
   setTimeout(() => {
-    showToast('🚀 <strong>CampusBus Live Ready</strong>! Click "Demo Suite (T1-T12)" in the top bar to test live scenarios.', 'indigo');
+    showToast('Campus Transit live. Real-time bus positions and stop arrival estimates active.', 'emerald');
   }, 1000);
 });
 
